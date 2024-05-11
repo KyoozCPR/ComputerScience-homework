@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+
+
+#title-container {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+}
+
+#title {
+  font-size: 3em;
+  font-weight: 300;
+  text-align: center;
+  margin-right: 20px;
+}
+
+#introduzione {
+
+  background: linear-gradient(#ff6600, #994d8b);
+}
+
+#introduzione-text {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  text-align: center;
+  margin-left: 20%;
+  margin-right: 20%;
+
+}
+
+
+#titolo-2 {
+  margin-top: 5em;
+  text-align: center;
+  letter-spacing: 0.2rem;
+}
+
+#line {
+  margin-top: 2em;
+  height: 2px;
+  background: linear-gradient(#ff6600, #994d8b);
+  margin-left: 27%;
+  margin-right: 27%;
+}
+
+
+#container-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#container-wrap a {
+  font-style: none;
+}
+
+.container {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-top: 3em;
+  margin-right: 1em;
+  width: 200px;
+  height: 200px;
+  border-radius: 25px;
+  opacity: 0.5;
+  background-color: #ffffff;
+
+}
+
+.container:hover {
+  color: white;
+  border-radius: 0px;
+  background: linear-gradient(#994d8b, #ff4d00);
+  transition: 0.5s;
+  opacity: 1;
+
+}
+
+.header-container {
+  height: 20px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.container:hover .header-container {
+  justify-content: space-evenly;
+
+}
+
+span {
+  margin-left: 10px;
+  width: 13px;
+  height: 13px;
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  transform: rotate(45deg) translateY(10px) translateX(-10px);
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.container:hover span {
+  transform: rotate(45deg) translateY(-9px) translateX(10px);
+  opacity: 1;
+}
+
+
+#footer-container {
+  margin-top: 4em;
+  background-color: #f2f2f2;
+  height: 200px;
+  background-image: url("Jellyfish/1.png");
+}
+
+.footer {
+  margin-top: 10em;
+  background-color: #f2f2f2;
+  padding: 70px 0;
+}
+
+.footer-container {
+
+  max-width: 1170px;
+  margin: auto;
+}
+
+.footer-col {
+  width: 50%;
+  padding: 0 100px;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  color: #000000;
+  text-transform: capitalize;
+  margin-bottom: 35px;
+  font-weight: 500;
+  position: relative;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+ul {
+  list-style: none;
+}
+
+.footer-col h4::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  background-color: #ff4d00;
+  height: 2px;
+  box-sizing: border-box;
+  width: 50px;
+}
+
+.footer-col ul li p {
+  font-size: 16px;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-weight: 300;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #ffffff;
+  padding-left: 8px;
+}
+
+.footer-col .social-links a {
+  display: inline-block;
+  overflow: hidden;
+  opacity: 0.1;
+  height: 50px;
+  width: 50px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+#article {
+  box-shadow: 0px 0px 4px 0px #7d7979;
+  width:60%;
+  padding: 0 15px;
+  text-align: center;
+  margin-left:auto;
+  margin-right: auto;
+  margin-bottom: 3em;
+  background-color: white;
+  border-radius: 5px;
+  padding-top:0.2em; 
+  padding-bottom: 0.2em;
+  
+}
+
+#side-bar {
+    
+    padding-left:15px;
+    padding-top: 20px; 
+    border-right: 1px solid #d9d9d9;
+}
+#side-bar ol {
+  width: 250px;
+}
+#side-bar li {
+  margin-top: 10px;
+}
+#side-bar li:hover {
+  background: linear-gradient(#994d8b, #ff4d00);
+  color: white;
+  transition: 0.2s;
+  border-radius: 5px;
+  margin-left: -10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.storia-container {
+  margin-top: 1.5em;
+  padding-left:15px;
+  margin-bottom:1.5em;
+  
+}
+#proprieta {
+  margin-top: 1.5em;
+  padding-left:2em;
+  margin-bottom: 1.5em;
+  text-align: start;
+}
+
+@media(max-width: 767px) {
+  .footer-col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+  
+}
+
+@media(max-width: 574px) {
+  .footer-col {
+    width: 100%;
+  }
+}
