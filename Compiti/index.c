@@ -27,11 +27,14 @@ int main()
     punto database[DIM];
     
     caricaValori(database);
+    int s;
     
     
-    int scelta=scelta();
+    do{
+        s=scelta();
+        menu(s,database);
+    } while(s != 0);
     
-    menu(scelta,database);
     
     
     return 0;
@@ -58,22 +61,21 @@ void caricaValori(punto database[]){
 
 int scelta(){
     int scelta;
-    do {
-        printf("1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n");
-        scanf("%d",&scelta);
-    } while(scelta<0||scelta>5);
+    printf("1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n");
+    scanf("%d",&scelta);
+   
     return scelta;
 }
 
-void input(punto database[]){
-    int punto1, punto2;
-    punto p1, p2;
+void input(punto *p1, punto *p2, punto database[]){
+    int punto1, punto2; 
     do {
         printf("inserisci punto 1: ");
         scanf("%d", &punto1);
         printf("inserisci punto 2: ");
         scanf("%d", &punto2);
     } while((punto1 < 0 || punto1 > DIM) || (punto2 < 0 || punto2 > DIM));
+    
     (*p1) = database[punto1];
     (*p2) = database[punto2];
 }
@@ -81,6 +83,9 @@ void input(punto database[]){
 void menu(int scelta, punto database[]){
     
     switch(scelta){
+        case 0: 
+            printf("\nArrivederci!");
+            break;
         case 1:
             es1(database);
             break;
@@ -96,6 +101,8 @@ void menu(int scelta, punto database[]){
         case 5:
             es5(database);
             break;
+        default: 
+            printf("Scelta non valida! riprova");
     }
 }
 
@@ -112,10 +119,10 @@ void es1(punto database[]){
 
 void es2(punto database[]){
     int qS;
-    do{
+    do {
         printf("Di che quadrante vuoi Visualizzare i punti?\t");
-        scanf("%d",&qS)
-    }while(qS>4 || qS<0);
+        scanf("%d",&qS);
+    } while(qS>4 || qS<0);
     
     for(int i=0; i<DIM; i++){
         if(database[i].quadrante==qS)
@@ -125,77 +132,24 @@ void es2(punto database[]){
 
 
 void es3(punto database[]){
-    int p1;
-    int p2;
-    int r1;
-    int r2;
+    punto p1, p2;
+    int result;
+    input(&p1, &p2, database);
     
-    do{
-        printf("inserisci il primo punto\t");
-        scanf("%d",&p1);
-        
-    }while(p1<0||p1>DIM); 
+    result = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.x, 2));
     
-     do{
-        printf("inserisci il secondo punto\t");
-        scanf("%d",&p2);
-        
-    }while(p2<0||p2>DIM); 
-    
-    if (database[p1].x>database[p2].x){
-        r1=database[p1].x-database[p2].x;
-        r1=pow(r1,2);
-    }
-    else if(database[p1].x<database[p2].x){
-        r1=database[p2].x-database[p1].x;
-        r1=pow(r1,2);
-    }
-    else {
-        r1=database[p1].x-database[p2].x;
-        r1=pow(r1,2);
-    }
-    
-    if (database[p1].y>database[p2].y){
-        r2=database[p1].y-database[p2].y;
-        r2=pow(r2,2);
-    }
-    else if(database[p1].y<database[p2].y){
-        r2=database[p2].y-database[p1].y;
-        r2=pow(r2,2);
-    }
-    else {
-        r2=database[p1].y-database[p2].y;
-        r2=pow(r2,2);
-    
-    r1=r1+r2;
-    sqrt(r1);
-    
-    printf("La distanza è %d",r1);
+    printf("La distanza è %d",result);
 }
 
 
 void es4(punto database[]){
-    int p1;
-    int p2;
-    int r1;
-    int r2;
+    punto p1, p2;
+    int result1, result2;
+    input(&p1, &p2, database);
     
-    do{
-        printf("inserisci il primo punto\t");
-        scanf("%d",&p1);
-        
-    }while(p1<0||p1>DIM); 
-    
-     do{
-        printf("inserisci il secondo punto\t");
-        scanf("%d",&p2);
-        
-    }while(p2<0||p2>DIM);
-    
-    r1=database[p1].x+database[p2].x;
-    r2=database[p1].y+database[p2].y;
-    
-    printf("Il punto medio è (%d,%d)",r1/2,r2/2);
+    result1=(p1.x + p2.x)/2;
+    result2=(p1.y + p2.y)/2;
+    printf("Il punto medio è (%d,%d)",result1,result2);
 }
 
 void es5(punto database[]){
