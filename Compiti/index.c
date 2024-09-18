@@ -6,8 +6,8 @@
 #define DIM 5
 
 typedef struct{
-    float x;
-    float y;
+    int x;
+    int y;
     int quadrante;
 }punto;
 
@@ -43,8 +43,8 @@ int main()
 
 void caricaValori(punto database[]){
     for(int i=0; i<DIM; i++){
-        database[i].x=rand()%11;
-        database[i].y=rand()%11;
+        database[i].x=(-10) + rand() % (10 - (-10) + 1);
+        database[i].y=(-10) + rand() % (10 - (-10) + 1);
         if(database[i].x>0&&database[i].y>0)
             database[i].quadrante=1;
         else if(database[i].x<0&&database[i].y>0)
@@ -55,13 +55,14 @@ void caricaValori(punto database[]){
             database[i].quadrante=4;
         else 
             database[i].quadrante=0;
-        
+
+        printf("il punto %d ha valori: (%d,%d)\n", i, database[i].x, database[i].y);
     }
 }
 
 int scelta(){
     int scelta;
-    printf("1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n");
+    printf("\n1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n");
     scanf("%d",&scelta);
    
     return scelta;
@@ -113,7 +114,7 @@ void es1(punto database[]){
         scanf("%d",&puntoS);
     }while(puntoS>DIM || puntoS<0);
     
-    printf("Il punto ha coordinate (%f,%f) e si trova nel %d° quadrante",database[puntoS].x,database[puntoS].y,database[puntoS].quadrante);
+    printf("Il punto ha coordinate (%d,%d) e si trova nel %d° quadrante",database[puntoS].x,database[puntoS].y,database[puntoS].quadrante);
 }
 
 
@@ -126,7 +127,7 @@ void es2(punto database[]){
     
     for(int i=0; i<DIM; i++){
         if(database[i].quadrante==qS)
-            printf("Il punto al posto %d ha coordinate(%f,%f) e si trova nel %d° quadrante\n",i,database[i].x,database[i].y,qS);
+            printf("Il punto al posto %d ha coordinate(%d,%d) e si trova nel %d° quadrante\n",i,database[i].x,database[i].y,qS);
     }
 }
 
@@ -156,12 +157,13 @@ void es5(punto database[]){
     
     float distanze[DIM];
     
+
     for(int i=0;i<DIM;i++){
         int r1;
         int r2;
         r1=database[i].x-0;
         r1=pow(r1,2);
-        r2=database[i].x-0
+        r2=database[i].x-0;
         r2=pow(r2,2);
         r1=r1+r2;
         sqrt(r1);
@@ -169,7 +171,7 @@ void es5(punto database[]){
     }
     
     int min=0;
-    punto appoggio;
+    float appoggio;
       for(int i=0;i<DIM;i++){
         min=i;
         for(int j=i+1;j<DIM;j++){
@@ -182,7 +184,7 @@ void es5(punto database[]){
       }
       
       for(int i=0; i<DIM;i++){
-          printf("il punto piu vicino all origine è ")
+          printf("il punto piu vicino all origine è ");
       }
         
 }
