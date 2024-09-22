@@ -11,14 +11,14 @@ typedef struct{
     int quadrante;
 }punto;
 
-void caricaValori(punto*);
+void caricaValori(punto[]);
 int scelta();
-void menu(int,punto*);
-void es1(punto*);
-void es2(punto*);
-void es3(punto*);
-void es4(punto*);
-void es5(punto*);
+void menu(int,punto[]);
+void es1(punto[]);
+void es2(punto[]);
+void es3(punto[]);
+void es4(punto[]);
+void es5(punto[]);
 
 int main()
 {
@@ -75,11 +75,13 @@ void input(punto *p1, punto *p2, punto database[]){
         scanf("%d", &punto1);
         printf("inserisci punto 2: ");
         scanf("%d", &punto2);
-    } while((punto1 < 0 || punto1 > DIM) || (punto2 < 0 || punto2 > DIM));
+    } while((punto1 < 0 || punto1 >= DIM) || (punto2 < 0 || punto2 >= DIM));
     
     (*p1) = database[punto1];
     (*p2) = database[punto2];
 }
+
+
 
 void menu(int scelta, punto database[]){
     
@@ -104,6 +106,7 @@ void menu(int scelta, punto database[]){
             break;
         default: 
             printf("Scelta non valida! riprova");
+            
     }
 }
 
@@ -137,7 +140,7 @@ void es3(punto database[]){
     int result;
     input(&p1, &p2, database);
     
-    result = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.x, 2));
+    result = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
     
     printf("La distanza è %d",result);
 }
@@ -156,18 +159,10 @@ void es4(punto database[]){
 void es5(punto database[]){
     
     float distanze[DIM];
-    
+    punto appoggioP;
 
     for(int i=0;i<DIM;i++){
-        int r1;
-        int r2;
-        r1=database[i].x-0;
-        r1=pow(r1,2);
-        r2=database[i].x-0;
-        r2=pow(r2,2);
-        r1=r1+r2;
-        sqrt(r1);
-        distanze[i]=r1;
+        distanze[i] = sqrt(pow(database[i].x, 2) + pow(database[i].y, 2));
     }
     
     int min=0;
@@ -181,11 +176,14 @@ void es5(punto database[]){
         appoggio=distanze[i];
         distanze[i]=distanze[min];
         distanze[min]=appoggio;
+
+        appoggioP = database[i];
+        database[i] = database[min];
+        database[min] = appoggioP;
+
       }
       
-      for(int i=0; i<DIM;i++){
-          printf("il punto piu vicino all origine è ");
-      }
-        
+    for(int i = 0; i < DIM; i++) 
+        printf("Punto %d: (%d,%d), Distanza: %.2f\n", i, database[i].x, database[i].y, distanze[i]);
+    
 }
-
