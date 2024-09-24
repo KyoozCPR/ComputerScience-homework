@@ -18,7 +18,7 @@ void es1(punto[]);
 void es2(punto[]);
 void es3(punto[]);
 void es4(punto[]);
-void es5(punto[]);
+void es5(punto *min, punto *max, punto[], float[]);
 
 int main()
 {
@@ -102,7 +102,14 @@ void menu(int scelta, punto database[]){
             es4(database);
             break;
         case 5:
-            es5(database);
+            float distanze[DIM];
+            punto min, max;
+            es5(&min,&max,database,distanze);
+
+            printf("punto meno distante dall'origine (%d,%d) distanza: %.2f\npunto più distante dall'origine (%d,%d) distanza: %.2f",
+                database[0].x, database[0].y, distanze[0], database[DIM-1].x, database[DIM-1].y, distanze[DIM-1]
+            );    
+            
             break;
         default: 
             printf("Scelta non valida! riprova");
@@ -178,15 +185,16 @@ void es4(punto database[]){
     printf("Il punto medio è (%d,%d)",result1,result2);
 }
 
-void es5(punto database[]){
+void es5(punto *min, punto *max,punto database[], float distanze[]){
     
-    float distanze[DIM];
+    
     punto appoggioP;
 
     for(int i=0;i<DIM;i++){
         distanze[i] = sqrt(pow(database[i].x, 2) + pow(database[i].y, 2));
     }
-    
+    /*
+    SOLUZIONE INIZIALE CON SELECTION SORT
     int min=0;
     float appoggio;
       for(int i=0;i<DIM;i++){
@@ -204,8 +212,23 @@ void es5(punto database[]){
         database[min] = appoggioP;
 
       }
-      
-    for(int i = 0; i < DIM; i++) 
-        printf("Punto %d: (%d,%d), Distanza: %.2f\n", i, database[i].x, database[i].y, distanze[i]);
+    */
+   float appoggio;
+    for(int i=0;i<DIM;i++){   
+        for(int j=i+1;j<DIM;j++){
+            if(distanze[i] > distanze[j]){
+                appoggio=distanze[i];
+                distanze[i]=distanze[j];
+                distanze[j]=appoggio;
+
+                appoggioP = database[i];
+                database[i] = database[j];
+                database[j] = appoggioP;
+            }
+        }
+    }
     
+    (*min) = database[0];
+    (*max) = database[DIM-1];
 }
+
