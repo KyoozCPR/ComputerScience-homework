@@ -110,28 +110,50 @@ void menu(int scelta, punto database[]){
     }
 }
 
+void stampa_punto(punto p, char* buffer) {
+    
+    const char* quadranti[] = {
+        "0",   
+        "Primo",       
+        "Secondo",     
+        "Terzo",       
+        "Quarto"       
+    };
+    
+    sprintf(buffer, "P=(%d,%d) - %s", p.x, p.y, quadranti[p.quadrante]);
+}
+
+
 void es1(punto database[]){
     int puntoS;
+    
     do{
         printf("Quale punto vuoi Visualizzare?\t");
         scanf("%d",&puntoS);
     }while(puntoS>DIM || puntoS<0);
     
-    printf("Il punto ha coordinate (%d,%d) e si trova nel %d° quadrante",database[puntoS].x,database[puntoS].y,database[puntoS].quadrante);
+   
+    printf("Il punto ha coordinate (%d,%d) e si trova nel %d quadrante",database[puntoS].x,database[puntoS].y,database[puntoS].quadrante);
 }
 
 
 void es2(punto database[]){
     int qS;
+    char stringa_finale[50]; 
     do {
         printf("Di che quadrante vuoi Visualizzare i punti?\t");
         scanf("%d",&qS);
     } while(qS>4 || qS<0);
-    
-    for(int i=0; i<DIM; i++){
-        if(database[i].quadrante==qS)
-            printf("Il punto al posto %d ha coordinate(%d,%d) e si trova nel %d° quadrante\n",i,database[i].x,database[i].y,qS);
+
+
+     for (int i=0; i<DIM; i++){
+        if(database[i].quadrante == qS){
+            stampa_punto(database[i], stringa_finale);
+            printf("%s\n", stringa_finale);
+        }
     }
+    
+    
 }
 
 
