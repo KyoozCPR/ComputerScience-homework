@@ -19,6 +19,9 @@ void es2(punto[]);
 void es3(punto[]);
 void es4(punto[]);
 void es5(punto *min, punto *max, punto[], float[]);
+int confrontaDistanza(punto p1, punto p2);
+int confrontaDistanzaQuadrante(punto p1, punto p2);
+int confrontaDistanzaQuadrante(punto p1, punto p2);
 
 int main()
 {
@@ -185,6 +188,53 @@ void es4(punto database[]){
     printf("Il punto medio è (%d,%d)",result1,result2);
 }
 
+int confrontaDistanza(punto p1, punto p2) {
+    float d1 = sqrt(pow(p1.x, 2) + pow(p1.y, 2));
+    float d2 = sqrt(pow(p2.x, 2) + pow(p2.y, 2));
+
+    if (d1 > d2)
+        return 1;
+    else if (d1 < d2)
+        return -1;
+    else
+        return 0;
+}
+
+int confrontaDistanzaQuadrante(punto p1, punto p2) {
+    float d1 = sqrt(pow(p1.x, 2) + pow(p1.y, 2));
+    float d2 = sqrt(pow(p2.x, 2) + pow(p2.y, 2));
+
+    if (d1 > d2)
+        return 1;
+    else if (d1 < d2)
+        return -1;
+    else {
+        // Se la distanza è uguale, confronta il quadrante
+        if (p1.quadrante < p2.quadrante)
+            return -1;
+        else if (p1.quadrante > p2.quadrante)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+int confrontaDistanzaQuadranteStringa(punto p1, punto p2) {
+    float d1 = sqrt(pow(p1.x, 2) + pow(p1.y, 2));
+    float d2 = sqrt(pow(p2.x, 2) + pow(p2.y, 2));
+
+    const char* quadranti[] = {"0", "Primo", "Secondo", "Terzo", "Quarto"};
+
+    if (d1 > d2)
+        return 1;
+    else if (d1 < d2)
+        return -1;
+    else 
+        return strcmp(quadranti[p1.quadrante], quadranti[p2.quadrante]);
+    
+}
+
+
 void es5(punto *min, punto *max,punto database[], float distanze[]){
     
     
@@ -213,10 +263,24 @@ void es5(punto *min, punto *max,punto database[], float distanze[]){
 
       }
     */
+   int scelta;
+   printf("quale funzione vuoi usare per la condizione: \n1) confrontaDistanza \n2) confrontaDistanzaQuadrante \n3)  confrontaDistanzaQuadranteStringa");
+   scanf("%d", &scelta);
    float appoggio;
+   int ris;
     for(int i=0;i<DIM;i++){   
         for(int j=i+1;j<DIM;j++){
-            if(distanze[i] > distanze[j]){
+            
+            if(scelta == 0)
+                ris  = confrontaDistanza(database[i], database[j]);
+            else if (scelta == 1)
+                ris = confrontaDistanzaQuadrante(database[i], database[j]);
+            else if (scelta == 2)
+                ris = confrontaDistanzaQuadranteStringa(database[i], database[j]);
+            
+
+
+            if (ris > 0){
                 appoggio=distanze[i];
                 distanze[i]=distanze[j];
                 distanze[j]=appoggio;
@@ -224,7 +288,10 @@ void es5(punto *min, punto *max,punto database[], float distanze[]){
                 appoggioP = database[i];
                 database[i] = database[j];
                 database[j] = appoggioP;
+        
             }
+           
+                
         }
     }
     
