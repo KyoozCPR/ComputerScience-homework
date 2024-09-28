@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <string.h>
 
 #define DIM 5
 
@@ -19,6 +20,7 @@ void es2(punto[]);
 void es3(punto[]);
 void es4(punto[]);
 void es5(punto *min, punto *max, punto[], float[]);
+void es6(punto[]);
 int confrontaDistanza(punto p1, punto p2);
 int confrontaDistanzaQuadrante(punto p1, punto p2);
 int confrontaDistanzaQuadrante(punto p1, punto p2);
@@ -46,8 +48,16 @@ int main()
 
 void caricaValori(punto database[]){
     for(int i=0; i<DIM; i++){
-        database[i].x=(-10) + rand() % (10 - (-10) + 1);
-        database[i].y=(-10) + rand() % (10 - (-10) + 1);
+        int random_x = (-10) + rand() % (10 - (-10) + 1);
+        int random_y = (-10) + rand() % (10 - (-10) + 1);
+        for (int j = 0; j < i; j++){
+            while (random_x == database[j].x && random_y == database[j].y){
+                random_x = (-10) + rand() % (10 - (-10) + 1);
+                random_y = (-10) + rand() % (10 - (-10) + 1);
+            }
+        }
+        database[i].x = random_x;
+        database[i].y = random_y;
         if(database[i].x>0&&database[i].y>0)
             database[i].quadrante=1;
         else if(database[i].x<0&&database[i].y>0)
@@ -298,4 +308,3 @@ void es5(punto *min, punto *max,punto database[], float distanze[]){
     (*min) = database[0];
     (*max) = database[DIM-1];
 }
-
