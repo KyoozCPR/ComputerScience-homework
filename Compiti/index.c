@@ -10,6 +10,7 @@ typedef struct{
     int x;
     int y;
     int quadrante;
+    int flag_cancellato;
 }punto;
 
 void caricaValori(punto[]);
@@ -75,7 +76,7 @@ void caricaValori(punto database[]){
 
 int scelta(){
     int scelta;
-    printf("\n1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n");
+    printf("\n0. Uscire \n1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n6. Cancellare un punto\n");
     scanf("%d",&scelta);
    
     return scelta;
@@ -307,4 +308,20 @@ void es5(punto *min, punto *max,punto database[], float distanze[]){
     
     (*min) = database[0];
     (*max) = database[DIM-1];
+}
+void es6(punto database[]){
+    printf("Scegli quale punto cancellare: ");
+    int punto1; 
+    do {
+        printf("inserisci punto 1: ");
+        scanf("%d", &punto1);
+    } while(punto1 < 0 || punto1 >= DIM);
+    
+    database[punto1].x = -100;
+    database[punto1].y = -100;
+    database[punto1].quadrante = -100;
+    database[punto1].flag_cancellato = 1;
+
+    printf("punto cancellato nuovi valori: (%d,%d)", database[punto1].x, database[punto1].y);
+    
 }
