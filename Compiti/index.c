@@ -125,6 +125,10 @@ void menu(int scelta, punto database[]){
             );    
             
             break;
+        case 6: 
+            es6(database);
+            break;
+
         default: 
             printf("Scelta non valida! riprova");
             
@@ -310,11 +314,12 @@ void es5(punto *min, punto *max,punto database[], float distanze[]){
     (*max) = database[DIM-1];
 }
 void es6(punto database[]){
-    printf("Scegli quale punto cancellare: ");
+    printf("Scegli quale punto cancellare tra quelli già presenti: ");
     int punto1; 
     do {
-        printf("inserisci punto 1: ");
         scanf("%d", &punto1);
+        if (punto1 < 0 || punto1 >= DIM)
+            printf("\nvalore non valido reinserisci un punto da scelgliere: ")
     } while(punto1 < 0 || punto1 >= DIM);
     
     database[punto1].x = -100;
