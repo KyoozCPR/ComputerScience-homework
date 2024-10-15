@@ -8,7 +8,7 @@ let strjson = `{
     "Runtime": "101 min",
     "Genre": "Drama, Horror, Sci-Fi",
     "Director": "Francis Lawrence",
-    "Writer": "Mark Protosevich (screenplay), Akiva Goldsman (screenplay), Richard Matheson (novel), John William Corrington, Joyce Hooper Corrington",
+    "Writer": "Mark Protosevich (screenplay)<br>Akiva Goldsman (screenplay<br>Richard Matheson (novel)<br>John William Corrington<br>Joyce Hooper Corrington",
     "Actors": ["Will Smith", "Alice Braga", "Charlie Tahan", "Salli Richardson-Whitfield"],
     "Plot": "Years after a plague kills most of humanity and transforms the rest into monsters, the sole survivor in New York City struggles valiantly to find a cure.",
     "Language": "English",
@@ -38,6 +38,7 @@ document.getElementsByClassName("contenuto")[0].innerHTML = obj.Plot;
 document.getElementsByClassName("contenuto")[1].innerHTML += obj.Awards;
 document.getElementsByClassName("contenuto")[2].innerHTML += obj.Metascore;
 document.getElementsByClassName("contenuto")[3].innerHTML += obj.Director;
+document.getElementById("footer").innerHTML += obj.Writer;
 
 for (let i = 0; i < obj.Actors.length; i++) {
 document.getElementsByClassName("name")[i].innerHTML = obj.Actors[i];
