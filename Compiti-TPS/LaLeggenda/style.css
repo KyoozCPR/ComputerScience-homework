@@ -53,6 +53,8 @@ a:hover {
 #main-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  margin-bottom : 10em;
+
 }
 
 #poster {
@@ -66,6 +68,7 @@ a:hover {
 
 #footer {
     text-align: center;
-    font-weight: 500;    
+    font-weight: 500; 
+      
 }
 
