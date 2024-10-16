@@ -50,6 +50,11 @@ a:hover {
 
 }
 
+.artists {
+  width: 80%;
+  height: auto;
+}
+
 #main-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -66,9 +71,16 @@ a:hover {
 }
 
 
+
 #footer {
     text-align: center;
     font-weight: 500; 
       
 }
 
+
+@media screen and (max-width: 800px){
+    #main-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+}
