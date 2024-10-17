@@ -1,7 +1,7 @@
 
 public class Punto {
 	
-	public int q, x,y;
+	private int q, x,y;
 	
 	public double getX() {
 		return x;
@@ -11,8 +11,17 @@ public class Punto {
 		return y;
 	}
 	
-	// this rappresenta l'oggetto
 	
+	
+	/* il polimorfismo statico è 
+	 * quando all'interno della stessa classe 
+	 * andiamo ad avere 2 o più classi 
+	 * con lo stesso nome, ma parametri diversi
+	 * === OverLoading
+	*/
+	
+	
+	// this rappresenta l'oggetto
 	public void setX(int pippo) {
 		this.x=pippo;
 	}
@@ -27,6 +36,14 @@ public class Punto {
 		setQ();
 	}
 	
+	
+	//Aggiungo caso dell'origine
+	public Punto() {
+		this(0,0);
+	}
+	
+	
+	
 	private void setQ() {
 		if (x >= 0 && y >= 0)
 			this.q=1;
@@ -38,5 +55,16 @@ public class Punto {
             this.q=4;
         else 
             this.q=0;
+	}
+	
+	
+	public static double distanza(Punto p1, Punto p2) {
+		double risultato;
+		risultato = Math.sqrt(
+				Math.pow(p1.x - p2.x, 2) + 
+				Math.pow(p1.y - p2.y, 2)
+		);
+		return risultato;
+		
 	}
 }
