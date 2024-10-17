@@ -3,6 +3,14 @@ public class Punto {
 	
 	private int q, x,y;
 	
+	
+	/* il polimorfismo statico è 
+	 * quando all'interno della stessa classe 
+	 * andiamo ad avere 2 o più classi 
+	 * con lo stesso nome, ma parametri diversi
+	 * === OverLoading
+	*/
+	
 	public double getX() {
 		return x;
 	}
@@ -13,15 +21,13 @@ public class Punto {
 	
 	
 	
-	/* il polimorfismo statico è 
-	 * quando all'interno della stessa classe 
-	 * andiamo ad avere 2 o più classi 
-	 * con lo stesso nome, ma parametri diversi
-	 * === OverLoading
-	*/
 	
 	
-	// this rappresenta l'oggetto
+	
+	/* this rappresenta l'oggetto e 
+	 * per il richiamo del costruttore deve 
+	 * essere la prima istruzione
+	 */
 	public void setX(int pippo) {
 		this.x=pippo;
 	}
@@ -34,6 +40,18 @@ public class Punto {
 		setX(x);
 		setY(y);
 		setQ();
+	}
+	
+	
+	// Overloading del costruttore ma dato il controllo non posso scrivere il this
+	public Punto(boolean isAscissa, int valore) {
+		if (isAscissa) 
+			this.y = valore;
+		else 
+			this.x = valore;
+		setQ();
+			
+		
 	}
 	
 	
@@ -63,8 +81,9 @@ public class Punto {
 		risultato = Math.sqrt(
 				Math.pow(p1.x - p2.x, 2) + 
 				Math.pow(p1.y - p2.y, 2)
-		);
+		); // utilizzo i metodi statici della classe Math
 		return risultato;
 		
 	}
+	
 }
