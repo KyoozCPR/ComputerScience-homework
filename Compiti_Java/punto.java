@@ -94,6 +94,18 @@ public class Punto {
 		return risultato;
 		
 	}
+
+	// facciamo l'overloading rispetto all'origine
+	public static double distanza(Punto p) {
+		double risultato;
+		risultato = Math.sqrt(
+				(double) Math.pow(p.x - 0, 2) + 
+				0
+		); 
+		return risultato;
+	}
+
+	
 	public static void puntoL(Punto p) {
 		String qLetterale;
 		if (p.q == 1)
