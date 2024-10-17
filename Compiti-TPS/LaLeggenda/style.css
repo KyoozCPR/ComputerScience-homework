@@ -52,7 +52,9 @@ a:hover {
 
 .artists {
   width: 80%;
+  border-radius: 10px;
   height: auto;
+
 }
 
 #main-container {
@@ -71,7 +73,6 @@ a:hover {
 }
 
 
-
 #footer {
     text-align: center;
     font-weight: 500; 
@@ -79,8 +80,43 @@ a:hover {
 }
 
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1200px){
     #main-container {
       grid-template-columns: repeat(1, 1fr);
     }
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 90%;
+    margin: 3rem auto;
+  }
+
+  #poster {
+    max-width: 90%;
+    margin-top: 1.5rem;
+  }
+
+  p {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  p {
+    max-width: 90%;
+  }
+
+  body .card {
+    margin: 2rem auto;
+  }
+
+  #footer {
+    margin-top: 2rem;
+  }
+
+  #poster {
+    max-width: 100%;
+  }
 }
