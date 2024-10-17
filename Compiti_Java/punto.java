@@ -11,6 +11,11 @@ public class Punto {
 	 * === OverLoading
 	*/
 	
+	/* il polimorfismo dinamico è quando 
+	 * andiamo a sovrascrivere una classe
+	 * parente rispetto alla funzionalità
+	*/
+	
 	public double getX() {
 		return x;
 	}
@@ -18,11 +23,7 @@ public class Punto {
 	public double getY() {
 		return y;
 	}
-	
-	
-	
-	
-	
+		
 	
 	/* this rappresenta l'oggetto e 
 	 * per il richiamo del costruttore deve 
@@ -34,6 +35,14 @@ public class Punto {
 	
 	public void setY(int pippo) {
 		this.y=pippo;
+	}
+	
+	@Override
+	public String toString() {
+		return (
+				"Punto: " + "(" + getX() + "," + 
+				getY() + ")"
+				);
 	}
 	
 	public Punto(int x, int y) {
@@ -85,5 +94,22 @@ public class Punto {
 		return risultato;
 		
 	}
+	public static void puntoL(Punto p) {
+		String qLetterale;
+		if (p.q == 1)
+			qLetterale = "Primo";
+		else if (p.q == 2)
+			qLetterale = "Secondo";
+		else if (p.q == 3)
+			qLetterale = "Terzo";
+		else if (p.q == 4)
+			qLetterale = "Quarto";
+		else
+			qLetterale = "Origine";
+		
+		System.out.println("P= (" + p.x +","+p.y+ ")- "+ qLetterale);
+	}
+	
+	
 	
 }
