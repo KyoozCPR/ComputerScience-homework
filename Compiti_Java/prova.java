@@ -1,33 +1,36 @@
 package progetto_iniziale;
 import java.util.Scanner;
 
-public class ProvaLinguaggio {
+public class Main {
 
+	public static int scelta() {
+		
+	    System.out.println("\n0. Uscire \n1. Visualizzare un punto selezionato\n2. Visualizzare tutti i punti in un certo insieme\n3. Restiruire la distanza tra due punti selezionati\n4. Restituire il punto medio tra due punti\n5. Restituire in ordine i punti piu vicino all'origine\n6. Cancellare un punto\n");
+	    Scanner tastiera = new Scanner(System.in);
+	    int scelta = tastiera.nextInt();
+	    return scelta;
+	   
+	}
+	
 	public static void main(String[] args) {
-		boolean flag = true;
-		char variabile='e';
-		int x = 2;
-		float f=0.0f;
-		double d=0.1;
-		String parola = "Benvenuti in Java";
-		if (x>0)
-			System.out.println(x + " e\' maggiore di 0");
-		else 
-			f++;
+		Punto punto1 = new Punto(12, 5);
+		Punto punto2 = new Punto(1, 1);
+		System.out.println(punto1.toString());
+		Punto.puntoL(punto1);
+		Punto.puntoL(punto2);
+		System.out.println(Punto.distanza(punto1, punto2));
+		System.out.println(Punto.distanza(punto2));
+		Punto.PuntoMedio(punto1, punto2);
+		
+		int s;
+		
+		do{
+	        s=scelta();
+	        menu(s);
+	    } while(s != 0);
 		
 		
-		Scanner tastiera = new Scanner(System.in); // input 
-		int y;
-		do {
-			System.out.println("Inserisci");
-			y=tastiera.nextInt();
-		} while(y%5!=0);
 		
-		for(int i=0; i<y; i++) {
-			System.out.println("lezione finita\n");
-			
-		}
-
 	}
 
 }
