@@ -1,3 +1,4 @@
+package progetto_iniziale;
 
 public class Punto {
 	
