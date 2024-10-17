@@ -110,6 +110,13 @@ public class Punto {
 		System.out.println("P= (" + p.x +","+p.y+ ")- "+ qLetterale);
 	}
 	
+	public static void PuntoMedio(Punto p1, Punto p2) {
+		float risultatoX, risultatoY;
+		risultatoX = (p1.x + p2.x)  / 2;
+		risultatoY = (p1.y + p2.y)  / 2;
+		System.out.println("Punto Medio: ("+ risultatoX + "," + risultatoY + ")");
+		
+	}
 	
 	
 }
