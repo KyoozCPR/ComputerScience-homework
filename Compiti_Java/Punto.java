@@ -86,47 +86,47 @@ public class Punto {
 	}
 	
 	
-	public static double distanza(Punto p1, Punto p2) {
-		double risultato;
-		risultato = Math.sqrt(
-				Math.pow(p1.x - p2.x, 2) + 
-				Math.pow(p1.y - p2.y, 2)
+	public float distanza(Punto p) {
+		float risultato;
+		risultato = (float) Math.sqrt(
+				Math.pow(this.x - p.x, 2) +
+				Math.pow(this.y - p.y, 2)
 		); // utilizzo i metodi statici della classe Math
 		return risultato;
 		
 	}
 
 	// facciamo l'overloading rispetto all'origine
-	public static double distanza(Punto p) {
-		double risultato;
-		risultato = Math.sqrt(
-				(double) Math.pow(p.x - 0, 2) + 
+	public float distanza() {
+		float risultato;
+		risultato = (float) Math.sqrt(
+				(double) Math.pow(this.x, 2) +
 				0
 		); 
 		return risultato;
 	}
 
 	
-	public static void puntoL(Punto p) {
+	public void puntoL() {
 		String qLetterale;
-		if (p.q == 1)
+		if (this.q == 1)
 			qLetterale = "Primo";
-		else if (p.q == 2)
+		else if (this.q == 2)
 			qLetterale = "Secondo";
-		else if (p.q == 3)
+		else if (this.q == 3)
 			qLetterale = "Terzo";
-		else if (p.q == 4)
+		else if (this.q == 4)
 			qLetterale = "Quarto";
 		else
 			qLetterale = "Origine";
 		
-		System.out.println("P= (" + p.x +","+p.y+ ")- "+ qLetterale);
+		System.out.println("P= (" + this.x +","+this.y+ ")- "+ qLetterale);
 	}
 	
 	public static void PuntoMedio(Punto p1, Punto p2) {
 		float risultatoX, risultatoY;
-		risultatoX = (p1.x + p2.x)  / 2;
-		risultatoY = (p1.y + p2.y)  / 2;
+		risultatoX = (float) (p1.x + p2.x) / 2;
+		risultatoY = (float) (p1.y + p2.y) / 2;
 		System.out.println("Punto Medio: ("+ risultatoX + "," + risultatoY + ")");
 		
 	}
