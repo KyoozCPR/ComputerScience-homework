@@ -39,14 +39,17 @@ a:hover {
 }
 
 .card {
+  
   font-weight: 500;
-  width: 80%;
-  margin: 5em;
+  margin:3em;
 }
 
 #main-section {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  margin: 7em;
+  
 
 }
 
@@ -84,10 +87,15 @@ a:hover {
     #main-container {
       grid-template-columns: repeat(1, 1fr);
     }
+
+    #main-section {
+      grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media screen and (max-width: 800px) {
   .card {
+    
     width: 90%;
     margin: 3rem auto;
   }
@@ -96,7 +104,9 @@ a:hover {
     max-width: 90%;
     margin-top: 1.5rem;
   }
-
+  #main-section {
+    grid-template-columns: repeat(1, 1fr);
+  }
   p {
     margin-left: 5%;
     margin-right: 5%;
