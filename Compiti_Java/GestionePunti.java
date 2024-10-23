@@ -3,6 +3,14 @@ import java.util.Scanner;
 
 public class GestionePunti{
 
+	public static Punto chiediValori(Scanner scanner){
+		System.out.println("Inserisci la x: ");
+		int x = scanner.nextInt();
+		System.out.println("Inserisci la y: ");
+		int x = scanner.nextInt();
+		return new Punto(x, y);
+	}
+
 	public int scelta() {
 
 	    System.out.println("\n0. Uscire \n1.Visualizzare un punto selezionato \n2. Restiruire la distanza tra due punti selezionati\n3. Restituire il punto medio tra due punti\n4.Restituire la distanza tra un punto e l'origine\n");
@@ -77,16 +85,10 @@ public class GestionePunti{
 
 
 		System.out.println("Inserisci il primo punto");
-		int s,x1,y1,x2,y2;
-		x1 = tastiera.nextInt();
-		y1 = tastiera.nextInt();
-
+		Punto punto1 = chiediValori(tastiera);
+		
 		System.out.println("Inserisci il secondo punto");
-		x2 = tastiera.nextInt();
-		y2 = tastiera.nextInt();
-
-		Punto punto1 = new Punto(x1, y1);
-		Punto punto2 = new Punto(x2, y2);
+		Punto punto2 = chiediValori(tastiera);
 
 
 		do {
