@@ -40,6 +40,10 @@ public class Contatto {
 
 	}
 	
+	@Override
+	public String toString() {
+		return "Nome: " + this.nome + "\nCognome: " + this.cognome + "\nNumero di Telefono: " + this.telefono;
+	}
+	
 	
 }
-
