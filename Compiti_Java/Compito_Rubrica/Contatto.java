@@ -1,7 +1,10 @@
+package progetto_iniziale.Compito_Rubrica;
+import java.util.Scanner;
+
 
 public class Contatto {
 	private String nome, cognome, telefono;
-	private Data data;
+	private Data data, dataOggi;
 	
 	public String getNome() {
 		return this.nome;
@@ -12,37 +15,63 @@ public class Contatto {
 	public String getTelefono() {
 		return this.telefono;
 	}
-	
 	public Data getData() {
 		return this.data;
 	}
-	
+
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
+	public void setTelefono(String telefono) {this.telefono = telefono;}
+	public void setData(Data data) {this.data = data;}
+	public void setDataOggi(Data dataOggi) {this.dataOggi = dataOggi;}
 	
-	public void setData(Data data) {
-		this.data = data;
-	}
-	
-	
-	public Contatto(String nome, String cognome, String telefono, Data data) {
+	public Contatto(String nome, String cognome, String telefono, Data data, Data dataOggi) {
 		setNome(nome);
 		setCognome(cognome);
 		setTelefono(telefono);
 		setData(data);
+		setDataOggi(dataOggi);
+	}
 
+	private int giorniMancanti(){
+		int giorniTotali = 0;
+		// 24/10/2024 data attuale
+		for (int i=this.dataOggi.getMm(); i < this.data.getMm(); i++){
+			giorniTotali += giornidelMese(i, this.dataOggi.getAaaa());
+		}
+		return giorniTotali;
+	}
+
+
+	private boolean bisestile(int anno) {
+		return (anno % 4 == 0 && (anno % 100 != 0 || anno % 400 == 0));
+	}
+
+
+	private int giornidelMese(int mese, int anno ){
+		if (mese == 1 || mese == 3 || mese == 5 || mese == 7 || mese == 8 || mese == 10 || mese == 12)
+			return 31;
+		else if (mese == 4 || mese == 6 || mese == 9 || mese == 11)
+			return 30;
+		else{
+			if (bisestile(anno))
+				return 29;
+			else
+				return 28;
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "Nome: " + this.nome + "\nCognome: " + this.cognome + "\nNumero di Telefono: " + this.telefono;
+		return "Nome: " + this.nome +
+				"\nCognome: " + this.cognome +
+				"\nNumero di Telefono: " + this.telefono +
+				"\nGiorni mancanti al compleanno: " + giorniMancanti() + "\n";
 	}
 	
 	

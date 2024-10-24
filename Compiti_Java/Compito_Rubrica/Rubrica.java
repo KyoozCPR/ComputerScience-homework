@@ -1,12 +1,12 @@
+package progetto_iniziale.Compito_Rubrica;
 import java.util.Scanner;
 
 public class Rubrica {
 	Scanner tastiera = new Scanner(System.in);
 	
-	public Contatto input() {
+	public Contatto input(Data dataOggi) {
 		String nome, cognome, telefono;
 		int giorno,mese,anno;
-		Data data;
 		nome = tastiera.nextLine();
 		cognome = tastiera.nextLine();
 		telefono = tastiera.nextLine();
@@ -14,13 +14,19 @@ public class Rubrica {
 		mese = tastiera.nextInt();
 		anno= tastiera.nextInt();
 		Data dataNascita = new Data(giorno, mese, anno);
-		Contatto persona = new Contatto(nome, cognome, telefono, dataNascita);
-		return persona;
+        return new Contatto(nome, cognome, telefono, dataNascita, dataOggi);
 	}
 
 	public static void main(String[] args) {
 		Rubrica rubrica = new Rubrica();
-		Contatto persona = rubrica.input();
+		System.out.println("Inserisci la data di oggi: ");
+		int giorno,mese,anno;
+		giorno = rubrica.tastiera.nextInt();
+		mese = rubrica.tastiera.nextInt();
+		anno= rubrica.tastiera.nextInt();
+		Data dataOggi = new Data(giorno, mese, anno);
+		Contatto persona = rubrica.input(dataOggi);
+
 		
 	}
 

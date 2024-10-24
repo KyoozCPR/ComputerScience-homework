@@ -1,3 +1,4 @@
+package progetto_iniziale.Compito_Rubrica;
 
 public class Data {
 	private int gg, mm, aaaa;
@@ -31,7 +32,7 @@ public class Data {
 	
 	@Override
 	public String toString() {
-		return "La data è: " + this.gg + "/" + this.mm + "/" + this.aaaa;
+		return this.gg + "/" + this.mm + "/" + this.aaaa;
 	}
 	
 	
