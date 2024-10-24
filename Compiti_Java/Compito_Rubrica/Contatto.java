@@ -41,8 +41,12 @@ public class Contatto {
 	private int giorniMancanti(){
 		int giorniTotali = 0;
 		// 24/10/2024 data attuale
-		for (int i=this.dataOggi.getMm(); i < this.data.getMm(); i++){
-			giorniTotali += giornidelMese(i, this.dataOggi.getAaaa());
+		if (dataOggi.getMm() == data.getMm())
+			giorniTotali = data.getGg() - dataOggi.getGg();
+		else {
+			for (int i=this.dataOggi.getMm(); i < this.data.getMm(); i++){
+				giorniTotali += giornidelMese(i, this.dataOggi.getAaaa());
+			}
 		}
 		return giorniTotali;
 	}
