@@ -7,7 +7,7 @@ public class GestionePunti{
 		System.out.println("Inserisci la x: ");
 		int x = scanner.nextInt();
 		System.out.println("Inserisci la y: ");
-		int x = scanner.nextInt();
+		int y = scanner.nextInt();
 		return new Punto(x, y);
 	}
 
@@ -89,7 +89,7 @@ public class GestionePunti{
 		
 		System.out.println("Inserisci il secondo punto");
 		Punto punto2 = chiediValori(tastiera);
-
+		int s;
 
 		do {
 			s = m.scelta();

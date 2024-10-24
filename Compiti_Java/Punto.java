@@ -125,8 +125,8 @@ public class Punto {
 	
 	public static void PuntoMedio(Punto p1, Punto p2) {
 		float risultatoX, risultatoY;
-		risultatoX = (float) (p1.x + p2.x) / 2;
-		risultatoY = (float) (p1.y + p2.y) / 2;
+		risultatoX = (float)(p1.x + p2.x) / 2;
+		risultatoY = (float)(p1.y + p2.y) / 2;
 		System.out.println("Punto Medio: ("+ risultatoX + "," + risultatoY + ")");
 		
 	}
