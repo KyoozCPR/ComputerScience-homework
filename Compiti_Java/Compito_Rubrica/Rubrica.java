@@ -19,16 +19,29 @@ public class Rubrica {
 
 	public static void main(String[] args) {
 		Rubrica rubrica = new Rubrica();
-		System.out.println("Inserisci la data di oggi: ");
 		int giorno,mese,anno;
+
+		System.out.println("Inserisci la data di oggi:\n ");
+
+		System.out.println("\tInserisci la giorno di oggi: ");
 		giorno = rubrica.tastiera.nextInt();
+
+		System.out.println("\tInserisci il mese di oggi: ");
 		mese = rubrica.tastiera.nextInt();
+
+		System.out.println("\tInserisci l'anno di oggi: ");
 		anno= rubrica.tastiera.nextInt();
+
+
 		Data dataOggi = new Data(giorno, mese, anno);
 		Contatto persona = rubrica.input(dataOggi);
 
+		System.out.println(persona.toString());
+
 		
 	}
+
+
 
 }
 

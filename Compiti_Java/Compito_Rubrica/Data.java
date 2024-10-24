@@ -25,10 +25,23 @@ public class Data {
 	
 	
 	public Data(int giorno, int mese, int anno) {
-		setGg(giorno);
-		setMm(mese);
-		setAaaa(anno);
+		if (isValid()) {
+			setGg(giorno);
+			setMm(mese);
+			setAaaa(anno);
+		}
+		else
+			System.out.println("Data non valida\n");
+
+
 	}
+
+	private boolean isValid(){
+		if (!(this.gg >= 1 && this.gg <= 31))
+			return false;
+		else return this.mm >= 1 && this.mm <= 12;
+	}
+
 	
 	@Override
 	public String toString() {

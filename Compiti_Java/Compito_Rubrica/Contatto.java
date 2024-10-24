@@ -33,9 +33,20 @@ public class Contatto {
 	public Contatto(String nome, String cognome, String telefono, Data data, Data dataOggi) {
 		setNome(nome);
 		setCognome(cognome);
-		setTelefono(telefono);
+		if (isValidTel(telefono))
+			setTelefono(telefono);
+		else
+			System.out.println("Numero di telefono non valido");
 		setData(data);
 		setDataOggi(dataOggi);
+	}
+
+	private boolean isValidTel(String telefono){
+		for (int i = 0; i < telefono.length(); i++){
+			if (!Character.isDigit(telefono.charAt(i)))
+				return false;
+		}
+		return true;
 	}
 
 	private int giorniMancanti(){
