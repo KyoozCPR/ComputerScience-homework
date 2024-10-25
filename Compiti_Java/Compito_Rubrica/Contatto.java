@@ -53,13 +53,15 @@ public class Contatto {
 
 	private int giorniInizioFineMese(){
 		int giorniMancantiFine = 0;
-		for (int i=this.dataOggi.getGg(); i < giornidelMese(this.dataOggi.getMm(), this.dataOggi.getAaaa()); i++)
+		for (int i=this.dataOggi.getGg(); i < dataOggi.giornidelMese(this.dataOggi.getMm(), this.dataOggi.getAaaa()); i++)
 			giorniMancantiFine++;
 
 		giorniMancantiFine += this.data.getGg();
 
 		return giorniMancantiFine;
 	}
+
+
 
 	private int giorniMancanti(){
 		int giorniTotali = 0;
@@ -68,7 +70,7 @@ public class Contatto {
 			giorniTotali = data.getGg() - dataOggi.getGg();
 		else {
 			for (int i=this.dataOggi.getMm(); i < this.data.getMm()-1; i++){
-				giorniTotali += giornidelMese(i, this.dataOggi.getAaaa());
+				giorniTotali += dataOggi.giornidelMese(i, this.dataOggi.getAaaa());
 			}
 			giorniTotali += giorniInizioFineMese();
 		}
@@ -77,18 +79,7 @@ public class Contatto {
 	}
 
 
-	public static int giornidelMese(int mese, int anno ){
-		if (mese == 1 || mese == 3 || mese == 5 || mese == 7 || mese == 8 || mese == 10 || mese == 12)
-			return 31;
-		else if (mese == 4 || mese == 6 || mese == 9 || mese == 11)
-			return 30;
-		else{
-			if (Data.bisestile(anno))
-				return 29;
-			else
-				return 28;
-		}
-	}
+
 	
 	@Override
 	public String toString() {
