@@ -37,7 +37,7 @@ public class Data {
 		if (this.mm < 1 || this.mm > 12)
 			return false;
 
-
+		// Controllo rispetto agli specifici giorni del mese
 		if (this.gg < 1 || this.gg > Contatto.giornidelMese(this.mm, this.aaaa))
 			return false;
 
