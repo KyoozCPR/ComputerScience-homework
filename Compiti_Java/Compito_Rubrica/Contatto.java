@@ -6,9 +6,7 @@ public class Contatto {
 	private String nome, cognome, telefono;
 	private Data data, dataOggi;
 	
-	public String getNome() {
-		return this.nome;
-	}
+	public String getNome() {return this.nome;}
 	public String getCognome(){
 		return this.cognome;
 	}
@@ -45,7 +43,7 @@ public class Contatto {
 
 	private boolean isValidTel(String telefono){
 		for (int i = 0; i < telefono.length(); i++){
-			if (!Character.isDigit(telefono.charAt(i)))
+			if (!(Character.isDigit(telefono.charAt(i))))
 				return false;
 		}
 		return true;

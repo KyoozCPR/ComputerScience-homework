@@ -1,6 +1,6 @@
 package progetto_iniziale.Compito_Rubrica;
 import java.util.Scanner;
-
+import java.time.LocalDate;
 public class Rubrica {
 	Scanner tastiera = new Scanner(System.in);
 	
@@ -26,22 +26,9 @@ public class Rubrica {
 
 	public static void main(String[] args) {
 		Rubrica rubrica = new Rubrica();
-		int giorno,mese,anno;
-
-
-		System.out.println("Inserisci il giorno di oggi: ");
-		giorno = rubrica.tastiera.nextInt();
-
-		System.out.println("nserisci il mese di oggi: ");
-		mese = rubrica.tastiera.nextInt();
-
-		System.out.println("Inserisci l'anno di oggi: ");
-		anno= rubrica.tastiera.nextInt();
-
-
-		Data dataOggi = new Data(giorno, mese, anno);
-		Contatto persona = rubrica.input(dataOggi);
-
+		LocalDate dataAttuale = LocalDate.now();
+		Data dataIniziale = new Data(dataAttuale.getDayOfMonth(), dataAttuale.getMonthValue(), dataAttuale.getYear());
+		Contatto persona = rubrica.input(dataIniziale);
 		System.out.println(persona.toString());
 
 		

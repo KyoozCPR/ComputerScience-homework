@@ -20,6 +20,7 @@ public class Data {
 			System.out.println("Data non valida\n");
 	}
 
+
 	//Overloading
 	public Data(String data) {
 		// ES: "24/10/2024" => gg=24  mm=10  aaaa=2024
@@ -47,6 +48,7 @@ public class Data {
 	public static boolean bisestile(int anno) {
 		return (anno % 4 == 0 && anno % 100 != 0) || (anno % 400 == 0);
 	}
+
 
 	public int giornidelMese(int mese, int anno ){
 		if (mese == 1 || mese == 3 || mese == 5 || mese == 7 || mese == 8 || mese == 10 || mese == 12)
