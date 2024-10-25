@@ -32,6 +32,8 @@ public class Contatto {
 	public Contatto(String nome, String cognome, String telefono, Data data, Data dataOggi) {
 		setNome(nome);
 		setCognome(cognome);
+
+		telefono = telefono.strip();
 		if (isValidTel(telefono))
 			setTelefono(telefono);
 		else
@@ -49,16 +51,28 @@ public class Contatto {
 		return true;
 	}
 
+	private int giorniInizioFineMese(){
+		int giorniMancantiFine = 0;
+		for (int i=this.dataOggi.getGg(); i < giornidelMese(this.dataOggi.getMm(), this.dataOggi.getAaaa()); i++)
+			giorniMancantiFine++;
+
+		giorniMancantiFine += this.data.getGg();
+
+		return giorniMancantiFine;
+	}
+
 	private int giorniMancanti(){
 		int giorniTotali = 0;
 		// 24/10/2024 data attuale
 		if (dataOggi.getMm() == data.getMm())
 			giorniTotali = data.getGg() - dataOggi.getGg();
 		else {
-			for (int i=this.dataOggi.getMm(); i < this.data.getMm(); i++){
+			for (int i=this.dataOggi.getMm(); i < this.data.getMm()-1; i++){
 				giorniTotali += giornidelMese(i, this.dataOggi.getAaaa());
 			}
+			giorniTotali += giorniInizioFineMese();
 		}
+
 		return giorniTotali;
 	}
 

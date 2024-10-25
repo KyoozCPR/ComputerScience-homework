@@ -7,7 +7,7 @@ public class Rubrica {
 	public Contatto input(Data dataOggi) {
 		String nome, cognome, telefono;
 		int giorno,mese,anno;
-		System.out.print("Inserisci il nome: ");
+		System.out.print("\nInserisci il nome: ");
 		tastiera.nextLine();
 		nome = tastiera.nextLine().trim(); // SALTA L'INPUT
 		System.out.print("Inserisci il cognome: ");
@@ -32,7 +32,7 @@ public class Rubrica {
 		System.out.println("Inserisci il giorno di oggi: ");
 		giorno = rubrica.tastiera.nextInt();
 
-		System.out.println("Inserisci il mese di oggi: ");
+		System.out.println("nserisci il mese di oggi: ");
 		mese = rubrica.tastiera.nextInt();
 
 		System.out.println("Inserisci l'anno di oggi: ");
