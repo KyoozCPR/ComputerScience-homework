@@ -19,7 +19,6 @@ public class Contatto {
 		return this.data;
 	}
 
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -37,6 +36,7 @@ public class Contatto {
 			setTelefono(telefono);
 		else
 			System.out.println("Numero di telefono non valido");
+
 		setData(data);
 		setDataOggi(dataOggi);
 	}
@@ -63,18 +63,13 @@ public class Contatto {
 	}
 
 
-	private boolean bisestile(int anno) {
-		return (anno % 4 == 0 && (anno % 100 != 0 || anno % 400 == 0));
-	}
-
-
-	private int giornidelMese(int mese, int anno ){
+	public static int giornidelMese(int mese, int anno ){
 		if (mese == 1 || mese == 3 || mese == 5 || mese == 7 || mese == 8 || mese == 10 || mese == 12)
 			return 31;
 		else if (mese == 4 || mese == 6 || mese == 9 || mese == 11)
 			return 30;
 		else{
-			if (bisestile(anno))
+			if (Data.bisestile(anno))
 				return 29;
 			else
 				return 28;
