@@ -18,11 +18,9 @@ public class Contatto {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = isValidString(nome, false);
 	}
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
+	public void setCognome(String cognome) {this.cognome = isValidString(cognome, true);}
 	public void setTelefono(String telefono) {this.telefono = telefono;}
 	public void setData(Data data) {this.data = data;}
 	public void setDataOggi(Data dataOggi) {this.dataOggi = dataOggi;}
@@ -41,6 +39,16 @@ public class Contatto {
 		setDataOggi(dataOggi);
 	}
 
+	private String isValidString(String str, boolean cognome){
+		String formattedString = str.trim().toLowerCase();
+		for (int i = 0; i < formattedString.length(); i++) {
+			if (!Character.isLetter(formattedString.charAt(i))){
+				str = cognome ? "Ciprietti" : "Diego";
+			}
+		}
+		return str;
+	}
+
 	private boolean isValidTel(String telefono){
 		for (int i = 0; i < telefono.length(); i++){
 			if (!(Character.isDigit(telefono.charAt(i))))
@@ -48,6 +56,8 @@ public class Contatto {
 		}
 		return true;
 	}
+
+
 
 	private int giorniInizioFineMese(){
 		int giorniMancantiFine = 0;
@@ -63,11 +73,11 @@ public class Contatto {
 
 	private int giorniMancanti(){
 		int giorniTotali = 0;
-		// 24/10/2024 data attuale
+
 		if (dataOggi.getMm() == data.getMm())
 			giorniTotali = data.getGg() - dataOggi.getGg();
 		else {
-			for (int i=this.dataOggi.getMm(); i < this.data.getMm()-1; i++){
+			for (int i=this.dataOggi.getMm()+1; i < this.data.getMm()-1; i++){
 				giorniTotali += dataOggi.giornidelMese(i, this.dataOggi.getAaaa());
 			}
 			giorniTotali += giorniInizioFineMese();

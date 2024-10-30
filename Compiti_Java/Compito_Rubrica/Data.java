@@ -29,6 +29,9 @@ public class Data {
 		this.mm = Integer.parseInt(dataSuddivisa[1]);
 		this.aaaa = Integer.parseInt(dataSuddivisa[2]);
 
+		if (!isValid())
+			System.out.println("Data non valida\n");
+
 
 	}
 
