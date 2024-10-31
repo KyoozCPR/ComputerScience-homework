@@ -17,11 +17,9 @@ public class Contatto {
 		return this.data;
 	}
 
-	public void setNome(String nome) {
-		this.nome = isValidString(nome, false);
-	}
+	public void setNome(String nome) {this.nome = isValidString(nome, false);}
 	public void setCognome(String cognome) {this.cognome = isValidString(cognome, true);}
-	public void setTelefono(String telefono) {this.telefono = telefono;}
+	public void setTelefono(String telefono) {this.telefono = isValidTel(telefono);}
 	public void setData(Data data) {this.data = data;}
 	public void setDataOggi(Data dataOggi) {this.dataOggi = dataOggi;}
 	
@@ -30,10 +28,7 @@ public class Contatto {
 		setCognome(cognome);
 
 		telefono = telefono.strip();
-		if (isValidTel(telefono))
-			setTelefono(telefono);
-		else
-			System.out.println("Numero di telefono non valido");
+		setTelefono(telefono);
 
 		setData(data);
 		setDataOggi(dataOggi);
@@ -49,15 +44,15 @@ public class Contatto {
 		return str;
 	}
 
-	private boolean isValidTel(String telefono){
+	private String isValidTel(String telefono){
+		String stringaFinale = telefono.trim();
+
 		for (int i = 0; i < telefono.length(); i++){
 			if (!(Character.isDigit(telefono.charAt(i))))
-				return false;
+				stringaFinale="00000000000";
 		}
-		return true;
+		return stringaFinale;
 	}
-
-
 
 	private int giorniInizioFineMese(){
 		int giorniMancantiFine = 0;
