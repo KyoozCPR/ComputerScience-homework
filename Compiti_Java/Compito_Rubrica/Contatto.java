@@ -20,16 +20,13 @@ public class Contatto {
 	public void setNome(String nome) {this.nome = isValidString(nome, false);}
 	public void setCognome(String cognome) {this.cognome = isValidString(cognome, true);}
 	public void setTelefono(String telefono) {this.telefono = isValidTel(telefono);}
-	public void setData(Data data) {this.data = data;}
-	public void setDataOggi(Data dataOggi) {this.dataOggi = dataOggi;}
+
 	
 	public Contatto(String nome, String cognome, String telefono, Data data, Data dataOggi) {
 		setNome(nome);
 		setCognome(cognome);
-
 		telefono = telefono.strip();
 		setTelefono(telefono);
-
 		setData(data);
 		setDataOggi(dataOggi);
 	}
@@ -38,18 +35,28 @@ public class Contatto {
 		String formattedString = str.trim().toLowerCase();
 		for (int i = 0; i < formattedString.length(); i++) {
 			if (!Character.isLetter(formattedString.charAt(i))){
-				str = cognome ? "Ciprietti" : "Diego";
+				return cognome ? "Ciprietti" : "Diego";
 			}
 		}
 		return str;
 	}
 
 	private String isValidTel(String telefono){
+		/* stringhe sono immutabili quindi quando riassegnamo un valore
+		   andiamo a creare un nuovo spazio di memoria
+		   che viene quindi puntato alla variabile precedente,
+		   il Garbage Collector poi andrà a liberare lo spazio di memoria
+		   usato in precedenza poiché non più referenziato
+		 */
+
+
 		String stringaFinale = telefono.trim();
 
-		for (int i = 0; i < telefono.length(); i++){
-			if (!(Character.isDigit(telefono.charAt(i))))
-				stringaFinale="00000000000";
+		// il numero di telefono deve avere un + davanti
+
+		for (int i = 1; i < stringaFinale.length(); i++){
+			if (stringaFinale.charAt(0) != '+' && !(Character.isDigit(stringaFinale.charAt(i))))
+				return "Numero non assegnato correttamente!";
 		}
 		return stringaFinale;
 	}
