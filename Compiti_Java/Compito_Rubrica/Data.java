@@ -35,6 +35,31 @@ public class Data {
 
 	}
 
+
+	// ritorna valore > 0 se primo > secondo
+	public int compareData(Data data){
+		if (this.getAaaa() < data.getAaaa())
+			return -1;
+		else if (this.getAaaa() > data.getAaaa())
+			return 1;
+		else {
+			if (this.getMm() < data.getMm())
+				return -1;
+			else if(this.getMm() > data.getMm())
+				return 1;
+			else {
+				if (this.getGg() < data.getGg())
+					return -1;
+				else if (this.getGg() > data.getGg())
+					return 1;
+				else
+					return 0;
+			}
+		}
+
+
+	}
+
 	private boolean isValid(){
 
 		if (this.mm < 1 || this.mm > 12)

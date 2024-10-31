@@ -27,8 +27,16 @@ public class Contatto {
 		setCognome(cognome);
 		telefono = telefono.strip();
 		setTelefono(telefono);
-		setData(data);
-		setDataOggi(dataOggi);
+		this.data = data;
+		this.dataOggi = dataOggi;
+	}
+
+	public int compareCredenziali(Contatto contatto){
+		int ris = this.cognome.compareTo(contatto.getCognome());
+		if(ris==0)
+			return this.nome.compareTo(contatto.getNome());
+		return ris;
+
 	}
 
 	private String isValidString(String str, boolean cognome){

@@ -29,7 +29,18 @@ public class Rubrica {
 		LocalDate dataAttuale = LocalDate.now();
 		Data dataIniziale = new Data(dataAttuale.getDayOfMonth(), dataAttuale.getMonthValue(), dataAttuale.getYear());
 		Contatto persona = rubrica.input(dataIniziale);
+		Data dataP2 = new Data("2/11/2024");
+		Contatto persona2 = new Contatto("Francesco", "Concu", "351", dataP2, dataIniziale);
 		System.out.println(persona.toString());
+		int comparazione = persona.compareCredenziali(persona2);
+		if (comparazione == 0)
+			comparazione = dataIniziale.compareData(dataP2);
+		if(comparazione == 1)
+			System.out.println(persona +"\n"+ persona2);
+		else if (comparazione == -1)
+			System.out.println(persona2 +"\n"+ persona);
+
+
 
 		
 	}
