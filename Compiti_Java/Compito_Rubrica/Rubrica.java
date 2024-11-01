@@ -7,9 +7,9 @@ public class Rubrica {
 	public Contatto input(Data dataOggi) {
 		String nome, cognome, telefono;
 		int giorno,mese,anno;
+
 		System.out.print("\nInserisci il nome: ");
-		tastiera.nextLine();
-		nome = tastiera.nextLine().trim(); // SALTA L'INPUT
+		nome = tastiera.nextLine();
 		System.out.print("Inserisci il cognome: ");
 		cognome = tastiera.nextLine();
 		System.out.print("Inserisci il telefono: ");
@@ -27,19 +27,26 @@ public class Rubrica {
 	public static void main(String[] args) {
 		Rubrica rubrica = new Rubrica();
 		LocalDate dataAttuale = LocalDate.now();
+
+
 		Data dataIniziale = new Data(dataAttuale.getDayOfMonth(), dataAttuale.getMonthValue(), dataAttuale.getYear());
 		Contatto persona = rubrica.input(dataIniziale);
-		Data dataP2 = new Data("2/11/2024");
-		Contatto persona2 = new Contatto("Francesco", "Concu", "351", dataP2, dataIniziale);
-		System.out.println(persona.toString());
-		int comparazione = persona.compareCredenziali(persona2);
-		if (comparazione == 0)
-			comparazione = dataIniziale.compareData(dataP2);
-		if(comparazione == 1)
-			System.out.println(persona +"\n"+ persona2);
-		else if (comparazione == -1)
-			System.out.println(persona2 +"\n"+ persona);
 
+		Data dataP2 = new Data("2/11/2024");
+		Contatto persona2 = new Contatto("Diego", "Ciprietti", "351", dataP2, dataIniziale);
+
+
+		// Stampiamo in ordine le due persone
+		int comparazione = persona.compareCredenziali(persona2);
+		// se il nome completo e uguale allora compariamo le date
+		if (comparazione == 0)
+			comparazione = dataIniziale.compareData(dataP2); //riutilizzo della variabile
+		if(comparazione == 1)
+			System.out.println("Il primo contatto arriva prima\n"+ persona2 +"\n"+ persona);
+		else if (comparazione == -1)
+			System.out.println("Il secondo contatto arriva prima\n"+ persona2 +"\n"+ persona);
+		else
+			System.out.println("I due contatti sono uguali\n"+ persona +"\n"+ persona2);
 
 
 		

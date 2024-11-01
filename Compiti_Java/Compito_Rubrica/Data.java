@@ -36,8 +36,14 @@ public class Data {
 	}
 
 
-	// ritorna valore > 0 se primo > secondo
+
 	public int compareData(Data data){
+	    /*
+	    ritorna:
+		 	0 se primo == secondo
+		 	1 se primo > secondo
+		   -1 se primo < secondo
+		*/
 		if (this.getAaaa() < data.getAaaa())
 			return -1;
 		else if (this.getAaaa() > data.getAaaa())
@@ -48,12 +54,7 @@ public class Data {
 			else if(this.getMm() > data.getMm())
 				return 1;
 			else {
-				if (this.getGg() < data.getGg())
-					return -1;
-				else if (this.getGg() > data.getGg())
-					return 1;
-				else
-					return 0;
+                return Integer.compare(this.getGg(), data.getGg());
 			}
 		}
 

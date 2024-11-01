@@ -33,6 +33,8 @@ public class Contatto {
 
 	public int compareCredenziali(Contatto contatto){
 		int ris = this.cognome.compareTo(contatto.getCognome());
+		ris = ris > 0 ? -1: 1;
+		// se il cognome è uguale allora controlla il nome
 		if(ris==0)
 			return this.nome.compareTo(contatto.getNome());
 		return ris;
@@ -61,10 +63,12 @@ public class Contatto {
 		String stringaFinale = telefono.trim();
 
 		// il numero di telefono deve avere un + davanti
-
+		 String errore = "Numero non assegnato correttamente!";
+		if (stringaFinale.charAt(0) != '+')
+			return errore;
 		for (int i = 1; i < stringaFinale.length(); i++){
-			if (stringaFinale.charAt(0) != '+' && !(Character.isDigit(stringaFinale.charAt(i))))
-				return "Numero non assegnato correttamente!";
+			if (!(Character.isDigit(stringaFinale.charAt(i))))
+				return errore;
 		}
 		return stringaFinale;
 	}
