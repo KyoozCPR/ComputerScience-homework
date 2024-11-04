@@ -63,8 +63,8 @@ public class Data {
 		int ris; 
 		if (this.getAaaa() != data.getAaaa)
 			ris = data.getAaaa - this.getAaaa;
-			if (this.getMm() != data.getMm())
-				ris = data.getMm - this.getMm;
+		if (this.getMm() != data.getMm())
+			ris = data.getMm - this.getMm;
 		ris = data.getGg - this.getGg;
 		return ris > 0 ? -1:1;
 	
