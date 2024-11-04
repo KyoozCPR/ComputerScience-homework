@@ -61,11 +61,11 @@ public class Data {
 		}
 		*/
 		
-		if (this.getAaaa() != data.getAaaa)
-			return (data.getAaaa - this.getAaaa) > 0 ? -1:1;
+		if (this.getAaaa() != data.getAaaa())
+			return (data.getAaaa() - this.getAaaa()) > 0 ? -1:1;
 		if (this.getMm() != data.getMm())
-			return (data.getMm - this.getMm) > 0 ? -1:1;
-		return data.getGg - this.getGg  > 0 ? -1:1;
+			return (data.getMm() - this.getMm()) > 0 ? -1:1;
+		return (data.getGg() - this.getGg())  > 0 ? -1:1;
 
 	
 
