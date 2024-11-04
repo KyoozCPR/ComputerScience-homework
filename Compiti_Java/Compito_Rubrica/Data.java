@@ -60,13 +60,13 @@ public class Data {
 			}
 		}
 		*/
-		int ris; 
+		
 		if (this.getAaaa() != data.getAaaa)
-			ris = data.getAaaa - this.getAaaa;
+			return (data.getAaaa - this.getAaaa) > 0 ? -1:1;
 		if (this.getMm() != data.getMm())
-			ris = data.getMm - this.getMm;
-		ris = data.getGg - this.getGg;
-		return ris > 0 ? -1:1;
+			return (data.getMm - this.getMm) > 0 ? -1:1;
+		return data.getGg - this.getGg  > 0 ? -1:1;
+
 	
 
 	}
