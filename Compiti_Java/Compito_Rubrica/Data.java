@@ -44,6 +44,8 @@ public class Data {
 		 	1 se primo > secondo
 		   -1 se primo < secondo
 		*/
+		/* 
+		PRIMA SOLUZIONE NON OTTIMIZZATA 
 		if (this.getAaaa() < data.getAaaa())
 			return -1;
 		else if (this.getAaaa() > data.getAaaa())
@@ -57,7 +59,15 @@ public class Data {
                 return Integer.compare(this.getGg(), data.getGg());
 			}
 		}
-
+		*/
+		int ris; 
+		if (this.getAaaa() != data.getAaaa)
+			ris = data.getAaaa - this.getAaaa;
+			if (this.getMm() != data.getMm())
+				ris = data.getMm - this.getMm;
+		ris = data.getGg - this.getGg;
+		return ris > 0 ? -1:1;
+	
 
 	}
 
