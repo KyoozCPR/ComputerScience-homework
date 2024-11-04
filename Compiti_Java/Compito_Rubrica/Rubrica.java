@@ -3,11 +3,28 @@ import java.util.Scanner;
 import java.time.LocalDate;
 public class Rubrica {
 	Scanner tastiera = new Scanner(System.in);
+	private Contatto[] listaAmici;
+	private int nrAmici;
+
+
+	public Rubrica(int maxContatti){
+		listaAmici = new Contatto[maxContatti] // creo un array di maxContatti contatti
+
+	}
+
+
+	public void insert(){
+		//funzione che aggiunge in code un contatto 
+		if (nrAmici < listaAmici.length-1)
+			listaAmici[nrAmici++]=this.input(); 
+
+	}
+
 	
+
 	public Contatto input(Data dataOggi) {
 		String nome, cognome, telefono;
 		int giorno,mese,anno;
-
 		System.out.print("\nInserisci il nome: ");
 		nome = tastiera.nextLine();
 		System.out.print("Inserisci il cognome: ");

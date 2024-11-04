@@ -30,7 +30,7 @@ public class Contatto {
 		this.data = data;
 		this.dataOggi = dataOggi;
 	}
-
+	
 	public int compareCredenziali(Contatto contatto){
 		int ris = this.cognome.compareTo(contatto.getCognome());
 		ris = ris > 0 ? -1: 1;
