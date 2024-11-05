@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public class Rubrica {
 	static Scanner tastiera = new Scanner(System.in);
 	private Contatto[] listaAmici;
-	private int nrAmici;
+	private int nrAmici; // Dimensione logica dell'array
 
 
 	public Rubrica(int maxContatti){
