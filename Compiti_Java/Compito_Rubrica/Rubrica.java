@@ -33,8 +33,9 @@ public class Rubrica {
 		telefono = tastiera.nextLine();
 		System.out.print("Inserisci la data [gg/mm/aaaa]: ");
 		String data = tastiera.nextLine();
+		
 		Data dataNascita = new Data(data);
-        return new Contatto(nome, cognome, telefono, dataNascita, dataOggi);
+        	return new Contatto(nome, cognome, telefono, dataNascita, dataOggi);
 	}
 
 	public void caricaValori(Data dataOggi){
