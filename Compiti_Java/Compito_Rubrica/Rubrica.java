@@ -6,12 +6,15 @@ public class Rubrica {
 	private Contatto[] listaAmici;
 	private int nrAmici; // Dimensione logica dell'array
 
+	//creo setter e getter rispetto all'array e sulla dimensione logica
+	public int getDimLogica(){return this.nrAmici;}
+	public Contatto[] getContatti(){return this.listaAmici;}
+	
 
 	public Rubrica(int maxContatti){
 		listaAmici = new Contatto[maxContatti]; // creo un array di maxContatti contatti
 
 	}
-
 
 	public void insert(Data dataOggi){
 		//funzione che aggiunge in code un contatto 
@@ -38,17 +41,22 @@ public class Rubrica {
         	return new Contatto(nome, cognome, telefono, dataNascita, dataOggi);
 	}
 
+	
 	public void caricaValori(Data dataOggi){
 		for (int i = 0; i < listaAmici.length; i++) {
 			System.out.println("\nInserisci credenziali del contatto" + (i+1) + ": ");
 			insert(dataOggi);
-			visualizza(listaAmici[i]);
+			
 		}
 	}
-
-	public void visualizza(Contatto persona){
-		System.out.println(persona.toString());
+	
+	
+	public void visualizza(){
+		System.out.println("Credenziali di tutti i contatti:\n");
+		for (int i = 0; i < this.getDimLogica(); i++)
+			System.out.println(this.getContatti()[i].toString());
 	}
+	
 
 	public static void main(String[] args) {
 		System.out.println("Inserisci quanti contatti vuoi creare:");
@@ -60,6 +68,7 @@ public class Rubrica {
 		Data dataIniziale = new Data(dataAttuale.getDayOfMonth(), dataAttuale.getMonthValue(), dataAttuale.getYear());
 
 		rubrica.caricaValori(dataIniziale); // carichiamo i contatti nell'array
+		rubrica.visualizza();
 		
 	}
 }
