@@ -32,10 +32,12 @@ public class Punto {
 	 */
 	public void setX(int pippo) {
 		this.x=pippo;
+		setQ();
 	}
 	
 	public void setY(int pippo) {
 		this.y=pippo;
+		setQ();
 	}
 	
 	@Override
