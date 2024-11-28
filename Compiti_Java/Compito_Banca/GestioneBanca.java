@@ -27,14 +27,24 @@ public class GestioneBanca {
 
             case 2:
                 System.out.println("Inserisci l'importo da depositare: ");
-                double soldi = tastiera.nextDouble();
-                this.banca.deposita(soldi);
+                int ris;
+                do {
+                    double soldi = tastiera.nextDouble();
+                    ris = this.banca.deposita(soldi);
+                    if (ris == 0)
+                        System.out.println("Importo non valido!, riprova: ");
+                } while (ris == 0);
                 System.out.println(this.banca +  " dopo il deposito");
                 break;
             case 3:
                 System.out.println("Inserisci l'importo da prelevare: ");
-                double soldi_p = tastiera.nextDouble();
-                this.banca.prelieva(soldi_p);
+                int ris_p;
+                do {
+                    double soldi_p = tastiera.nextDouble();
+                    ris_p = this.banca.prelieva(soldi_p);
+                    if (ris_p == 0)
+                        System.out.println("Importo non valido!, riprova: ");
+                } while (ris_p == 0);
                 System.out.println(this.banca + " dopo il prelievo");
                 break;
 
@@ -43,6 +53,7 @@ public class GestioneBanca {
                 break;
         }
     }
+
 
     public static void main(String[] args){
         GestioneBanca banca = new GestioneBanca();

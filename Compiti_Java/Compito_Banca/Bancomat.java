@@ -13,7 +13,7 @@ public class Bancomat {
     }
 
     private int isValidDenaro(double denaro){
-        if (saldo >= 0)
+        if (denaro >= 0)
             return 1;
         return 0;
     }
@@ -22,18 +22,20 @@ public class Bancomat {
         this.saldo = 1000;
     }
 
-    public void deposita(double denaro){
-        if (isValidDenaro(denaro) == 1)
+    public int deposita(double denaro){
+        if (isValidDenaro(denaro) == 1) {
             this.saldo += denaro;
-        else
-            System.out.println("Denaro non valido!");
+            return 1;
+        }
+        return 0;
     }
 
-    public void prelieva(double denaro){
-        if (denaro <= this.saldo)
+    public int prelieva(double denaro){
+        if (isValidDenaro(denaro) == 1 && denaro <= this.saldo ) {
             this.saldo -= denaro;
-        else
-            System.out.println("Denaro maggiore del saldo!");
+            return 1;
+        }
+        return 0;
 
 
     }

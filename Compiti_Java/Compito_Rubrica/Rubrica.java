@@ -1,4 +1,5 @@
 package progetto_iniziale.Compito_Rubrica;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
 public class Rubrica {
@@ -56,7 +57,23 @@ public class Rubrica {
 		for (int i = 0; i < this.getDimLogica(); i++)
 			System.out.println(this.getContatti()[i].toString());
 	}
-	
+
+
+//	public void ordinamentoCrescente(){
+//		Contatto temporaneo;
+//		for (int i = 0; i < nrAmici-1; i++){
+//			int min = i;
+//			for (int j = i+1;j <nrAmici; j++){
+//				if (this.getContatti()[j].compareCredenziali(this.getContatti()[i]) < 0)
+//					min = j;
+//			}
+//
+//			// adesso scambio
+//			temporaneo = this.getContatti()[min];
+//			min = t
+//
+//		}
+//	}
 
 	public static void main(String[] args) {
 		System.out.println("Inserisci quanti contatti vuoi creare:");
@@ -69,7 +86,8 @@ public class Rubrica {
 
 		rubrica.caricaValori(dataIniziale); // carichiamo i contatti nell'array
 		rubrica.visualizza();
-		
+
+
 	}
 }
 
