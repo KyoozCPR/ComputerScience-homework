@@ -37,9 +37,9 @@ public class Impiccato {
 
     public void indovina(char lettera){
         for (int i = 0; i<this.parola.length()-1; i++){
-            if (!(this.parola.charAt(i) == lettera)){
+            if (!(this.parola.charAt(i) == lettera)) {
                 this.tentativi -= 1;
-
+            }
         }
     }
     public void indovina(String stringa) {
