@@ -52,19 +52,23 @@ public class Impiccato {
             System.out.println("Lettera non presente!\nTentativi rimanenti: " + this.tentativi);
         }
 
+        setVittoria();
+
     }
     public void indovina(String stringa) {
         if (!(this.parola.equalsIgnoreCase(stringa))){
             this.tentativi -= 1;
             System.out.println("Parola non corrispondente!\nTentativi rimanenti: " + this.tentativi);
         }
+        else {
+
+            this.indovinare.replace(0,this.indovinare.length(), this.parola);
+        }
+        setVittoria();
     }
 
     private void setVittoria(){
-        if ((this.indovinare).toString().equals(this.parola))
-            this.vittoria = true;
-        else
-            this.vittoria = false;
+        this.vittoria = (this.indovinare).toString().equals(this.parola);
     }
 
     @Override

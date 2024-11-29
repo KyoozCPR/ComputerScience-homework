@@ -20,7 +20,7 @@ public class GestioneIMP {
 
             }
 
-        } while (gioco.getTentativi() != 0 && !(gioco.getVittoria()));
+        } while (gioco.getTentativi() != 0 && !gioco.getVittoria());
         if (gioco.getVittoria())
             System.out.println("Parola indovinata!");
     }
