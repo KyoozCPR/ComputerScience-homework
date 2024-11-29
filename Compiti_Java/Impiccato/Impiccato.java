@@ -5,14 +5,15 @@ public class Impiccato {
     private String parola;
     private StringBuilder indovinare;
     private int tentativi;
-
+    private boolean vittoria;
     public StringBuilder getIndovina(){return this.indovinare;}
     public int getTentativi(){return this.tentativi;}
-
+    public boolean getVittoria(){return this.vittoria;}
 
     public Impiccato(){
         setParola();
         setParola_Da_Indovinare();
+        this.vittoria = false;
         tentativi = 10;
     }
 
@@ -28,7 +29,7 @@ public class Impiccato {
         StringBuilder finale = new StringBuilder();
 
         finale.append(this.parola.charAt(0));
-        for (int i = 1; i<Lparola-1; i++){finale.append("_ ");}
+        for (int i = 1; i<Lparola-1; i++){finale.append("-");}
         finale.append(this.parola.charAt(Lparola-1));
         this.indovinare = finale;
 
@@ -42,7 +43,7 @@ public class Impiccato {
         for (int i = 0; i<this.parola.length(); i++){
             if (finale.charAt(i) == lettera) {
                 presente = true;
-                break;
+                this.indovinare.replace(i, i+1, ""+Character.toUpperCase(lettera));
             }
 
         }
@@ -50,6 +51,7 @@ public class Impiccato {
             this.tentativi -= 1;
             System.out.println("Lettera non presente!\nTentativi rimanenti: " + this.tentativi);
         }
+
     }
     public void indovina(String stringa) {
         if (!(this.parola.equalsIgnoreCase(stringa))){
@@ -58,9 +60,16 @@ public class Impiccato {
         }
     }
 
+    private void setVittoria(){
+        if ((this.indovinare).toString().equals(this.parola))
+            this.vittoria = true;
+        else
+            this.vittoria = false;
+    }
+
     @Override
     public String toString(){
-        return "Indovina la parola: " + this.indovinare + "\nTentativi  rimanenti: " + this.tentativi;
+        return "Indovina la parola: " + this.indovinare;
     }
 
 }
