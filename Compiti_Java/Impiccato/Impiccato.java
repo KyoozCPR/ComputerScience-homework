@@ -36,16 +36,31 @@ public class Impiccato {
     }
 
     public void indovina(char lettera){
-        for (int i = 0; i<this.parola.length()-1; i++){
-            if (!(this.parola.charAt(i) == lettera)) {
-                this.tentativi -= 1;
+        boolean presente = false;
+        lettera = Character.toLowerCase(lettera);
+        String finale = this.parola.toLowerCase();
+        for (int i = 0; i<this.parola.length(); i++){
+            if (finale.charAt(i) == lettera) {
+                presente = true;
+                break;
             }
+
+        }
+        if (!presente) {
+            this.tentativi -= 1;
+            System.out.println("Lettera non presente!\nTentativi rimanenti: " + this.tentativi);
         }
     }
     public void indovina(String stringa) {
         if (!(this.parola.equalsIgnoreCase(stringa))){
             this.tentativi -= 1;
+            System.out.println("Parola non corrispondente!\nTentativi rimanenti: " + this.tentativi);
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Indovina la parola: " + this.indovinare + "\nTentativi  rimanenti: " + this.tentativi;
     }
 
 }

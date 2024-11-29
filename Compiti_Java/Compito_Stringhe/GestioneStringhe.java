@@ -22,6 +22,7 @@ public class GestioneStringhe {
         return stringa.replace('e', 'o');
 
     }
+
     public static Boolean areEqual(String str1, String str2){
         return str1.compareTo(str2) == 0;
     }
@@ -45,9 +46,10 @@ public class GestioneStringhe {
         GestioneStringhe.countVocali("Ciao mi chiamo Diego");
         GestioneStringhe.posizioneA("Ciao mi chiamo Diego");
         String rimpiazzata = GestioneStringhe.replaceE_O("Ciao mi chiamo Diego");
+        System.out.println(rimpiazzata);
         Boolean controllo = GestioneStringhe.areEqual("Ciao", "Ciao");
         GestioneStringhe.centerChar("ABCDEF");
-        String[] parole = {"Diego", "ciprietti", "Informatica"};
+        String[] parole ={"Diego", "ciprietti", "Informatica"};
         GestioneStringhe.sommaLunghezze(parole);
 
     }
