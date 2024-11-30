@@ -1,27 +1,40 @@
 package progetto_iniziale.Impiccato;
 import java.util.Scanner;
 public class GestioneIMP {
+    public Scanner tastiera = new Scanner(System.in);
+    private Impiccato gioco;
 
+    public Impiccato getGioco(){return this.gioco;}
+
+    public GestioneIMP(){
+        this.gioco = new Impiccato();
+    }
+
+
+    public void input(){
+        System.out.println("\n\nInserisci una lettera o una parola: ");
+        String indovina = tastiera.nextLine();
+        if (indovina.length() > 1)
+            gioco.indovina(indovina);
+        else {
+            char convertito = indovina.charAt(0);
+            gioco.indovina(convertito);
+
+        }
+    }
 
     public static void main(String[] args){
-        Impiccato gioco = new Impiccato();
-        Scanner tastiera = new Scanner(System.in);
 
+        GestioneIMP gestione = new GestioneIMP();
 
         do {
-            System.out.println(gioco);
-            System.out.println("\n\nInserisci una lettera o una parola: ");
-            String indovina = tastiera.nextLine();
-            if (indovina.length() > 1)
-                gioco.indovina(indovina);
-            else {
-                char convertito = indovina.charAt(0);
-                gioco.indovina(convertito);
+            System.out.println(gestione.getGioco());
+            gestione.input();
 
-            }
-
-        } while (gioco.getTentativi() != 0 && !gioco.getVittoria());
-        if (gioco.getVittoria())
+        } while (gestione.getGioco().getTentativi() != 0 && !gestione.getGioco().getVittoria());
+        if (gestione.getGioco().getVittoria())
             System.out.println("Parola indovinata!");
+        else
+            System.out.println("Hai perso!");
     }
 }
