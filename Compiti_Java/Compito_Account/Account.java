@@ -67,10 +67,10 @@ public class Account {
         do {
             if (PC.classe.get(i).getIp().equals(randomIp)) {
                 randomIp = casuale;
-                i = 0;
+                i = -1;
             }
             i++;
-        } while (PC.classe.get(i).getIp().equals(randomIp) && i < PC.classe.size());
+        } while (i < PC.classe.size() && PC.classe.get(i).getIp().equals(randomIp) );
 
 
         return randomIp;
@@ -80,7 +80,7 @@ public class Account {
 
     @Override
     public String toString(){
-        return "Account con nome: " + this.nome + " e indirizzo ip: " + this.Ip;
+        return "Account con nome: " + this.nome + " password: " + this.pwd + " e indirizzo ip: " + this.Ip;
     }
 
 

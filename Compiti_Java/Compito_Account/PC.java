@@ -16,7 +16,7 @@ public class PC {
                 "4) disconnettere un utente\n" +
                 "5) cercare le caratteristiche dei login che contengono la porzione di parola\n" +
                 "6) consentire la modifica della password dato il nome account (la nuova password deve soddisfare le caratteristiche precedentemente descritte)\n" +
-                "7) visualizzare gli account in ordine rispetto all'indirizzo IP "+
+                "7) visualizzare gli account in ordine rispetto all'indirizzo IP\n"+
                 "0) Uscire");
         System.out.println("\nScegli un'opzione: ");
         return tastiera.nextInt();
