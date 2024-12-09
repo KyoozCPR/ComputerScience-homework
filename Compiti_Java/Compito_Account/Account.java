@@ -56,8 +56,7 @@ public class Account {
             return ip;
         System.out.println("\nnon valido, creato ip casuale");
         int i = 0;
-        casuale = "" + (int) (Math.random() * 256) + "." +
-                (int) (Math.random() * 256) + "." +
+        casuale = "192.168." +
                 (int) (Math.random() * 256) + "." +
                 (int) (Math.random() * 256);
         randomIp = casuale;
