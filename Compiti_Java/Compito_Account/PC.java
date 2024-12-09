@@ -34,6 +34,23 @@ public class PC {
                 classe.add(new Account(nome, pwd, indirizzoIp));
                 classe.getLast().setLogged(true);
                 break;
+
+            case 2:
+                System.out.println("\nInserisci un Account da visualizzare [nome]: ");
+                String nomeA = tastiera.nextLine();
+                for (int i=0; i<classe.size(); i++){
+                    if (classe.get(i).getNome().equals(nomeA)) {
+                        System.out.println(classe.get(i));
+                        break;
+                    }
+                }
+                break;
+
+            case 3:
+                for (Account account : classe) System.out.println(account);
+                break;
+
+
             default:
                 System.out.println("\nScelta non valida!");
                 break;
@@ -43,7 +60,6 @@ public class PC {
 
     public static void main(String[] args){
         PC classe = new PC();
-        PC.classe.add(new Account("Router", "4Cinf", "1.1.1.1"));
         int scelta;
         do {
             scelta = classe.input();
