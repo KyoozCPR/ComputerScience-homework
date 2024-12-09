@@ -21,7 +21,7 @@ public class Account {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.nome = isValidNome(nome);
     }
 
     public void setPwd(String pwd) {
@@ -44,6 +44,18 @@ public class Account {
         this.logged = false;
     }
 
+    private String isValidNome(String nome) {
+        System.out.println("\nnome gia presente , creato  casuale");
+        String finale = "PC";
+        for (int i = 0; i < PC.classe.size(); i++){
+            if (PC.classe.get(i).getNome().equals(nome)){
+                return finale + PC.classe.size();
+            }
+        }
+
+
+        return nome;
+    }
 
     private String isValidPwd(String pwd) {
         return (pwd.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[\\\\._%]).{5,10}$")) ? pwd : "4Cinf";
