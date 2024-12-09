@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 public class PC {
     public Scanner tastiera = new Scanner(System.in);
-    private ArrayList<Account> classe;
+    public static ArrayList<Account> classe = new ArrayList<Account>();
 
-    public PC(){
-        this.classe = new ArrayList<Account>();
-    }
+
 
     public int input(){
         System.out.println(
