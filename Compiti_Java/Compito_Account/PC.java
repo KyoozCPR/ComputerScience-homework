@@ -25,7 +25,15 @@ public class PC {
     public void menu(int scelta){
         switch (scelta) {
             case 0: System.out.println("\nArrivederci"); break;
-            case 1:break;
+            case 1:
+                System.out.println("\nInserisci un Account [nome e pwd] e un indirizzo IP: ");
+
+                String nome = tastiera.nextLine();
+                String pwd = tastiera.nextLine();
+                String indirizzoIp = tastiera.nextLine();
+                classe.add(new Account(nome, pwd, indirizzoIp));
+                classe.getLast().setLogged(true);
+                break;
             default:
                 System.out.println("\nScelta non valida!");
                 break;
@@ -35,10 +43,12 @@ public class PC {
 
     public static void main(String[] args){
         PC classe = new PC();
+        PC.classe.add(new Account("Router", "4Cinf", "1.1.1.1"));
         int scelta;
         do {
             scelta = classe.input();
-
+            classe.tastiera.nextLine().trim();
+            classe.menu(scelta);
 
         } while (scelta != 0);
 
