@@ -45,53 +45,59 @@ public class Account {
     }
 
     private String isValidNome(String nome) {
-        System.out.println("\nnome gia presente , creato  casuale");
+
         String finale = "PC";
+
         for (int i = 0; i < PC.classe.size(); i++){
             if (PC.classe.get(i).getNome().equals(nome)){
+                System.out.println("nome gia presente , creato  casuale\n");
                 return finale + PC.classe.size();
             }
         }
-
-
         return nome;
     }
 
     private String isValidPwd(String pwd) {
-        return (pwd.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[\\\\._%]).{5,10}$")) ? pwd : "4Cinf";
+
+        if (pwd.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[\\\\._%]).{5,10}$"))
+            return pwd;
+        System.out.println("Password non valida! Inserita password di default!\n");
+        return "AndreaPonti%";
     }
 
     private String isValidIp(String ip) {
         String randomIp, casuale;
         String regex = "(25[0-5]||[2][0-4]\\d||1\\d\\d||\\d{1,2})\\.(25[0-5]||[2][0-4]\\d||1\\d\\d||(\\d{1,2}))\\.(25[0-5]||[2][0-4]\\d||1\\d\\d||(\\d{1,2}))\\.(25[0-5]||[2][0-4]\\d||1\\d\\d||(\\d{1,2}))";
+
         if (ip.matches(regex))
             return ip;
-        System.out.println("\nnon valido, creato ip casuale");
+
+
+        System.out.println("non valido, creato ip casuale\n");
         int i = 0;
         casuale = "192.168." +
                 (int) (Math.random() * 256) + "." +
                 (int) (Math.random() * 256);
         randomIp = casuale;
 
-        if (PC.classe.size() == 0)
+        if (PC.classe.isEmpty())
             return randomIp;
+
         do {
             if (PC.classe.get(i).getIp().equals(randomIp)) {
-                randomIp = casuale;
-                i = -1;
+                    randomIp = casuale;
+                    i = -1;
             }
             i++;
-        } while (i < PC.classe.size() && PC.classe.get(i).getIp().equals(randomIp) );
+        } while (i < PC.classe.size() && PC.classe.get(i).getIp().equals(randomIp));
 
 
         return randomIp;
-
-
     }
 
     @Override
     public String toString(){
-        return "Account con nome: " + this.nome + " password: " + this.pwd + " e indirizzo ip: " + this.Ip;
+        return "Account con nome: " + this.nome + " password: " + this.pwd + " e indirizzo ip: " + this.Ip + "\n";
     }
 
 

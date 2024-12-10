@@ -22,13 +22,24 @@ public class PC {
         return tastiera.nextInt();
     }
 
+    private int getAccount(String nome){
+        for (int i=0; i<classe.size(); i++) {
+            if (classe.get(i).getNome().equals(nome))
+                return i;
+
+        }
+        return -1;
+    }
+
     public void menu(int scelta){
+        String nome;
+        int posizione;
         switch (scelta) {
             case 0: System.out.println("\nArrivederci"); break;
             case 1:
                 System.out.println("\nInserisci un Account [nome e pwd] e un indirizzo IP: ");
 
-                String nome = tastiera.nextLine();
+                nome = tastiera.nextLine();
                 String pwd = tastiera.nextLine();
                 String indirizzoIp = tastiera.nextLine();
                 classe.add(new Account(nome, pwd, indirizzoIp));
@@ -36,21 +47,43 @@ public class PC {
                 break;
 
             case 2:
-                System.out.println("\nInserisci un Account da visualizzare [nome]: ");
-                String nomeA = tastiera.nextLine();
-                for (int i=0; i<classe.size(); i++){
-                    if (classe.get(i).getNome().equals(nomeA)) {
-                        System.out.println(classe.get(i));
-                        break;
-                    }
-                }
+                System.out.println("\nInserisci un Account[nome] da visualizzare: ");
+                nome = tastiera.nextLine();
+                posizione = getAccount(nome);
+                if (posizione != -1)
+                    System.out.println(classe.get(posizione));
+                else
+                    System.out.println("Account non trovato!\n");
+
+
                 break;
 
             case 3:
                 for (Account account : classe) System.out.println(account);
                 break;
 
+            case 4:
+                System.out.println("\nInserisci un Account[nome] da disconnettere : ");
+                nome = tastiera.nextLine();
+                posizione = getAccount(nome);
+                if (posizione != -1) {
+                    classe.get(posizione).setLogged(false);
+                    System.out.println("Account Disconnesso!\n");
+                } else
+                    System.out.println("Account non trovato!\n");
+                break;
 
+            case 6:
+                System.out.println("\nInserisci un Account[nome] per cambiargli la password : ");
+                nome = tastiera.nextLine();
+                posizione = getAccount(nome);
+                if (posizione != -1) {
+                    System.out.println("\nInserisci nuova password : ");
+                    String password = tastiera.nextLine();
+                    classe.get(posizione).setPwd(password);
+                } else
+                    System.out.println("Account non trovato!\n");
+                break;
             default:
                 System.out.println("\nScelta non valida!");
                 break;
