@@ -1,6 +1,6 @@
 package progetto_iniziale.Compito_Account;
 import java.util.ArrayList;
-public class Account {
+public class Account implements Comparable<Account>{
     private String nome, pwd, Ip;
     private boolean logged;
 
@@ -93,6 +93,20 @@ public class Account {
 
 
         return randomIp;
+    }
+
+    @Override public int compareTo(Account account2){
+        String[] ipFinale = this.Ip.split("\\.");
+        String[] ipFinaleC = account2.getIp().split("\\.");
+        for (int i = 0; i < 4; i++){
+            int cm = Integer.parseInt(ipFinale[i]) - Integer.parseInt(ipFinaleC[i]);
+            if (cm == 0)
+                continue;
+            return cm;
+
+        }
+
+        return 0;
     }
 
     @Override

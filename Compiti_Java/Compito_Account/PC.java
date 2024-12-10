@@ -1,5 +1,7 @@
 package progetto_iniziale.Compito_Account;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class PC {
@@ -83,6 +85,12 @@ public class PC {
                     classe.get(posizione).setPwd(password);
                 } else
                     System.out.println("Account non trovato!\n");
+                break;
+
+            case 7:
+                ArrayList<Account> ordineCrescente = classe;
+                Collections.sort(ordineCrescente);
+                System.out.println(ordineCrescente + "\n");
                 break;
             default:
                 System.out.println("\nScelta non valida!");
