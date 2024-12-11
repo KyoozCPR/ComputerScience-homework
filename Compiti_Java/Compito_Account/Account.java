@@ -1,5 +1,5 @@
 package progetto_iniziale.Compito_Account;
-import java.util.ArrayList;
+
 public class Account implements Comparable<Account>{
     private String nome, pwd, Ip;
     private boolean logged;
@@ -48,10 +48,10 @@ public class Account implements Comparable<Account>{
 
         String finale = "PC";
 
-        for (int i = 0; i < PC.classe.size(); i++){
-            if (PC.classe.get(i).getNome().equals(nome)){
+        for (int i = 0; i < Rete.classe.size(); i++){
+            if (Rete.classe.get(i).getNome().equals(nome)){
                 System.out.println("nome gia presente , creato  casuale\n");
-                return finale + PC.classe.size();
+                return finale + Rete.classe.size();
             }
         }
         return nome;
@@ -80,16 +80,16 @@ public class Account implements Comparable<Account>{
                 (int) (Math.random() * 256);
         randomIp = casuale;
 
-        if (PC.classe.isEmpty())
+        if (Rete.classe.isEmpty())
             return randomIp;
 
         do {
-            if (PC.classe.get(i).getIp().equals(randomIp)) {
+            if (Rete.classe.get(i).getIp().equals(randomIp)) {
                     randomIp = casuale;
                     i = -1;
             }
             i++;
-        } while (i < PC.classe.size() && PC.classe.get(i).getIp().equals(randomIp));
+        } while (i < Rete.classe.size() && Rete.classe.get(i).getIp().equals(randomIp));
 
 
         return randomIp;

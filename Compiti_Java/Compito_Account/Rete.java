@@ -1,10 +1,9 @@
 package progetto_iniziale.Compito_Account;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class PC {
+public class Rete {
     public Scanner tastiera = new Scanner(System.in);
     public static ArrayList<Account> classe = new ArrayList<Account>();
 
@@ -31,6 +30,18 @@ public class PC {
 
         }
         return -1;
+    }
+
+    private int getPorzione(String nome){
+        boolean trovato = false;
+        for (int i=0; i<classe.size(); i++){
+            if (classe.get(i).getNome().contains(nome)){
+                System.out.println(classe.get(i));
+                trovato = true;
+            }
+        }
+        return !trovato ? 0 : 1;
+
     }
 
     public void menu(int scelta){
@@ -75,6 +86,14 @@ public class PC {
                     System.out.println("Account non trovato!\n");
                 break;
 
+            case 5:
+                System.out.println("\nInserisci una porzione di parola : ");
+                nome = tastiera.nextLine();
+                if (getPorzione(nome) == 0 )
+                    System.out.println("Account non trovato!\n");
+                break;
+
+
             case 6:
                 System.out.println("\nInserisci un Account[nome] per cambiargli la password : ");
                 nome = tastiera.nextLine();
@@ -100,7 +119,7 @@ public class PC {
 
 
     public static void main(String[] args){
-        PC classe = new PC();
+        Rete classe = new Rete();
         int scelta;
         do {
             scelta = classe.input();
