@@ -4,10 +4,14 @@ public class Utente {
     private String nome;
     private String email;
     private String password;
-
+    private Sala sala_prenotata;
     public String getNome(){return nome;}
     public String getEmail(){return email;}
     public String getPassword(){return password;}
+
+    public Sala getSala_prenotata() {
+        return sala_prenotata;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -20,6 +24,14 @@ public class Utente {
     public void setPassword(String password) {
         this.password = isValidPassword(password);
     }
+
+    public Utente(String nome, String email, String pwd){
+        setNome(nome);
+        setEmail(email);
+        setPassword(pwd);
+        this.sala_prenotata = null;
+    }
+
 
     private String isValidPassword(String password){
         if (password.matches("(?=.*[a-z])(?=.*[A-Z])(?=.*[._%]).{5,10}"))

@@ -29,6 +29,22 @@ public class Edificio {
     }
 
 
+    public void menu(int scelta){
+        switch (scelta){
+            case 0: System.out.println("Arrivederci!");
+            case 1:
+                System.out.println("\nInserire il nome dell'utente: ");
+                String nome = tastiera.nextLine();
+                System.out.println("Inserire l'email: ");
+                String email = tastiera.nextLine();
+                System.out.println("Inserisci una password: ");
+                String pwd = tastiera.nextLine();
+                utenti.add(new Utente(nome, email, pwd));
+
+            default:
+                System.out.println("Scelta non valida, riprovare!");
+        }
+    }
 
     public static void main(String[] args){
         Edificio obj = new Edificio();
@@ -36,7 +52,7 @@ public class Edificio {
 
         do {
             scelta = obj.input();
-            menu(scelta);
+            obj.menu(scelta);
         } while(scelta != 0);
     }
 
