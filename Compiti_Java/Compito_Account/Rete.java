@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class Rete {
     public Scanner tastiera = new Scanner(System.in);
     public static ArrayList<Account> classe = new ArrayList<Account>();
-
-
+    /*Usando il polimorfismo possiamo anche inserire 
+    ,in un qualsiasi array, oggetti di diverso tipo 
+    che però appartengono tutti ad una stessa classe parente 
+    */
 
     public int input(){
         System.out.println(
