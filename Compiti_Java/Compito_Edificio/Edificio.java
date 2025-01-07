@@ -74,7 +74,7 @@ public class Edificio {
                 break;
 
             case 3:
-
+                for(Sala sale: sala){System.out.println(sale);}
                 break;
 
 
