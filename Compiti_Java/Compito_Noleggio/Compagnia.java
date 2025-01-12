@@ -1,5 +1,7 @@
 package progetto_iniziale.Compito_Noleggio;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Compagnia {
     private String nome;
     private String nomeTitolare;
@@ -30,16 +32,27 @@ public class Compagnia {
     }
 
     public Compagnia(){
+        this.nome = "Unknown";
+        this.nomeTitolare = "Unknown";
+        this.cognomeTitolare = "Unknown";
+        this.veicoli = new ArrayList<>();
+    }
+
+    public Compagnia(String nome, String nomeTitolare, String cognomeTitolare, ArrayList<Veicolo> veicoli){
+        setNome(nome);
+        setNomeTitolare(nomeTitolare);
+        setVeicoli(veicoli);
+
 
     }
 
-    public Compagnia(String nome, String nomeTitolare, String cognomeTitolare, Veicolo[] veicoli){
-
-
+    public void stampaSconti(int sconto, int giorni){
+        System.out.println("Dati i " + giorni + " giorni di noleggio, avrà uno sconto del: " + sconto + "%\n");
     }
 
-    public void stampaSconti(){}
-    private float calcolaCosto(int posizioneVeicolo, int giorni){
+
+
+    public float calcolaCosto(int posizioneVeicolo, int giorni){
         float costoFinale = 0;
         int aggiunta;
         int cilindrata = veicoli.get(posizioneVeicolo).getCilindrata();
@@ -53,6 +66,7 @@ public class Compagnia {
             aggiunta=19;
         else
             aggiunta = 25;
+
         for (int i=0; i<=giorni; i++){costoFinale+=aggiunta;}
 
         if (giorni >= 3 && giorni < 8)
