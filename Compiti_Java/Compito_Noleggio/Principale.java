@@ -25,7 +25,7 @@ public class Principale {
         System.out.println("\n1 - Calcolo del costo di noleggio (l’utente sceglie quale veicolo noleggiare tra quelli\n" +
                 "proposti);\n" +
                 "2 - Visualizza gli sconti previsti;\n" +
-                "3 – Uscita.");
+                "0 – Uscita.");
         System.out.println("Inserisci opzione: ");
         int ris = scanner.nextInt();
         return ris;
@@ -56,11 +56,9 @@ public class Principale {
                 break;
 
             case 2:
-
+                auto.stampaSconti();
                 break;
-            case 3:
 
-                break;
 
             default:
                 System.out.println("Scelta non valida, riprova!");

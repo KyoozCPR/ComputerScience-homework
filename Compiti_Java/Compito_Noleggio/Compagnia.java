@@ -46,8 +46,10 @@ public class Compagnia {
 
     }
 
-    public void stampaSconti(int sconto, int giorni){
-        System.out.println("Dati i " + giorni + " giorni di noleggio, avrà uno sconto del: " + sconto + "%\n");
+    public void stampaSconti(){
+        System.out.println("\n- almeno  3 giorni a 7 sconto  8%\n" +
+                "- giorni tra 8 e 30  sconto 18%\n" +
+                "-  oltre un mese  50%\n");
     }
 
 
