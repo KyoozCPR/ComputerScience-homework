@@ -13,7 +13,7 @@ public class Principale {
 
 
     public int menu(){
-        System.out.println("1 - Calcolo del costo di noleggio (l’utente sceglie quale veicolo noleggiare tra quelli\n" +
+        System.out.println("\n1 - Calcolo del costo di noleggio (l’utente sceglie quale veicolo noleggiare tra quelli\n" +
                 "proposti);\n" +
                 "2 - Visualizza gli sconti previsti;\n" +
                 "3 – Uscita.");

@@ -7,7 +7,7 @@ public class Punto {
 	
 	/* il polimorfismo statico è 
 	 * quando all'interno della stessa classe 
-	 * andiamo ad avere 2 o più classi 
+	 * andiamo ad avere 2 o più metodi
 	 * con lo stesso nome, ma parametri diversi
 	 * === OverLoading
 	*/

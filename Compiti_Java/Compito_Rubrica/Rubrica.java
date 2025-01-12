@@ -2,6 +2,7 @@ package progetto_iniziale.Compito_Rubrica;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
+
 public class Rubrica {
 	static Scanner tastiera = new Scanner(System.in);
 	private Contatto[] listaAmici;
