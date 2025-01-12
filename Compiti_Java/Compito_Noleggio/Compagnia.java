@@ -38,5 +38,32 @@ public class Compagnia {
 
     }
 
+    public void stampaSconti(){}
+    private float calcolaCosto(int posizioneVeicolo, int giorni){
+        float costoFinale = 0;
+        int aggiunta;
+        int cilindrata = veicoli.get(posizioneVeicolo).getCilindrata();
+        if (cilindrata <= 1000)
+            aggiunta=10;
+        else if (cilindrata <= 1200)
+            aggiunta=12;
+        else if (cilindrata <= 1400)
+            aggiunta=16;
+        else if (cilindrata <= 1800)
+            aggiunta=19;
+        else
+            aggiunta = 25;
+        for (int i=0; i<=giorni; i++){costoFinale+=aggiunta;}
+
+        if (giorni >= 3 && giorni < 8)
+            costoFinale*=0.8;
+        else if (giorni >= 8 && giorni <= 30)
+            costoFinale*=1.8;
+        else if (giorni >30)
+            costoFinale*=5;
+
+        return costoFinale;
+
+    }
 
 }
