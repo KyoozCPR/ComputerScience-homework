@@ -36,8 +36,9 @@ public class Utente {
 
     public void setSala_prenotata(Sala sala){
         this.sala_prenotata = sala;
-        sala.setDisponibilità(false);
+        sala_prenotata.setDisponibilità(false, this);
     }
+
 
     public Utente(String nome, String email, String pwd){
         setNome(nome);

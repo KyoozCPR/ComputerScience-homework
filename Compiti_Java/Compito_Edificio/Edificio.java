@@ -13,7 +13,7 @@ public class Edificio {
                     new Sala("Camera", 5))
     );
     ArrayList<Utente> utenti = new ArrayList<>();
-
+    public static Utente loggedUser;
     public int input(){
         System.out.println(
                 "0) Uscire\n" +
@@ -39,6 +39,7 @@ public class Edificio {
 
     public void menu(int scelta){
         String nome, email, pwd;
+        int scelta_sala;
         switch (scelta){
             case 0: System.out.println("Arrivederci!"); break;
             case 1:
@@ -48,8 +49,8 @@ public class Edificio {
                 email = tastiera.nextLine();
                 System.out.println("Inserisci una password: ");
                 pwd = tastiera.nextLine();
-
-                utenti.add(new Utente(nome, email, pwd));
+                loggedUser = new Utente(nome, email, pwd); //log in
+                utenti.add(loggedUser);
                 break;
 
             case 2:
@@ -57,24 +58,19 @@ public class Edificio {
                 for (int i=0; i< sala.size(); i++){
                     System.out.println("\t"+ i+") " + sala.get(i).getNome());
                 }
-                int scelta_sala = tastiera.nextInt();
-                System.out.println("Effettuare il login ad un account per prenotare: ");
-                tastiera.nextLine().trim();
-                System.out.println("Inserire l'email: ");
-                email = tastiera.nextLine();
-                System.out.println("Inserisci una password: ");
-                pwd = tastiera.nextLine();
-                Utente logged = login(email, pwd);
-                if (logged != null){
-                    logged.setSala_prenotata(sala.get(scelta_sala));
-                }
-                else {
-                    System.out.println("Credenziali non valide!");
-                }
+                scelta_sala = tastiera.nextInt();
+                loggedUser.setSala_prenotata(sala.get(scelta_sala));
                 break;
 
             case 3:
                 for(Sala sale: sala){System.out.println(sale);}
+                break;
+
+            case 4:
+                System.out.println("Vuoi liberare la sala: "+ loggedUser.getSala_prenotata().getNome() + " da te prenotata?\n[0-si 1-no]: ");
+                scelta_sala = tastiera.nextInt();
+                if (scelta_sala == 1)
+                    sala.get(scelta_sala).setDisponibilità(true);
                 break;
 
 
