@@ -28,8 +28,15 @@ body {
 }
 
 .line {
-    width: 1px;
-    height: 1px;
+    position: absolute;
+    width: 2px;
+    height: 150px;
+    background-color:red;
+    margin-bottom: 150px;
+    animation-name: clock;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    transform-origin: 0 150px;
 }
 
 #time {
@@ -40,4 +47,10 @@ body {
 
 #date {
     font-size: 1.5em;
+}
+
+
+@keyframes clock {
+    from{rotate: 0}
+    to{rotate:360deg}
 }
