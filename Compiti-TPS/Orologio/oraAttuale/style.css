@@ -27,15 +27,12 @@ body {
     align-items: center;
 }
 
-.line {
+#line {
     position: absolute;
     width: 2px;
     height: 150px;
     background-color:red;
     margin-bottom: 150px;
-    animation-name: clock;
-    animation-duration: 60s;
-    animation-iteration-count: infinite;
     transform-origin: 0 150px;
 }
 
@@ -50,7 +47,3 @@ body {
 }
 
 
-@keyframes clock {
-    from{rotate: 0}
-    to{rotate:360deg}
-}
