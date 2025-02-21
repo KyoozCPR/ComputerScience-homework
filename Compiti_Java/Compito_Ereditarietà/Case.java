@@ -11,7 +11,10 @@ public class Case extends Prodotto{
     }
 
     public void setRam(int ram) {
-        this.ram = ram;
+        if (ram < 4)
+            this.ram = ram;
+        else
+            this.ram = 16;
     }
 
     public String getOs() {
