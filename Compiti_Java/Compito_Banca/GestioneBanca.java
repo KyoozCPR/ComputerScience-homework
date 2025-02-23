@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Banca;
+package Compiti_Java.Compito_Banca;
 import java.util.Scanner;
 public class GestioneBanca {
     public Scanner tastiera = new Scanner(System.in);

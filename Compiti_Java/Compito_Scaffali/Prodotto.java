@@ -1,3 +1,4 @@
+package Compiti_Java.Compito_Scaffali;
 
 public class Prodotto implements Comparable<Prodotto>{
 	private String nome;

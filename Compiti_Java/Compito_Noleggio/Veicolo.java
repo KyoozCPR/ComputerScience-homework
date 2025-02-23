@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Noleggio;
+package Compiti_Java.Compito_Noleggio;
 
 public class Veicolo {
     private String casaProduttrice;

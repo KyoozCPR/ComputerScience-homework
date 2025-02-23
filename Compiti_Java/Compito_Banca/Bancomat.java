@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Banca;
+package Compiti_Java.Compito_Banca;
 
 public class Bancomat {
     private double saldo;

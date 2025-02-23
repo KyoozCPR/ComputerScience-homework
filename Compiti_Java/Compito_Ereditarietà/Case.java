@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Ereditarietà;
+package Compiti_Java.Compito_Ereditarietà;
 
 public class Case extends Prodotto{
     private int ram;
@@ -41,11 +41,21 @@ public class Case extends Prodotto{
         this.motherboard = motherboard;
     }
 
-    public Case(String nome, float prezzo, String CodiceBarre, int ram, String os, int ssd, String motherboard) {
-        super(nome, prezzo, CodiceBarre);
+    public Case(String nome, float prezzo, int ram, String os, int ssd, String motherboard) {
+        super(nome, prezzo);
         setMotherboard(motherboard);
         setOs(os);
         setRam(ram);
 
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Case{" +
+                "ram=" + ram +
+                ", os='" + os + '\'' +
+                ", ssd=" + ssd +
+                ", motherboard='" + motherboard + '\'' +
+                '}';
     }
 }

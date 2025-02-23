@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Account;
+package Compiti_Java.Compito_Account;
 
 public class Account implements Comparable<Account>{
     private String nome, pwd, Ip;

@@ -1,4 +1,4 @@
-package progetto_iniziale.Impiccato;
+package Compiti_Java.Impiccato;
 import java.util.Scanner;
 public class GestioneIMP {
     public Scanner tastiera = new Scanner(System.in);

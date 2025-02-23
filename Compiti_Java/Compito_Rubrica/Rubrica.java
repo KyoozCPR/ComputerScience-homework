@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Rubrica;
+package Compiti_Java.Compito_Rubrica;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;

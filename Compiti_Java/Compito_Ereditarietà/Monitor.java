@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Ereditarietà;
+package Compiti_Java.Compito_Ereditarietà;
 
 public class Monitor extends Prodotto{
     private int hrz;
@@ -31,10 +31,21 @@ public class Monitor extends Prodotto{
 
 
 
-    public Monitor(String nome, float prezzo, String CodiceBarre, int hrz, float pollici, int risoluzione) {
-        super(nome, prezzo, CodiceBarre);
+    public Monitor(String nome, float prezzo, int hrz, float pollici, int risoluzione) {
+        super(nome, prezzo);
         setHrz(hrz);
         setRisoluzione(risoluzione);
         setPollici(pollici);
+    }
+
+    @Override
+    public String toString() {
+
+
+        return super.toString() +
+                "hrz=" + hrz +
+                ", pollici=" + pollici +
+                ", risoluzione=" + risoluzione +
+                '}';
     }
 }

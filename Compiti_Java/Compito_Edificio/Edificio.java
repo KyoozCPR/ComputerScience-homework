@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Edificio;
+package Compiti_Java.Compito_Edificio;
 
 import java.util.ArrayList;
 import java.util.Arrays;

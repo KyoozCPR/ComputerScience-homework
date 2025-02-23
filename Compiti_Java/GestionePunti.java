@@ -1,4 +1,4 @@
-package progetto_iniziale;
+package Compiti_Java;
 import java.util.Scanner;
 
 public class GestionePunti{

@@ -1,4 +1,4 @@
-package progetto_iniziale;
+package Compiti_Java;
 
 public class Punto {
 	

@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Edificio;
+package Compiti_Java.Compito_Edificio;
 
 public class Utente {
     private String nome;
@@ -36,7 +36,7 @@ public class Utente {
 
     public void setSala_prenotata(Sala sala){
         this.sala_prenotata = sala;
-        sala_prenotata.setDisponibilità(false, this);
+        sala_prenotata.setDisponibilità(false);
     }
 
 

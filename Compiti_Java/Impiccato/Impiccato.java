@@ -1,4 +1,4 @@
-package progetto_iniziale.Impiccato;
+package Compiti_Java.Impiccato;
 
 public class Impiccato {
     private String[] parole_da_indovinare = {"GIOCARE", "COMPUTER", "VISITA"};

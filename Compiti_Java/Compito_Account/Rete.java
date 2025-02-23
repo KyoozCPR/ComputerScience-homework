@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Account;
+package Compiti_Java.Compito_Account;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;

@@ -1,24 +1,32 @@
-package progetto_iniziale.Compito_Ereditarietà;
+package Compiti_Java.Compito_Ereditarietà;
 
 public class Prodotto {
     protected String nome;
     protected float prezzo;
-    protected String CodiceBarre;
+    protected long CodiceBarre;
 
 
     public String getNome(){return nome;}
     public float getPrezzo(){ return prezzo;}
-    public String getCodiceBarre(){ return CodiceBarre;}
+    public long getCodiceBarre(){ return CodiceBarre;}
 
     public void setNome(String nome){ this.nome = nome;}
     public void setPrezzo(float prezzo){ this.prezzo = prezzo;}
-    public void setCodiceBarre(String CodiceBarre){ this.CodiceBarre = CodiceBarre;}
+    public void setCodiceBarre(){ this.CodiceBarre++;}
 
+    @Override
+    public String toString() {
+        return "Prodotto{" +
+                "nome='" + nome + '\'' +
+                ", prezzo=" + prezzo +
+                ", CodiceBarre=" + CodiceBarre +
+                "}\n";
+    }
 
-    public Prodotto(String nome, float prezzo, String CodiceBarre){
+    public Prodotto(String nome, float prezzo){
         setNome(nome);
         setPrezzo(prezzo);
-        setCodiceBarre(CodiceBarre);
+        this.CodiceBarre = 100000000000L;
     }
 
 }

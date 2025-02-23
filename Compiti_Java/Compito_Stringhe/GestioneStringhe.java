@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Stringhe;
+package Compiti_Java.Compito_Stringhe;
 
 public class GestioneStringhe {
 

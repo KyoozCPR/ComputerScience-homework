@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Rubrica;
+package Compiti_Java.Compito_Rubrica;
 
 public class Data {
 	private int gg, mm, aaaa;

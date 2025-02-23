@@ -1,4 +1,4 @@
-package progetto_iniziale.EserciziRegex;
+package Compiti_Java.EserciziRegex;
 import java.util.regex.Pattern;
 
 public class GestioneRegEx {

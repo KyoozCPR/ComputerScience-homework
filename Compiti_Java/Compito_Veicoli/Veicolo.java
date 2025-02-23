@@ -1,3 +1,4 @@
+package Compiti_Java.Compito_Veicoli;
 
 public class Veicolo implements Comparable<Veicolo> {
     private String targa;
