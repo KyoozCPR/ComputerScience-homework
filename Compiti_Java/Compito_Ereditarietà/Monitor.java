@@ -43,9 +43,9 @@ public class Monitor extends Prodotto{
 
 
         return super.toString() +
-                "hrz=" + hrz +
-                ", pollici=" + pollici +
-                ", risoluzione=" + risoluzione +
-                '}';
+                ",\n\thrz=" + hrz +
+                ",\n\tpollici=" + pollici +
+                ",\n\trisoluzione=" + risoluzione +
+                "\n}\n";
     }
 }

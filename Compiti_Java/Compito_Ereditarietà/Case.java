@@ -51,11 +51,11 @@ public class Case extends Prodotto{
 
     @Override
     public String toString() {
-        return super.toString() + "Case{" +
-                "ram=" + ram +
-                ", os='" + os + '\'' +
-                ", ssd=" + ssd +
-                ", motherboard='" + motherboard + '\'' +
-                '}';
+        return super.toString() +
+                ",\n\tram=" + ram +
+                ",\n\tos='" + os + '\'' +
+                ",\n\tssd=" + ssd +
+                ",\n\tmotherboard='" + motherboard + '\'' +
+                "\n}\n";
     }
 }

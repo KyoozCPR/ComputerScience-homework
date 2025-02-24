@@ -16,11 +16,9 @@ public class Prodotto {
 
     @Override
     public String toString() {
-        return "Prodotto{" +
-                "nome='" + nome + '\'' +
-                ", prezzo=" + prezzo +
-                ", CodiceBarre=" + CodiceBarre +
-                "}\n";
+        return "Prodotto = {\n\tnome='" + nome + '\'' +
+                ",\n\tprezzo=" + prezzo +
+                ",\n\tCodiceBarre=" + CodiceBarre;
     }
 
     public Prodotto(String nome, float prezzo){

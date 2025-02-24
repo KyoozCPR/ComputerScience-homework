@@ -20,7 +20,7 @@ public class Negozio {
                                 3) Stampare tutti i prodotti presenti (l'inventario)
                                 4) Contare tutti i monitor all'interno di un range di pollici
                                 5) Modificare le caratteristiche di un prodotto conoscendo il suo codice a barre
-                                6) Determinare il valore di tutti i prodotti presenti in negozio\n.
+                                6) Determinare il valore di tutti i prodotti presenti in negozio.\n
                         """
         );
         return tastiera.nextInt();
@@ -33,7 +33,6 @@ public class Negozio {
 
         System.out.println("Inserisci il nome del prodotto che vuoi inserire: ");
         nomeP = tastiera.nextLine();
-        tastiera.nextLine().trim();
         System.out.println("Inserisci il prezzo del prodotto: ");
         prezzo = tastiera.nextFloat();
         tastiera.nextLine().trim();
@@ -96,10 +95,17 @@ public class Negozio {
                 break;
             case 2:
                 System.out.print("Inserisci il nome del prodotto: ");
-                String nome = tastiera.nextLine();
+                tastiera.nextLine().trim();
+                String nome_inserito = tastiera.nextLine();
+
                 for (Prodotto prodotto: prodotti){
-                    if (prodotto.getNome().equals(nome))
+
+                    if (prodotto.getNome().equals(nome_inserito))
                         System.out.println(prodotto);
+                    else
+                        System.out.println("\nProdotto non esistente!\n");
+
+
                 }
                 break;
             case 3:
@@ -133,7 +139,9 @@ public class Negozio {
                     valoreNegozio += prodotto.getPrezzo();
                 }
                 System.out.println("valore totale del negozio: " + valoreNegozio + "$");
-            default:
+                break;
+
+                default:
                 System.out.println("scelta non valida, riprovare!");
         }
 
