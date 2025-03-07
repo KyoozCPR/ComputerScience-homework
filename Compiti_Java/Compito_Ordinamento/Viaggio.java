@@ -1,3 +1,5 @@
+package Compiti_Java.Compito_Ordinamento;
+
 final public class Viaggio extends Prenotazione{
     private String mezzo;
 
@@ -17,8 +19,8 @@ final public class Viaggio extends Prenotazione{
         return "Viaggio" + contatore;
     }
 
-    public Viaggio(String prenota, float prezzoBase, String mezzo, int conta) {
-        super(prenota, prezzoBase);
+    public Viaggio(String luogo, String mezzo, int conta) {
+        super(luogo, 200);
         super.codiceNumerico += generaCodice(conta);
         setMezzo(mezzo);
     }

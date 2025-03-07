@@ -1,3 +1,5 @@
+package Compiti_Java.Compito_Ordinamento;
+
 import java.util.Comparator;
 
 public class PrenotazioneCompare implements Comparator {

@@ -1,14 +1,16 @@
+package Compiti_Java.Compito_Ordinamento;
+
 abstract public class Prenotazione {
-    protected String prenota;
+    protected String luogo;
     protected float prezzoBase;
     protected String codiceNumerico;
 
-    public String getPrenota() {
-        return prenota;
+    public String getLuogo() {
+        return luogo;
     }
 
-    public void setPrenota(String prenota) {
-        this.prenota = prenota;
+    public void setLuogo(String luogo) {
+        this.luogo = luogo;
     }
 
     public float getPrezzoBase() {
@@ -24,8 +26,8 @@ abstract public class Prenotazione {
     }
 
 
-    public Prenotazione(String prenota, float prezzoBase) {
-        setPrenota(prenota);
+    public Prenotazione(String luogo, float prezzoBase) {
+        setLuogo(luogo);
         setPrezzoBase(prezzoBase);
         this.codiceNumerico = "pre";
 

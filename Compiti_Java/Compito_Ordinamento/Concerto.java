@@ -1,3 +1,5 @@
+package Compiti_Java.Compito_Ordinamento;
+
 public class Concerto extends Prenotazione{
     private String artista;
     private int numPosto;
@@ -25,8 +27,8 @@ public class Concerto extends Prenotazione{
         return "Concerto" + contatore;
     }
 
-    public Concerto(String prenota, float prezzoBase, String artista, int numPosto, int conta) {
-        super(prenota, prezzoBase);
+    public Concerto(String luogo, String artista, int numPosto, int conta) {
+        super(luogo, 50);
         super.codiceNumerico += generaCodice(conta);
         setArtista(artista);
         setNumPosto(numPosto);
