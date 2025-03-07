@@ -65,6 +65,10 @@ def menu(scelta: int):
         prelievo(quantità)
     elif scelta == 3:
         print(lastdate)
+    elif scelta == 4:
+        print(f"il saldo è pari a: {str(saldo)}$")
+    else:
+        print("Scelta non valida!")
 
 
 if __name__ == "__main__":
