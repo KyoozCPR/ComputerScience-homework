@@ -4,7 +4,7 @@ abstract public class Prenotazione {
     protected String luogo;
     protected float prezzoBase;
     protected String codiceNumerico;
-
+    protected float prezzoFinale;
     public String getLuogo() {
         return luogo;
     }
@@ -25,17 +25,34 @@ abstract public class Prenotazione {
         return codiceNumerico;
     }
 
+    public float getPrezzoFinale() {
+        return prezzoFinale;
+    }
+
+    public void setPrezzoFinale(float prezzoFinale) {
+        this.prezzoFinale = prezzoFinale;
+    }
+
+    public void setCodiceNumerico(String codiceNumerico) {
+        this.codiceNumerico = codiceNumerico;
+    }
 
     public Prenotazione(String luogo, float prezzoBase) {
         setLuogo(luogo);
         setPrezzoBase(prezzoBase);
         this.codiceNumerico = "pre";
+        this.prezzoFinale = prezzoBase;
 
     }
 
-    abstract public float aggiornaPrezzo();
+    abstract public void aggiornaPrezzo();
 
-
+    @Override
+    public String toString() {
+        return "Prenotazione{" +
+                "luogo='" + luogo + '\'' +
+                ", codiceNumerico='" + codiceNumerico + '\'';
+    }
 }
 
 

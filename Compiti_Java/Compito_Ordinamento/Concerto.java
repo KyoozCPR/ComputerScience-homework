@@ -32,25 +32,26 @@ public class Concerto extends Prenotazione{
         super.codiceNumerico += generaCodice(conta);
         setArtista(artista);
         setNumPosto(numPosto);
-
+        aggiornaPrezzo();
     }
 
     @Override
-    public float aggiornaPrezzo() {
+    public void aggiornaPrezzo() {
 
          if (numPosto >= 1 && numPosto <= 30)
-             super.prezzoBase += (float) (prezzoBase * 0.3);
+             super.prezzoFinale += (float) (prezzoBase * 0.3);
          else if (numPosto <= 50)
-             super.prezzoBase += (float) (prezzoBase * 0.2);
+             super.prezzoFinale += (float) (prezzoBase * 0.2);
 
-         return super.prezzoBase;
+
     }
 
     @Override
     public String toString() {
-        return "Concerto{" +
-                "artista='" + artista + '\'' +
+        return super.toString() +
+                ", artista='" + artista + '\'' +
                 ", numPosto=" + numPosto +
+                ", prezzo= " + super.prezzoFinale+
                 '}';
     }
 }

@@ -1,4 +1,4 @@
-package progetto_iniziale.Compito_Noleggio;
+package Compiti_Java.Compito_Noleggio;
 
 import java.util.ArrayList;
 import java.util.Arrays;

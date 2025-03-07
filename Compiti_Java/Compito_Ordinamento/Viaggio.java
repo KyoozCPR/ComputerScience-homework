@@ -23,23 +23,23 @@ final public class Viaggio extends Prenotazione{
         super(luogo, 200);
         super.codiceNumerico += generaCodice(conta);
         setMezzo(mezzo);
+        aggiornaPrezzo();
     }
 
     @Override
-    public float aggiornaPrezzo() {
+    public void aggiornaPrezzo() {
         if (mezzo.equals("aereo"))
-            super.prezzoBase += (float) (prezzoBase * 0.2);
+            super.prezzoFinale += (float) (prezzoBase * 0.2);
         else if (mezzo.equals("treno"))
-            super.prezzoBase += (float) (prezzoBase * 0.1);
+            super.prezzoFinale += (float) (prezzoBase * 0.1);
 
-
-        return super.prezzoBase;
     }
 
     @Override
     public String toString() {
-        return "Viaggio{" +
-                "mezzo='" + mezzo + '\'' +
+        return super.toString() +
+                ", mezzo='" + mezzo + '\'' +
+                ", prezzo= " + super.prezzoFinale+
                 '}';
     }
 }
