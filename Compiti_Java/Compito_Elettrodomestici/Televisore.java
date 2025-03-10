@@ -28,15 +28,22 @@ public class Televisore extends Elettrodomestico{
 
     @Override
     protected float CalcolaConsumo(int minuti) {
-        return 0;
+        float risultato = ((float) (this.potenza * minuti) / 60000) + this.nrPollici*0.1f;
+        if (this.tecnologia.equals("CRT"))
+            return risultato*1.2f;
+        else if (this.tecnologia.equals("LCD"))
+            return risultato*0.9f;
+        else if (this.tecnologia.equals("LED") || this.tecnologia.equals("OLED"))
+            return risultato*0.8f;
+        return risultato;
     }
 
 
     @Override
     public String toString() {
         return super.toString() +
-                "nrPollici=" + nrPollici +
-                ", tecnologia='" + tecnologia + '\'' +
-                '}';
+                ",\n\tnrPollici=" + nrPollici +
+                ",\n\ttecnologia='" + tecnologia + '\'' +
+                "\n\t}";
     }
 }

@@ -61,11 +61,11 @@ abstract public class Elettrodomestico  {
 
     @Override
     public String toString() {
-        return "Elettrodomestico{" +
-                "proprietà='" + proprietà + '\'' +
-                ", potenza=" + potenza +
-                ", dataAcquisto='" + dataAcquisto + '\'' +
-                ", inGaranzia=" + inGaranzia +
-                ", prezzo=" + prezzo;
+        return "\n\t"+ "Elettrodomestico{\n" +
+                "\tproprietà='" + proprietà + '\'' +
+                ",\n\tpotenza=" + potenza +
+                ",\n\tdataAcquisto='" + dataAcquisto + '\'' +
+                ",\n\tinGaranzia=" + inGaranzia +
+                ",\n\tprezzo=" + prezzo;
     }
 }

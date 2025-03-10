@@ -25,7 +25,7 @@ public class Frigorifero extends Elettrodomestico{
     @Override
     public String toString() {
         return super.toString()  +
-                "litri=" + litri +
+                ",\n\tlitri=" + litri +
                 '}';
     }
 }

@@ -19,13 +19,13 @@ public class Aspirapolvere extends Elettrodomestico{
 
     @Override
     protected float CalcolaConsumo(int minuti) {
-        return 0;
+        return ((float) (this.potenza * minuti) / 30000) + this.volume * 0.1f;
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                "volume=" + volume +
+                ",\n\tvolume=" + volume +
                 '}';
     }
 }
