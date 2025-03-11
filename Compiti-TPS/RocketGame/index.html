@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Lunar Lander Pro - Ultimate</title>
+  <style>
+    /* Reset e stili di base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle, #1a1a1a, #000);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      color: #fff;
+    }
+    #gameContainer {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: none;
+    }
+    canvas {
+      display: block;
+      background: radial-gradient(circle, #0f4c75, #1b262c);
+      margin: 0 auto;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+    .hud {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1em;
+    }
+    .hud div { margin-bottom: 5px; }
+    /* Display del livello, vite, ecc. */
+    #livesContainer { font-size: 1.5em; }
+    #scorePanel {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.1em;
+    }
+    /* Menu Overlay */
+    #menuOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .menu-button {
+      background: linear-gradient(145deg, #3282b8, #0f4c75);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      border-radius: 25px;
+      font-size: 1.2em;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .menu-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(50,130,184,0.6);
+    }
+    /* Controlli Mobile */
+    #mobileControls {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+    }
+    #mobileControls button {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      backdrop-filter: blur(5px);
+      transition: background 0.2s;
+    }
+    #mobileControls button:active {
+      background: rgba(255,255,255,0.4);
+    }
+    /* Overlay per messaggi temporanei e Game Over */
+    #messageOverlay, #gameOverOverlay, #levelCompleteOverlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 200;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    #messageOverlay h1, #gameOverOverlay h1, #levelCompleteOverlay h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    #gameOverOverlay .menu-button, #messageOverlay .menu-button, #levelCompleteOverlay .menu-button {
+      margin-top: 20px;
+    }
+    /* Animazione per testo fluttuante */
+    .animated-text {
+      animation: floatText 2s ease-out;
+    }
+    @keyframes floatText {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-50px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Menu Iniziale -->
+  <div id="menuOverlay">
+    <h1>Lunar Lander Pro</h1>
+    <button id="startButton" class="menu-button">Inizia il Gioco</button>
+    <button id="instructionsButton" class="menu-button">Istruzioni</button>
+    <div id="instructions" style="display:none; text-align:center; max-width:400px; margin-top:20px;">
+      <p>🚀 Obiettivo: Atterra dolcemente sulla piattaforma evitando le meteore!</p>
+      <p>⬆️ Freccia Su: Accendi i motori</p>
+      <p>⬅️➡️ Frecce Laterali: Muoviti</p>
+      <p>🏆 Guadagna punti per atterraggi precisi, carburante risparmiato e tempo veloce.</p>
+      <p>Premi ESC per tornare al menu in qualsiasi momento.</p>
+    </div>
+  </div>
+  
+  <!-- Contenitore di Gioco -->
+  <div id="gameContainer">
+    <canvas id="gameCanvas"></canvas>
+    <div class="hud">
+      <div>Altitudine: <span id="altitude">0</span> m</div>
+      <div>Velocità: <span id="vspeed">0</span> m/s | <span id="hspeed">0</span> m/s</div>
+      <div>Carburante: <span id="fuel">100</span>%</div>
+      <div>Livello: <span id="level">1</span></div>
+      <div>Vite: <span id="livesContainer"></span></div>
+    </div>
+    <div id="scorePanel">
+      <div>Punteggio: <span id="score">0</span></div>
+      <div>Record: <span id="highScore">0</span></div>
+      <div>Tempo: <span id="gameTime">0</span> s</div>
+    </div>
+    <div id="mobileControls">
+      <button id="btnLeft">←</button>
+      <button id="btnUp">↑</button>
+      <button id="btnRight">→</button>
+    </div>
+    <!-- Overlay per messaggi temporanei -->
+    <div id="messageOverlay">
+      <h1 id="messageText"></h1>
+    </div>
+    <!-- Overlay Level Complete -->
+    <div id="levelCompleteOverlay">
+      <h1 id="levelCompleteMessage"></h1>
+      <button id="continueButton" class="menu-button">Continua</button>
+      <button id="exitButton" class="menu-button">Menu Principale</button>
+    </div>
+    <!-- Overlay Game Over -->
+    <div id="gameOverOverlay">
+      <h1 id="gameOverMessage"></h1>
+      <button id="restartButton" class="menu-button">Ricomincia</button>
+      <button id="menuButton" class="menu-button">Menu Principale</button>
+    </div>
+  </div>
+  
+  <script>
+    // --- Configurazione Base ---
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const WIDTH = 800, HEIGHT = 600;
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
+    
+    // Costanti di gioco aggiornate
+    const BASE_GRAVITY = 0.03, THRUST = 0.15, MAX_SAFE_SPEED = 2, SPACECRAFT_SIZE = 30;
+    const PARTICLES_PER_FRAME = 5, FUEL_CONSUMPTION = 0.2;
+    const GRAVITY_INCREMENT = 0.5; // aumenta la gravità del 50% per ogni livello successivo
+    
+    // --- Stato di Gioco ---
+    let spacecraft = { x: WIDTH/2, y: 50, vx: 0, vy: 0, fuel: 100, landed: false };
+    // Aumentata la larghezza della piattaforma: 120 px, centrata
+    let landingPad = { x: WIDTH/2 - 60, width: 120, height: 10, y: 0 };
+    let particles = [];
+    let obstacles = []; // Ostacoli (meteore)
+    let obstacleSpawnTimer = 0;
+    let score = 0, highScore = localStorage.getItem('highScore') || 0;
+    let gameStartTime = null;
+    let lives = 3;
+    let level = 1;
+    let keys = { ArrowUp: false, ArrowLeft: false, ArrowRight: false };
+    let gameLoopId = null;
+    let collisionInProgress = false; // Evita collisioni ripetute durante lo stesso evento
+    
+    // --- Funzioni per la Superficie ---
+    function getSurfaceHeight(x) {
+      const amplitude = 20, offset = HEIGHT - 50;
+      return offset - amplitude * Math.sin((x / WIDTH) * Math.PI);
+    }
+    function getEffectiveSurfaceHeight(x) {
+      if (x >= landingPad.x && x <= landingPad.x + landingPad.width)
+        return landingPad.y;
+      return getSurfaceHeight(x);
+    }
+    function drawSurface() {
+      ctx.beginPath();
+      ctx.moveTo(0, getSurfaceHeight(0));
+      for (let x = 0; x <= WIDTH; x++) ctx.lineTo(x, getSurfaceHeight(x));
+      ctx.lineTo(WIDTH, HEIGHT);
+      ctx.lineTo(0, HEIGHT);
+      ctx.closePath();
+      ctx.fillStyle = "#555";
+      ctx.fill();
+    }
+    
+    // --- Particelle (Effetto Motori) ---
+    function createParticles(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 2,
+          vy: Math.random() * 2 + 1,
+          life: 1
+        });
+      }
+    }
+    
+    // --- Ostacoli: Meteore ---
+    function spawnObstacle() {
+      obstacles.push({
+        x: Math.random() * (WIDTH - 40) + 20,
+        y: -20,
+        radius: 15,
+        vy: Math.random() * 1.5 + 1
+      });
+    }
+    function updateObstacles() {
+      obstacleSpawnTimer--;
+      if (obstacleSpawnTimer <= 0) {
+        spawnObstacle();
+        obstacleSpawnTimer = Math.floor(Math.random() * 60) + 60;
+      }
+      obstacles.forEach(ob => { ob.y += ob.vy; });
+      obstacles = obstacles.filter(ob => ob.y - ob.radius <= HEIGHT);
+    }
+    function drawObstacles() {
+      ctx.fillStyle = "#FF5722";
+      obstacles.forEach(ob => {
+        ctx.beginPath();
+        ctx.arc(ob.x, ob.y, ob.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+    function checkObstacleCollision() {
+      let cx = spacecraft.x, cy = spacecraft.y + SPACECRAFT_SIZE/2, cr = SPACECRAFT_SIZE/2;
+      for (let i = 0; i < obstacles.length; i++) {
+        let ob = obstacles[i];
+        let dx = cx - ob.x, dy = cy - ob.y;
+        if (Math.sqrt(dx*dx + dy*dy) < cr + ob.radius) {
+          obstacles.splice(i, 1);
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    // --- Overlay Messaggi ---
+    function showMessage(text) {
+      const overlay = document.getElementById('messageOverlay');
+      const messageText = document.getElementById('messageText');
+      messageText.textContent = text;
+      overlay.style.display = 'flex';
+      setTimeout(() => { overlay.style.display = 'none'; }, 1500);
+    }
+    
+    // Funzione per il check dell'atterraggio sicuro (controlla solo la posizione orizzontale e la velocità verticale)
+    function checkLanding() {
+      return (spacecraft.x >= landingPad.x && spacecraft.x <= landingPad.x + landingPad.width &&
+              Math.abs(spacecraft.vy) <= MAX_SAFE_SPEED);
+    }
+    
+    // --- Overlay per il passaggio di livello ---
+    function showLevelCompleteOverlay() {
+      const overlay = document.getElementById('levelCompleteOverlay');
+      const msg = document.getElementById('levelCompleteMessage');
+      msg.textContent = "Livello " + level + " completato. Continuare?";
+      overlay.style.display = 'flex';
+    }
+    function continueLevel() {
+      document.getElementById('levelCompleteOverlay').style.display = 'none';
+      level++;
+      resetSpacecraft();
+      collisionInProgress = false;
+    }
+    
+    // --- Loop di Aggiornamento ---
+    function update() {
+      if (collisionInProgress) {
+        draw();
+        gameLoopId = requestAnimationFrame(update);
+        return;
+      }
+      
+      // Controlla collisione con ostacoli
+      if (!spacecraft.landed && checkObstacleCollision()) {
+        collisionInProgress = true;
+        lives--;
+        showMessage("Colpito da una meteora!");
+        setTimeout(() => {
+          if (lives <= 0) gameOver();
+          else { resetSpacecraft(); collisionInProgress = false; }
+        }, 1000);
+        draw();
+        gameLoopId = requestAnimationFrame(update);
+        return;
+      }
+      
+      if (!spacecraft.landed) {
+        const currentGravity = BASE_GRAVITY * (1 + (level - 1) * GRAVITY_INCREMENT);
+        spacecraft.vy += currentGravity;
+        if (keys.ArrowUp && spacecraft.fuel > 0) {
+          spacecraft.vy -= THRUST;
+          spacecraft.fuel = Math.max(0, spacecraft.fuel - FUEL_CONSUMPTION);
+          createParticles(spacecraft.x, spacecraft.y + SPACECRAFT_SIZE, PARTICLES_PER_FRAME);
+        }
+        if (keys.ArrowLeft) spacecraft.vx -= 0.05;
+        if (keys.ArrowRight) spacecraft.vx += 0.05;
+        spacecraft.x += spacecraft.vx;
+        spacecraft.y += spacecraft.vy;
+        
+        if (spacecraft.y + SPACECRAFT_SIZE >= getEffectiveSurfaceHeight(spacecraft.x)) {
+          collisionInProgress = true;
+          spacecraft.y = getEffectiveSurfaceHeight(spacecraft.x) - SPACECRAFT_SIZE;
+          spacecraft.landed = true;
+          if (checkLanding()) {
+            score += 100;
+            showMessage("Atterraggio Riuscito!");
+            setTimeout(() => { showLevelCompleteOverlay(); }, 1000);
+          } else {
+            lives--;
+            showMessage("CRASH!");
+            setTimeout(() => { lives <= 0 ? gameOver() : (resetSpacecraft(), collisionInProgress = false); }, 1000);
+          }
+        }
+      }
+      
+      particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.life -= 0.02; });
+      particles = particles.filter(p => p.life > 0);
+      updateObstacles();
+      
+      draw();
+      gameLoopId = requestAnimationFrame(update);
+    }
+    
+    // --- Funzione di Disegno ---
+    function draw() {
+      ctx.fillStyle = '#1b262c';
+      ctx.fillRect(0, 0, WIDTH, HEIGHT);
+      drawSurface();
+      ctx.fillStyle = '#4CAF50';
+      ctx.fillRect(landingPad.x, landingPad.y - 2, landingPad.width, 4);
+      ctx.fillStyle = spacecraft.landed ? '#4CAF50' : '#FFF';
+      ctx.beginPath();
+      ctx.rect(spacecraft.x - SPACECRAFT_SIZE/2, spacecraft.y, SPACECRAFT_SIZE, SPACECRAFT_SIZE);
+      ctx.fill();
+      particles.forEach(p => {
+        ctx.fillStyle = `rgba(255, ${Math.random()*100}, 0, ${p.life})`;
+        ctx.fillRect(p.x, p.y, 2, 2);
+      });
+      drawObstacles();
+      
+      document.getElementById('altitude').textContent =
+        Math.max(0, Math.round(getEffectiveSurfaceHeight(spacecraft.x) - (spacecraft.y + SPACECRAFT_SIZE)));
+      document.getElementById('vspeed').textContent = Math.abs(spacecraft.vy).toFixed(1);
+      document.getElementById('hspeed').textContent = Math.abs(spacecraft.vx).toFixed(1);
+      document.getElementById('fuel').textContent = Math.round(spacecraft.fuel);
+      if (gameStartTime)
+        document.getElementById('gameTime').textContent = ((Date.now() - gameStartTime) / 1000).toFixed(1);
+      document.getElementById('score').textContent = score;
+      document.getElementById('livesContainer').innerHTML = "🚀".repeat(lives);
+      document.getElementById('level').textContent = level;
+    }
+    
+    // --- Reset e Game Over ---
+    function resetSpacecraft() {
+      spacecraft = { x: WIDTH/2, y: 50, vx: 0, vy: 0, fuel: 100, landed: false };
+      gameStartTime = Date.now();
+    }
+    function gameOver() {
+      cancelAnimationFrame(gameLoopId);
+      document.getElementById('gameOverMessage').textContent = "Game Over! Punteggio: " + score;
+      document.getElementById('gameOverOverlay').style.display = 'flex';
+      level = 1;
+    }
+    function restartGame() {
+      lives = 3; score = 0; obstacles = [];
+      resetSpacecraft();
+      document.getElementById('gameOverOverlay').style.display = 'none';
+      gameStartTime = Date.now();
+      collisionInProgress = false;
+      level = 1;
+      update();
+    }
+    function returnToMenu() {
+      cancelAnimationFrame(gameLoopId);
+      obstacles = [];
+      spacecraft = { x: WIDTH/2, y: 50, vx: 0, vy: 0, fuel: 100, landed: false };
+      collisionInProgress = false;
+      gameStartTime = null;
+      level = 1;
+      lives = 3;
+      document.getElementById('gameContainer').style.display = 'none';
+      document.getElementById('gameOverOverlay').style.display = 'none';
+      document.getElementById('levelCompleteOverlay').style.display = 'none';
+      document.getElementById('menuOverlay').style.display = 'flex';
+    }
+    
+    // --- Avvio del Gioco ---
+    function startGame() {
+      document.getElementById('menuOverlay').style.display = 'none';
+      document.getElementById('gameContainer').style.display = 'block';
+      landingPad.y = getSurfaceHeight(WIDTH/2);
+      gameStartTime = Date.now();
+      update();
+    }
+    
+    // --- Overlay per il passaggio di livello ---
+    function showLevelCompleteOverlay() {
+      const overlay = document.getElementById('levelCompleteOverlay');
+      const msg = document.getElementById('levelCompleteMessage');
+      msg.textContent = "Livello " + level + " completato. Continuare?";
+      overlay.style.display = 'flex';
+    }
+    function continueLevel() {
+      document.getElementById('levelCompleteOverlay').style.display = 'none';
+      level++;
+      resetSpacecraft();
+      collisionInProgress = false;
+    }
+    
+    // --- Controlli ---
+    function addTouchControl(buttonId, keyName) {
+      const btn = document.getElementById(buttonId);
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); keys[keyName] = true; });
+      btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[keyName] = false; });
+      btn.addEventListener('mousedown', (e) => { e.preventDefault(); keys[keyName] = true; });
+      btn.addEventListener('mouseup', (e) => { e.preventDefault(); keys[keyName] = false; });
+      btn.addEventListener('mouseleave', (e) => { keys[keyName] = false; });
+    }
+    addTouchControl('btnLeft', 'ArrowLeft');
+    addTouchControl('btnUp', 'ArrowUp');
+    addTouchControl('btnRight', 'ArrowRight');
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") returnToMenu();
+      if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
+    });
+    document.addEventListener('keyup', (e) => {
+      if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
+    });
+    
+    // --- Listener Menu --- 
+    document.getElementById('startButton').addEventListener('click', startGame);
+    document.getElementById('instructionsButton').addEventListener('click', () => {
+      const instr = document.getElementById('instructions');
+      instr.style.display = (instr.style.display === 'none' || instr.style.display === '') ? 'block' : 'none';
+    });
+    document.getElementById('restartButton').addEventListener('click', restartGame);
+    document.getElementById('menuButton').addEventListener('click', returnToMenu);
+    document.getElementById('continueButton').addEventListener('click', continueLevel);
+    document.getElementById('exitButton').addEventListener('click', returnToMenu);
+  </script>
+</body>
+</html>
