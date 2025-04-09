@@ -14,7 +14,5 @@ public class PrenotazioneCompareLuogo implements Comparator<Prenotazione> {
             return 1;
         return 0;
 
-
-
     }
 }

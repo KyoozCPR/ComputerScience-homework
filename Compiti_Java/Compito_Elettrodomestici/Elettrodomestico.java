@@ -4,6 +4,17 @@ import javax.swing.*;
 import java.util.Comparator;
 
 abstract public class Elettrodomestico implements Comparable<Elettrodomestico> {
+
+    /*
+        un'interfaccia, come quella del Comparable
+        (interfaccia funzionale), può essere vista
+        come un'applicazione della classe astratta più estrema,
+        poiché contiene solamente metodi astratti e al più delle costanti(final).
+        Essa quindi definisce un contratto con le sottoclassi, che non devono
+        essere perforza correlate come con le classi astratte, che le obbliga
+        ad implementare i metodi presenti nell'interfaccia
+     */
+
     protected String proprietà;
     protected int potenza;
     protected String dataAcquisto;
