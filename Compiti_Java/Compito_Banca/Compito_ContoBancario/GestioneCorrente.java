@@ -2,23 +2,26 @@ package Compiti_Java.Compito_Banca.Compito_ContoBancario;
 
 import java.util.Scanner;
 
+
 public class GestioneCorrente {
     public Scanner tastiera = new Scanner(System.in);
     public ContoCorrente conto;
     public int operazioniNonAmmesse;
     public int prelieviConSuccesso;
+    public int contaLetture;
 
     public GestioneCorrente(){
         this.conto = new ContoCorrente("Diego Ciprietti", "102002002000");
         this.operazioniNonAmmesse = 0;
         this.prelieviConSuccesso = 0;
+        this.contaLetture = 0;
     }
 
     public int input(){
         System.out.println("""
                  0) Uscire
                  1) inserire un'operazione
-                 2) calcolare il totale degli accrediti
+                 2) calcolare il totale delle operazioni
                  3) il numero dei prelievi negati
                  4) l'elenco dei prelievi effettuati con successo
                  5) il numero delle letture richieste.
@@ -94,8 +97,14 @@ public class GestioneCorrente {
                 System.out.println("\n");
                 break;
 
+            case 5:
+                System.out.println("letture effettuate: "+ contaLetture);
+                break;
+
+
             case 6:
                 conto.addLettura();
+                contaLetture++;
                 break;
 
 

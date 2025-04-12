@@ -8,7 +8,7 @@ public class Accredito extends OperazioneBancaria{
         if (denaro <= 0)
             throw new OperazioneBancariaNonAmmessaException("Il denaro non può essere negativo!");
         else
-            this.denaro = denaro;
+            this.denaro += denaro;
     }
 
     public Accredito(ContoCorrente conto, double denaro){
