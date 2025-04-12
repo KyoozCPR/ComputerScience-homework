@@ -4,14 +4,14 @@ public class Accredito extends OperazioneBancaria{
     private double denaro;
 
 
-    private void setDenaro(double denaro) throws OperazioneBancariaNonAmmessaException {
+    private void setDenaro(double denaro){
         if (denaro <= 0)
             throw new OperazioneBancariaNonAmmessaException("Il denaro non può essere negativo!");
         else
             this.denaro = denaro;
     }
 
-    public Accredito(ContoCorrente conto, double denaro) throws OperazioneBancariaNonAmmessaException {
+    public Accredito(ContoCorrente conto, double denaro){
         super(conto);
         setDenaro(denaro);
     }

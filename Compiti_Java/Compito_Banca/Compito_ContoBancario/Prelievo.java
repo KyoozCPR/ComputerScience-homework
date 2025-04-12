@@ -4,19 +4,27 @@ public class Prelievo extends OperazioneBancaria{
     private double denaro;
 
 
-    private void setDenaro(double denaro) throws OperazioneBancariaNonAmmessaException, SaldoInsufficienteException, LimiteSuperatoException {
+    private void setDenaro(double denaro){
         if (denaro <= 0)
             throw new OperazioneBancariaNonAmmessaException("Il denaro non può essere negativo!");
         else if (denaro > conto.getSaldo())
             throw new SaldoInsufficienteException("Il prelievo non può essere superiore del conto stesso!");
-        else if ((conto.getSaldo()-denaro) < 1000 )
+        else if ((conto.getSaldo()-denaro) < 1000 ) {
+            this.denaro -= denaro;
+            super.conto.setSaldo(denaro);
             throw new LimiteSuperatoException("Il limite è stato superato adesso non potrà effettuare più di venti operazioni in un giorno!");
+        }
         else
-            this.denaro = denaro;
+            this.denaro -= denaro;
     }
 
-    public Prelievo(ContoCorrente conto, double denaro) throws OperazioneBancariaNonAmmessaException, SaldoInsufficienteException, LimiteSuperatoException {
+    public double getDenaro() {
+        return denaro;
+    }
+
+    public Prelievo(ContoCorrente conto, double denaro)  {
         super(conto);
+        this.denaro = conto.getSaldo();
         setDenaro(denaro);
     }
 
