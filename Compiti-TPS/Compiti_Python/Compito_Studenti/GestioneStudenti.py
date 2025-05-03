@@ -90,6 +90,9 @@ class Studente:
         print(str(media))
 
 
+classe = [Studente("Diego Ciprietti"), Studente("Marco Mainini"), Studente("Tommaso Malfasi"), Studente("Francesco Concu")]
+    
+    
 
 def inputMenu():
     print("""
@@ -108,12 +111,45 @@ def inputMenu():
     scelta = int(input("Inserisci il numero dell'operazione che vuole eseguire: "))
     return scelta
 
-def menu():
-    pass
+
+def ricercaStudente(nome: str):
+    for studente in classe:
+        if studente.nominativo == nome:
+            return classe.index(studente)
+        
+    print("Studente non trovato!")
+    return None    
+
+def menu(scelta):
+    if scelta == 0:
+        print("Arrivederci!")
+    elif scelta == 1:
+        nomeStudente = str(input("Inserisci il nome dello studente a cui vuoi aggiungere un voto: "))
+        posizioneStudente = ricercaStudente(nomeStudente)
+        if (posizioneStudente != None):
+            print(Studente.MATERIE)
+            materiaScelta = -1
+            while (materiaScelta < 0 or materiaScelta > 3):
+                materiaScelta = int(input("\nScegli la materia in base all'indice [0-3]: "))
+                try:
+                    voto = int(input("Inserisci il voto da inserire: "))
+                    classe[posizioneStudente].voti[materiaScelta].append(voto)
+                except Exception:
+                    print("Materia non valida! RIPROVARE!")
+            print("Voto inserito!")        
+                   
+
+
+    elif scelta == 2:
+        pass
+    elif scelta == 3:
+        pass
+    elif scelta == 4:
+        pass 
+    else:
+        print("Scelta non valida! riprovare")
 
 if __name__ == "__main__":
-    classe = [Studente("Diego Ciprietti"), Studente("Marco Mainini"), Studente("Tommaso Malfasi"), Studente("Francesco Concu")]
-    
     
     scelta = -1
     while (scelta != 0):
