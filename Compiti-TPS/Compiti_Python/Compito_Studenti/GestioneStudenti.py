@@ -60,7 +60,7 @@ Es. Giulio: Matematica=2|8,Storia=5
       Federica:
 Matematica=10|7|9,Storia=7|8
 """
-
+import os
 
 class Studente:
     MATERIE = ["Matematica", "Informatica", "Italiano", "Storia"]
@@ -84,12 +84,12 @@ class Studente:
     def mediaVoti(self):
         print("La media generale di ", self.nominativo, "è: ")
         somma = 0
-        for i in range(0, self.voti):
-            for j in range(0, self.voti[i]):
+        for i in range(0, len(self.voti)):
+            for j in range(0, len(self.voti[i])):
                 somma+=self.voti[i][j]
 
         media = somma / i   
-        print(str(media))
+        return media
 
 
 classe = [Studente("Diego Ciprietti"), Studente("Marco Mainini"), Studente("Tommaso Malfasi"), Studente("Francesco Concu")]
@@ -122,6 +122,15 @@ def ricercaStudente(nome: str):
     print("Studente non trovato!")
     return None    
 
+
+
+def descrizioneStudenti():
+    stringaFinale = ""
+    for studente in classe:
+            stringaFinale += studente.__str__()
+    return stringaFinale        
+
+ 
 def menu(scelta):
     if scelta == 0:
         print("Arrivederci!")
@@ -139,8 +148,7 @@ def menu(scelta):
                 except Exception:
                     print("Materia non valida! RIPROVARE!")
             print("Voto inserito!")        
-                   
-
+                
 
     elif scelta == 2:
         nomeStudente = str(input("Inserisci il nome dello studente a cui vuoi aggiungere un voto: "))
@@ -148,11 +156,27 @@ def menu(scelta):
         if (posizioneStudente != None):
             print(classe[posizioneStudente])
     elif scelta == 3:
-        pass
+        nomeStudente = str(input("Inserisci il nome dello studente a cui vuoi aggiungere un voto: "))
+        posizioneStudente = ricercaStudente(nomeStudente)
+        if (posizioneStudente != None):
+            media = classe[posizioneStudente].mediaVoti()
+            if media != 0:
+                print(str(media))
+            else:
+                print("Lo studente non presenta voti")    
     elif scelta == 4:
-        pass 
+        print(descrizioneStudenti())
     else:
         print("Scelta non valida! riprovare")
+
+
+def aggiornamentoFile():
+    location = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    with open(os.path.join(location, "voti_scuola.txt"), "w") as file:
+        file.write(descrizioneStudenti())
+
+
 
 if __name__ == "__main__":
     
@@ -160,6 +184,7 @@ if __name__ == "__main__":
     while (scelta != 0):
         scelta = inputMenu()
         menu(scelta)
+        aggiornamentoFile()
 
     exit()
 
