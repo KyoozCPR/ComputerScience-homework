@@ -70,9 +70,11 @@ class Studente:
         self.nominativo = nominativo
 
     def __str__(self):
-        print(f"{str(self.nominativo)}:", end=" ")
+        stringaFinale = f"{str(self.nominativo)}: "
         for i in range(0,len(self.MATERIE)):
-            print(f"{str(self.MATERIE[i])}={str(self.voti[i])}", end=",")
+            stringaFinale += f"{str(self.MATERIE[i])}={str(self.voti[i])}"
+        stringaFinale += ","
+        return stringaFinale    
 
     def aggiungiVoto(self, materia:str, voto:int):
         indiceMateria = self.MATERIE.index(materia)
@@ -141,7 +143,10 @@ def menu(scelta):
 
 
     elif scelta == 2:
-        pass
+        nomeStudente = str(input("Inserisci il nome dello studente a cui vuoi aggiungere un voto: "))
+        posizioneStudente = ricercaStudente(nomeStudente)
+        if (posizioneStudente != None):
+            print(classe[posizioneStudente])
     elif scelta == 3:
         pass
     elif scelta == 4:
