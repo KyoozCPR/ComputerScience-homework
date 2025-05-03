@@ -1,3 +1,5 @@
+package Compiti_Java.Compito_File;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ public class GestionePersone {
     public void aggiungi(int e, String n){
 
         try{
-            persone.add(new Persona(e,n));
+            persone.add(new Persona(n, e));
         } catch(IllegalArgumentException ea){
             System.out.println(ea.getMessage());
         }
