@@ -49,7 +49,7 @@ def scelta2(scelta):
         print("ciao coglione")
     elif scelta == 1:
         aggiungiContatto()
-    elif scelta == 2:
+    elif scelta == 2: 
         cercaContatto()    
     elif scelta == 3:
         visualizzaContatti()
@@ -59,19 +59,23 @@ def scelta2(scelta):
 
 def aggiornaFile(contaElementi, contaElementiDopoOp):
     file = open("contatti.txt", "a")
-    for i in range(contaElementi, contaElementiDopoOp+1):
+    for i in range(contaElementi, contaElementiDopoOp):
         file.write(contatti[i]+ "\n")
     file.close()
 
 
 scelta = 1 #valore iniziale per entrare nel loop
+with (open("contatti.txt", "r") as file):
+    linee = file.readlines()
+    for i in linee:
+        contatti.append(i)
+
 
 while (scelta != 0):
     scelta = menu()
     contaElementi = len(contatti)
     scelta2(scelta)
     contaElementiDopoOp = len(contatti)
-
     aggiornaFile(contaElementi, contaElementiDopoOp)
 
 
