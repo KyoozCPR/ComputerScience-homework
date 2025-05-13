@@ -65,11 +65,13 @@ def aggiornaFile(contaElementi, contaElementiDopoOp):
 
 
 scelta = 1 #valore iniziale per entrare nel loop
-with (open("contatti.txt", "r") as file):
-    linee = file.readlines()
-    for i in linee:
-        contatti.append(i)
-
+try:
+    with (open("contatti.txt", "r") as file):
+        linee = file.readlines()
+        for i in linee:
+            contatti.append(i)
+except Exception as e:
+    print(e)
 
 while (scelta != 0):
     scelta = menu()
