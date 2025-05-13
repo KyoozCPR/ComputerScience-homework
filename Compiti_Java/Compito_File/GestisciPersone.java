@@ -1,26 +1,29 @@
 package Compiti_Java.Compito_File;
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class GestisciPersone {
 	private ArrayList<Persona> folla;
-    private final String pathPersone="persone.txt";     
+    private final String pathPersone="Persone.txt";
 	public GestisciPersone() {
 		folla=new ArrayList<>();
+		leggiPersone();
 	}
+
+
+
 	public void scrivi() {
 		PrintWriter pw=null;
 		try {
 			pw=new PrintWriter(new FileWriter(this.pathPersone, true),true);
 			for(Persona p:this.folla)
 				pw.println(p);
-		}catch(IOException ioe) {System.out.println("Errore in scrittura: "+ioe.getMessage());}
+		}catch(IOException ioe) {
+			System.out.println("Errore in scrittura: "+ioe.getMessage());
+			writeErrorLogs(ioe);
+		}
 	}
 	public boolean aggiungi(String n,int e) {
 		boolean result=true;
@@ -42,6 +45,7 @@ public class GestisciPersone {
 		}catch(NullPointerException npe) {
             System.out.println("Oggetto non inserito, probabilmente per eta\' non valida\n");
             //Riscrivi la porzione di codice che permetta di registrare la gestione dell'eccezione in un file errori.txt
+			writeErrorLogs(npe);
 			return result ;
 		}
 		return true;
@@ -55,7 +59,11 @@ public class GestisciPersone {
 			 for(Persona p:folla)
 				 if(p.getAge()>=18) //scrivo solo le persone maggiorenni
 					 scrittore.println(p);
-		}catch(IOException ioe) {System.out.println("Errore in scrittura: "+ioe.getMessage());}
+		}catch(IOException ioe) {
+
+			System.out.println("Errore in scrittura: "+ioe.getMessage());
+			writeErrorLogs(ioe);
+		}
 		finally {
 			try {
 				fw.close();
@@ -75,11 +83,12 @@ public class GestisciPersone {
 	            } catch (NoSuchElementException | IllegalStateException e) {
 	                j++;
 	                System.out.println(e.getMessage() + " riga letta " + i + " Eccezioni in lettura verificate: " + j);
-	            }
+					writeErrorLogs(e);
+				}
 	        }
 	    }
 	}
-	public void leggi() {
+	public void leggiPersone() {
 		try (
 			Scanner leggi=new Scanner(new FileReader(this.pathPersone))){
 			while(leggi.hasNextLine()) {
@@ -87,7 +96,10 @@ public class GestisciPersone {
 				String[] campi=riga.split("@");
 				this.aggiungi(campi[0], Integer.parseInt(campi[1]));
 			}
-		}catch(FileNotFoundException fnfe) {System.out.println(fnfe.getMessage());}
+		}catch(FileNotFoundException fnfe) {
+			System.out.println(fnfe.getMessage());
+			writeErrorLogs(fnfe);
+		}
 	} 
     public int acquisisciAge() {
     	Scanner leggi=new Scanner(System.in);
@@ -115,6 +127,27 @@ public class GestisciPersone {
 			return new Persona(n,leggi.nextInt());
 		}
     }
+
+
+	private void writeErrorLogs(Exception e){
+		BufferedWriter file= null;
+		try {
+			file = new BufferedWriter(new FileWriter("errore.log"));
+			file.write(e.getClass().getSimpleName() + " per il seguente motivo: " + e.getMessage());
+
+		}
+		catch(IOException e2){
+			System.out.println(e2.getMessage());
+		}
+		finally {
+			try{
+				file.close();
+			} catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         GestisciPersone gp=new GestisciPersone();
