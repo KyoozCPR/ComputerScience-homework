@@ -1,7 +1,7 @@
 from tkinter import ttk
 
 import customtkinter as tk
-
+import os
 
 class Inventario(tk.CTk):
     def __init__(self):
@@ -21,8 +21,8 @@ class Inventario(tk.CTk):
         self.greeting_sub.pack()
         self.framewrapper = tk.CTkFrame(self)
         self.framewrapper.pack(pady=50)
-        self.button = tk.CTkButton(self.framewrapper, text="Ho un database")
-        self.button2 = tk.CTkButton(self.framewrapper, text="Sì crealo")
+        self.button = tk.CTkButton(self.framewrapper, text="Ho già un database", fg_color="black", command=self.cerca_database)
+        self.button2 = tk.CTkButton(self.framewrapper, text="Sì crealo", command=self.crea_database)
 
         self.button.grid(column=0, row=0, sticky=tk.W)
         self.button2.grid(column=2, row=0)
@@ -33,7 +33,12 @@ class Inventario(tk.CTk):
         pass
 
     def crea_database(self):
-        pass
+        with open("farmaci.txt", "w") as database:
+            self.greeting.destroy()
+            self.greeting_sub.destroy()
+            self.framewrapper.destroy()
+
+
 
 
 
