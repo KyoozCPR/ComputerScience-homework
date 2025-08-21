@@ -1,6 +1,7 @@
 from tkinter import ttk
 
 import customtkinter as tk
+
 import os
 
 class Inventario(tk.CTk):
@@ -30,7 +31,10 @@ class Inventario(tk.CTk):
 
 
     def cerca_database(self):
-        pass
+        database = tk.filedialog.askopenfilename()
+        if database[-3:] == "txt":
+            return
+
 
     def crea_database(self):
         with open("farmaci.txt", "w") as database:
