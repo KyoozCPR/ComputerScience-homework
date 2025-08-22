@@ -32,6 +32,8 @@ class Inventario(tk.CTk):
         self.button2.grid(column=2, row=0)
 
 
+        self.formFrame = None
+        self.casaFarmaceutica = None
         self.codiceBarre = None
         self.NomeFarmaco = None
         self.scadenza = None
@@ -61,6 +63,26 @@ class Inventario(tk.CTk):
         self.framewrapper.destroy()
         if self.error is not None:
             self.error.destroy()
+        self.create_form()
+
+
+    def create_form(self):
+        self.formFrame = tk.CTkFrame(self, fg_color="transparent")
+        self.casaFarmaceutica = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Casa Farmaco")
+        self.codiceBarre = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Codice Barre")
+        self.NomeFarmaco = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Nome Farmaco")
+        self.scadenza = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Scadenza")
+        self.prezzo = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Prezzo")
+        self.quantità = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Quantità")
+
+        self.formFrame.pack()
+        self.casaFarmaceutica.grid(column=0, row=0)
+        self.codiceBarre.grid(column=1, row=0, padx=30)
+        self.NomeFarmaco.grid(column=2, row=0)
+        self.scadenza.grid(column=0, row=1)
+        self.prezzo.grid(column=1, row=1, padx=30, pady=45)
+        self.quantità.grid(column=2, row=1)
+
 
 
 
