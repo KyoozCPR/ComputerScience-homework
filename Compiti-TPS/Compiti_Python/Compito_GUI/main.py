@@ -1,7 +1,7 @@
 from tkinter import ttk
 
 import customtkinter as tk
-
+from customtkinter import CTkButton
 
 
 class Inventario(tk.CTk):
@@ -40,6 +40,10 @@ class Inventario(tk.CTk):
         self.prezzo = None
         self.quantità = None
 
+        self.buttonFormFrame = None
+        self.cercaButton = None
+        self.modificaCampiButton = None
+        self.inserireNuovoProdottoButton = None
 
 
     def cerca_database(self):
@@ -67,7 +71,7 @@ class Inventario(tk.CTk):
 
 
     def create_form(self):
-        self.formFrame = tk.CTkFrame(self, fg_color="transparent")
+        self.formFrame = tk.CTkFrame(self)
         self.casaFarmaceutica = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Casa Farmaco")
         self.codiceBarre = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Codice Barre")
         self.NomeFarmaco = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Nome Farmaco")
@@ -75,13 +79,25 @@ class Inventario(tk.CTk):
         self.prezzo = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Prezzo")
         self.quantità = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Quantità")
 
+
+
         self.formFrame.pack()
         self.casaFarmaceutica.grid(column=0, row=0)
         self.codiceBarre.grid(column=1, row=0, padx=30)
         self.NomeFarmaco.grid(column=2, row=0)
         self.scadenza.grid(column=0, row=1)
-        self.prezzo.grid(column=1, row=1, padx=30, pady=45)
+        self.prezzo.grid(column=1, row=1, padx=30, pady=100)
         self.quantità.grid(column=2, row=1)
+
+        self.buttonFormFrame = tk.CTkFrame(self, fg_color="transparent")
+        self.cercaButton = tk.CTkButton(self.buttonFormFrame, text="cerca")
+        self.modificaCampiButton = tk.CTkButton(self.buttonFormFrame, text="modica")
+        self.inserireNuovoProdottoButton = tk.CTkButton(self.buttonFormFrame, text="inserire nuovo prodotto")
+
+        self.buttonFormFrame.pack()
+        self.cercaButton.grid(column=0, row=0)
+        self.modificaCampiButton.grid(column=1, row=0, padx=30)
+        self.inserireNuovoProdottoButton.grid(column=2, row=0)
 
 
 
