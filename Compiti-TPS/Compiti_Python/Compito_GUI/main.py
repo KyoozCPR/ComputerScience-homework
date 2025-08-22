@@ -90,17 +90,23 @@ class Inventario(tk.CTk):
         self.quantità.grid(column=2, row=1)
 
         self.buttonFormFrame = tk.CTkFrame(self, fg_color="transparent")
-        self.cercaButton = tk.CTkButton(self.buttonFormFrame, text="cerca")
-        self.modificaCampiButton = tk.CTkButton(self.buttonFormFrame, text="modica")
-        self.inserireNuovoProdottoButton = tk.CTkButton(self.buttonFormFrame, text="inserire nuovo prodotto")
+        self.cercaButton = tk.CTkButton(self.buttonFormFrame, text="cerca", command=self.cercaProdotto)
+        self.modificaCampiButton = tk.CTkButton(self.buttonFormFrame, text="modica", command=self.modificaProdotto)
+        self.inserireNuovoProdottoButton = tk.CTkButton(self.buttonFormFrame, text="inserire nuovo prodotto", commmand=self.inserireNuovoProdotto)
 
         self.buttonFormFrame.pack()
         self.cercaButton.grid(column=0, row=0)
         self.modificaCampiButton.grid(column=1, row=0, padx=30)
         self.inserireNuovoProdottoButton.grid(column=2, row=0)
 
+    def inserireNuovoProdotto(self):
+        pass
 
+    def modificaProdotto(self):
+        pass
 
+    def cercaProdotto(self):
+        pass
 
 
 inventario = Inventario()
