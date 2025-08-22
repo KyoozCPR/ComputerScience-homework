@@ -2,7 +2,7 @@ from tkinter import ttk
 
 import customtkinter as tk
 
-import os
+
 
 class Inventario(tk.CTk):
     def __init__(self):
@@ -16,18 +16,27 @@ class Inventario(tk.CTk):
 
 
 
-
-        self.greeting = tk.CTkLabel(self, text="Benvenuto nell'inventario")
+        self.titleFrame = tk.CTkFrame(self, fg_color="transparent")
+        self.greeting = tk.CTkLabel(self.titleFrame, text="Benvenuto nell'inventario", font=("Arial", 30))
         self.greeting.pack()
-        self.greeting_sub = tk.CTkLabel(self, text="hai già un database o vuoi crearlo da 0?")
+        self.greeting_sub = tk.CTkLabel(self.titleFrame, text="hai già un database o vuoi crearlo da 0?",  font=("Arial", 15))
         self.greeting_sub.pack()
+        self.titleFrame.pack(pady=20)
+
         self.framewrapper = tk.CTkFrame(self)
-        self.framewrapper.pack(pady=50)
+        self.framewrapper.pack(pady=100)
         self.button = tk.CTkButton(self.framewrapper, text="Ho già un database", fg_color="black", command=self.cerca_database)
         self.button2 = tk.CTkButton(self.framewrapper, text="Sì crealo", command=self.crea_database)
 
         self.button.grid(column=0, row=0, sticky=tk.W)
         self.button2.grid(column=2, row=0)
+
+
+        self.codiceBarre = None
+        self.NomeFarmaco = None
+        self.scadenza = None
+        self.prezzo = None
+        self.quantità = None
 
 
 
