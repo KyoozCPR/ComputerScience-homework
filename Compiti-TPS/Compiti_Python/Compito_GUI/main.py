@@ -7,7 +7,8 @@ import os
 class Inventario(tk.CTk):
     def __init__(self):
         super().__init__()
-
+        self.error = None
+        self.database_path = "farmaci.txt"
         tk.set_default_color_theme("dark-blue")
 
         self.title("Inventario")
@@ -33,16 +34,24 @@ class Inventario(tk.CTk):
     def cerca_database(self):
         database = tk.filedialog.askopenfilename()
         if database[-3:] == "txt":
-            return
+            self.database_path = database
+            self.elimina_pagina()
+        else:
+
+            self.error = tk.CTkLabel(self, text="Il database può essere solamente un file di tipo .txt!", text_color="red")
+            self.error.pack()
 
 
     def crea_database(self):
         with open("farmaci.txt", "w") as database:
-            self.greeting.destroy()
-            self.greeting_sub.destroy()
-            self.framewrapper.destroy()
+            self.elimina_pagina()
 
-
+    def elimina_pagina(self):
+        self.greeting.destroy()
+        self.greeting_sub.destroy()
+        self.framewrapper.destroy()
+        if self.error is not None:
+            self.error.destroy()
 
 
 
