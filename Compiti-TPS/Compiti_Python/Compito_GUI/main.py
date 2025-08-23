@@ -54,8 +54,9 @@ class Inventario(tk.CTk):
         else:
             if not database:
                 return
-            self.error = tk.CTkLabel(self, text="Il database può essere solamente un file di tipo .txt!", text_color="red")
-            self.error.pack()
+            if not self.error:
+                self.error = tk.CTkLabel(self, text="Il database può essere solamente un file di tipo .txt!", text_color="red")
+                self.error.pack()
 
 
     def crea_database(self):
@@ -68,6 +69,7 @@ class Inventario(tk.CTk):
         self.framewrapper.destroy()
         if self.error is not None:
             self.error.destroy()
+            self.error = None
         self.create_form()
 
 
@@ -108,9 +110,11 @@ class Inventario(tk.CTk):
 
     def inserireNuovoProdotto(self):
         if self.checkFormMissing():
-            self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
-                                     text_color="red")
-            self.error.pack(pady=20)
+            if not self.error:
+                self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
+                    text_color="red")
+                self.error.pack(pady=20)
+                return
             return
 
         with open(self.database_path, "r") as database:
@@ -119,9 +123,11 @@ class Inventario(tk.CTk):
 
     def modificaProdotto(self):
         if self.checkFormMissing():
-            self.error = tk.CTkLabel(self, text="Il database può essere solamente un file di tipo .txt!",
-                                     text_color="red")
-            self.error.pack()
+            if not self.error:
+                self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
+                                         text_color="red")
+                self.error.pack(pady=20)
+                return
             return
 
     def cercaProdotto(self):
