@@ -2,7 +2,7 @@ from tkinter import ttk
 
 import customtkinter as tk
 from customtkinter import CTkButton
-
+import re
 
 class Inventario(tk.CTk):
     def __init__(self):
@@ -111,17 +111,21 @@ class Inventario(tk.CTk):
 
     def inserireNuovoProdotto(self):
         if self.checkFormMissing():
-            if not self.error:
-                if self.successo:
-                    self.successo.destroy()
-                    self.successo = None
-                self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
+            if self.successo:
+                self.successo.destroy()
+                self.successo = None
+            if self.error:
+                self.error.destroy()
+                self.error = None
+            self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
                     text_color="red")
-                self.error.pack(pady=20)
-                return
+            self.error.pack(pady=20)
             return
 
+
         with open(self.database_path, "a") as database:
+            if not self.checkEntry():
+                return
             database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())}\n")
             self.successfullOperationMessage()
             self.casaFarmaceutica.delete(0, tk.END)
@@ -158,6 +162,21 @@ class Inventario(tk.CTk):
             self.successo = tk.CTkLabel(self, text="Operazione effettuata con successo!",text_color="green")
             self.successo.pack(pady="30")
 
+
+    def checkEntry(self):
+        pattern = re.compile(
+            r"^(0[1-9]|[12][0-9]|3[01])\\(0[1-9]|1[0-2])\\(19|20)\d{2}$"
+        )
+        print(pattern.match(self.scadenza.get()))
+        if pattern.match(self.scadenza.get()) is None:
+            if self.error is not None:
+                self.error.destroy()
+                self.error = None
+            self.error = tk.CTkLabel(self, text="la scadenza deve avere questo formato: GG\\MM\\YYYY",
+                                         text_color="red")
+            self.error.pack(pady=20)
+            return False
+        return True
 
 inventario = Inventario()
 inventario.mainloop()
