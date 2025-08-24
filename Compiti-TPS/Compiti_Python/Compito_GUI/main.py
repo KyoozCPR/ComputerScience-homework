@@ -7,6 +7,7 @@ from customtkinter import CTkButton
 class Inventario(tk.CTk):
     def __init__(self):
         super().__init__()
+        self.successo = None
         self.error = None
         self.database_path = "farmaci.txt"
         tk.set_default_color_theme("dark-blue")
@@ -117,8 +118,21 @@ class Inventario(tk.CTk):
                 return
             return
 
-        with open(self.database_path, "r") as database:
-            database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())}")
+        with open(self.database_path, "a") as database:
+            database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())}\n")
+            self.successfullOperationMessage()
+            self.casaFarmaceutica.delete(0, tk.END)
+            self.casaFarmaceutica.insert(0, "")
+            self.codiceBarre.delete(0, tk.END)
+            self.codiceBarre.insert(0, "")
+            self.NomeFarmaco.delete(0, tk.END)
+            self.NomeFarmaco.insert(0, "")
+            self.scadenza.delete(0, tk.END)
+            self.scadenza.insert(0, "")
+            self.prezzo.delete(0, tk.END)
+            self.prezzo.insert(0, "")
+            self.quantità.delete(0, tk.END)
+            self.quantità.insert(0, "")
 
 
     def modificaProdotto(self):
@@ -133,6 +147,10 @@ class Inventario(tk.CTk):
     def cercaProdotto(self):
         pass
 
+    def successfullOperationMessage(self):
+        if not self.successo:
+            self.successo = tk.CTkLabel(self, text="Operazione effettuata con successo!",text_color="green")
+            self.successo.pack(pady="30")
 
 
 inventario = Inventario()
