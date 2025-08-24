@@ -129,17 +129,12 @@ class Inventario(tk.CTk):
             database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())}\n")
             self.successfullOperationMessage()
             self.casaFarmaceutica.delete(0, tk.END)
-            self.casaFarmaceutica.insert(0, "")
             self.codiceBarre.delete(0, tk.END)
-            self.codiceBarre.insert(0, "")
             self.NomeFarmaco.delete(0, tk.END)
-            self.NomeFarmaco.insert(0, "")
             self.scadenza.delete(0, tk.END)
-            self.scadenza.insert(0, "")
             self.prezzo.delete(0, tk.END)
-            self.prezzo.insert(0, "")
             self.quantità.delete(0, tk.END)
-            self.quantità.insert(0, "")
+
 
 
     def modificaProdotto(self):
