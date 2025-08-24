@@ -103,7 +103,7 @@ class Inventario(tk.CTk):
 
 
     def checkFormMissing(self):
-        if not self.casaFarmaceutica.get() and not self.codiceBarre.get() and not self.NomeFarmaco.get() and not self.scadenza.get() and not self.prezzo.get() and not self.quantità.get():
+        if not self.casaFarmaceutica.get() or not self.codiceBarre.get() or not self.NomeFarmaco.get() or not self.scadenza.get() or not self.prezzo.get() or not self.quantità.get():
             print(self.casaFarmaceutica.get())
             return True
 
@@ -112,6 +112,9 @@ class Inventario(tk.CTk):
     def inserireNuovoProdotto(self):
         if self.checkFormMissing():
             if not self.error:
+                if self.successo:
+                    self.successo.destroy()
+                    self.successo = None
                 self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
                     text_color="red")
                 self.error.pack(pady=20)
@@ -149,6 +152,9 @@ class Inventario(tk.CTk):
 
     def successfullOperationMessage(self):
         if not self.successo:
+            if self.error:
+                self.error.destroy()
+                self.error = None
             self.successo = tk.CTkLabel(self, text="Operazione effettuata con successo!",text_color="green")
             self.successo.pack(pady="30")
 
