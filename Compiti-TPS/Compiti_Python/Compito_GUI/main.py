@@ -1,5 +1,4 @@
 from tkinter import ttk
-
 import customtkinter as tk
 from customtkinter import CTkButton
 import re
@@ -14,8 +13,6 @@ class Inventario(tk.CTk):
 
         self.title("Inventario")
         self.geometry("750x500")
-
-
 
         self.titleFrame = tk.CTkFrame(self, fg_color="transparent")
         self.greeting = tk.CTkLabel(self.titleFrame, text="Benvenuto nell'inventario", font=("Arial", 30))
@@ -32,7 +29,6 @@ class Inventario(tk.CTk):
         self.button.grid(column=0, row=0, sticky=tk.W)
         self.button2.grid(column=2, row=0)
 
-
         self.formFrame = None
         self.casaFarmaceutica = None
         self.codiceBarre = None
@@ -46,6 +42,21 @@ class Inventario(tk.CTk):
         self.modificaCampiButton = None
         self.inserireNuovoProdottoButton = None
 
+    def show_message(self, text, color):
+        if self.successo:
+            self.successo.destroy()
+            self.successo = None
+        if self.error:
+            self.error.destroy()
+            self.error = None
+
+        label = tk.CTkLabel(self, text=text, text_color=color)
+        label.pack(pady=20)
+
+        if color == "green":
+            self.successo = label
+        else:
+            self.error = label
 
     def cerca_database(self):
         database = tk.filedialog.askopenfilename()
@@ -55,10 +66,7 @@ class Inventario(tk.CTk):
         else:
             if not database:
                 return
-            if not self.error:
-                self.error = tk.CTkLabel(self, text="Il database può essere solamente un file di tipo .txt!", text_color="red")
-                self.error.pack()
-
+            self.show_message("Il database può essere solamente un file di tipo .txt!", "red")
 
     def crea_database(self):
         with open("farmaci.txt", "w") as database:
@@ -73,6 +81,18 @@ class Inventario(tk.CTk):
             self.error = None
         self.create_form()
 
+    def validateNumeri(self):
+        if not self.quantità.get().isdigit():
+            self.show_message("Quantità deve essere un numero intero!", "red")
+            return False
+
+            # check prezzo is decimal (float)
+        try:
+            float(self.prezzo.get())
+        except ValueError:
+            self.show_message("Prezzo deve essere un numero decimale!", "red")
+            return False
+        return True
 
     def create_form(self):
         self.formFrame = tk.CTkFrame(self)
@@ -82,6 +102,7 @@ class Inventario(tk.CTk):
         self.scadenza = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Scadenza")
         self.prezzo = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Prezzo")
         self.quantità = tk.CTkEntry(self.formFrame, font=("Arial", 15), placeholder_text="Quantità")
+
 
 
 
@@ -101,33 +122,22 @@ class Inventario(tk.CTk):
         self.cercaButton.grid(column=0, row=0)
         self.inserireNuovoProdottoButton.grid(column=2, row=0)
 
-
     def checkFormMissing(self):
         if not self.casaFarmaceutica.get() or not self.codiceBarre.get() or not self.NomeFarmaco.get() or not self.scadenza.get() or not self.prezzo.get() or not self.quantità.get():
-            print(self.casaFarmaceutica.get())
             return True
-
         return False
 
     def inserireNuovoProdotto(self):
         if self.checkFormMissing():
-            if self.successo:
-                self.successo.destroy()
-                self.successo = None
-            if self.error:
-                self.error.destroy()
-                self.error = None
-            self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
-                    text_color="red")
-            self.error.pack(pady=20)
+            self.show_message("tutti i campi devono essere compilati!", "red")
             return
 
-
         with open(self.database_path, "a") as database:
-            if not self.checkEntry():
+            if not self.checkEntry() or not self.validateNumeri():
                 return
-            database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())}\n")
-            self.successfullOperationMessage()
+            database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n")
+            self.show_message("Operazione effettuata con successo!", "green")
+
             self.casaFarmaceutica.delete(0, tk.END)
             self.codiceBarre.delete(0, tk.END)
             self.NomeFarmaco.delete(0, tk.END)
@@ -135,41 +145,20 @@ class Inventario(tk.CTk):
             self.prezzo.delete(0, tk.END)
             self.quantità.delete(0, tk.END)
 
-
-
     def modificaProdotto(self):
         if self.checkFormMissing():
-            if not self.error:
-                self.error = tk.CTkLabel(self, text="tutti i campi devono essere compilati!",
-                                         text_color="red")
-                self.error.pack(pady=20)
-                return
+            self.show_message("tutti i campi devono essere compilati!", "red")
             return
 
     def cercaProdotto(self):
         pass
 
-    def successfullOperationMessage(self):
-        if not self.successo:
-            if self.error:
-                self.error.destroy()
-                self.error = None
-            self.successo = tk.CTkLabel(self, text="Operazione effettuata con successo!",text_color="green")
-            self.successo.pack(pady="30")
-
-
     def checkEntry(self):
         pattern = re.compile(
             r"^(0[1-9]|[12][0-9]|3[01])\\(0[1-9]|1[0-2])\\(19|20)\d{2}$"
         )
-        print(pattern.match(self.scadenza.get()))
         if pattern.match(self.scadenza.get()) is None:
-            if self.error is not None:
-                self.error.destroy()
-                self.error = None
-            self.error = tk.CTkLabel(self, text="la scadenza deve avere questo formato: GG\\MM\\YYYY",
-                                         text_color="red")
-            self.error.pack(pady=20)
+            self.show_message("la scadenza deve avere questo formato: GG\\MM\\YYYY", "red")
             return False
         return True
 
