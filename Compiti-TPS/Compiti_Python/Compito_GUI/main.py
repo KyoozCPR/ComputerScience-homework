@@ -6,7 +6,7 @@ import re
 class Inventario(tk.CTk):
     def __init__(self):
         super().__init__()
-        self.resultsN = None
+        self.resultsN = 0
         self.modificaButton = None
         self.resultsPageLabel = None
         self.resultsView = None
@@ -90,16 +90,11 @@ class Inventario(tk.CTk):
         self.create_form()
 
     def validateNumeri(self):
-        if not self.quantità.get().isdigit():
+        if not self.quantità.get().isdigit() or not self.prezzo.get().isdigit():
             self.show_message("Quantità deve essere un numero intero!", "red")
             return False
 
-            # check prezzo is decimal (float)
-        try:
-            float(self.prezzo.get())
-        except ValueError:
-            self.show_message("Prezzo deve essere un numero decimale!", "red")
-            return False
+
         return True
 
     def create_form(self):
@@ -138,6 +133,7 @@ class Inventario(tk.CTk):
         self.entrys.append(self.prezzo.get())
         self.entrys.append(self.quantità.get())
 
+        self.entrys = [e for e in self.entrys if e]
 
     def checkFormMissing(self):
         if not self.casaFarmaceutica.get() or not self.codiceBarre.get() or not self.NomeFarmaco.get() or not self.scadenza.get() or not self.prezzo.get() or not self.quantità.get():
@@ -164,26 +160,37 @@ class Inventario(tk.CTk):
             self.prezzo.delete(0, tk.END)
             self.quantità.delete(0, tk.END)
 
-    def modificaProdotto(self):
-        if self.checkFormMissing():
-            self.show_message("tutti i campi devono essere compilati!", "red")
-            return
+    def modificaProdotto(self, line: int):
+        self.resultsPageLabel.forget()
+        self.create_form()
+        self.buttonFormFrame.pack_forget()
+
+        with open(self.database_path, "w") as database:
+            lines = database.readlines()
+            lines[line] =
+
+
 
     def cercaProdotto(self):
-
+        self.entrys = []
         self.insertEntrys()
+
         if len(self.entrys) == 0:
             self.show_message("tutti i campi devono essere compilati!", "red")
             return
-        self.nascondiForm()
-        self.createSearchResultsPage()
+
+
         with open(self.database_path,  "r") as database:
-            if self.prezzo.get() or self.quantità.get() or  self.scadenza.get():
-                if not self.checkEntry() or not self.validateNumeri():
-                    return
+
+            if self.quantità.get() or self.prezzo.get():
+                self.validateNumeri()
+            if self.scadenza.get():
+                self.checkEntry()
+
+
+            self.nascondiForm()
+            self.createSearchResultsPage()
             linee = database.readlines()
-            self.resultsN = 0
-            i=0
             for i in range(0, len(linee)):
                 entrysDatabase = linee[i].split(";")
                 for forEntry in self.entrys:
@@ -191,11 +198,17 @@ class Inventario(tk.CTk):
                     if forEntry in entrysDatabase:
                             self.resultsN += 1
                             print(linee[i])
-                            searchResult = tk.CTkLabel(self, text=linee[i], text_color="red")
-                            searchResult.pack()
+                            searchResult = tk.CTkLabel(self.resultsView, text=linee[i], anchor="w", width=200)
+                            self.modificaButton = tk.CTkButton(self.resultsView, text="modifica", command=self.modificaProdotto(i),
+                                                               width=50, fg_color="grey")
+                            searchResult.grid(column=0, row=i)
+                            self.modificaButton.grid(column=1, row=i, padx=15)
+
                             break
 
             print(self.resultsN)
+            if self.resultsN == 0:
+                searchResult = tk.CTkLabel(self.resultsView, text="nessun risultato trovato!", text_color="red", anchor="w", width=200)
 
     def nascondiForm(self):
         self.formFrame.pack_forget()
@@ -212,15 +225,12 @@ class Inventario(tk.CTk):
             self.error.pack_forget()
 
     def createSearchResultsPage(self):
-        self.resultsPageLabel = tk.CTkLabel(self.resultsFrame, text="Ecco ha te i risultati della tua ricerca: ")
-        self.resultsFrame = tk.CTkFrame(self)
-        self.resultsView = tk.CTkScrollableFrame(self.resultsFrame, width=300, height=200)
-        self.modificaButton = tk.CTkButton(self, text="modifica")
+        self.resultsPageLabel = tk.CTkLabel(self, text=f"Ecco ha te i risultati della tua ricerca (prodotti trovati: {str(self.resultsN)}): ", font=("Arial", 20))
+        self.resultsView = tk.CTkScrollableFrame(self, width=300, height=200)
 
-        self.resultsPageLabel.pack()
-        self.resultsFrame.pack(pady=100)
+        self.resultsPageLabel.place(x=135, y=10)
         self.resultsView.pack()
-        self.modificaButton.pack()
+
 
     def checkEntry(self):
         pattern = re.compile(
