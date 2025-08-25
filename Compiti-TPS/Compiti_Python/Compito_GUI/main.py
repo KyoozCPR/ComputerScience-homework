@@ -6,8 +6,14 @@ import re
 class Inventario(tk.CTk):
     def __init__(self):
         super().__init__()
+        self.resultsN = None
+        self.modificaButton = None
+        self.resultsPageLabel = None
+        self.resultsView = None
+        self.resultsFrame = None
         self.successo = None
         self.error = None
+        self.entrys = []
         self.database_path = "farmaci.txt"
         tk.set_default_color_theme("dark-blue")
 
@@ -41,6 +47,8 @@ class Inventario(tk.CTk):
         self.cercaButton = None
         self.modificaCampiButton = None
         self.inserireNuovoProdottoButton = None
+
+
 
     def show_message(self, text, color):
         if self.successo:
@@ -122,12 +130,22 @@ class Inventario(tk.CTk):
         self.cercaButton.grid(column=0, row=0)
         self.inserireNuovoProdottoButton.grid(column=2, row=0)
 
+    def insertEntrys(self):
+        self.entrys.append(self.casaFarmaceutica.get())
+        self.entrys.append(self.codiceBarre.get())
+        self.entrys.append(self.NomeFarmaco.get())
+        self.entrys.append(self.scadenza.get())
+        self.entrys.append(self.prezzo.get())
+        self.entrys.append(self.quantità.get())
+
+
     def checkFormMissing(self):
         if not self.casaFarmaceutica.get() or not self.codiceBarre.get() or not self.NomeFarmaco.get() or not self.scadenza.get() or not self.prezzo.get() or not self.quantità.get():
             return True
         return False
 
     def inserireNuovoProdotto(self):
+
         if self.checkFormMissing():
             self.show_message("tutti i campi devono essere compilati!", "red")
             return
@@ -135,6 +153,7 @@ class Inventario(tk.CTk):
         with open(self.database_path, "a") as database:
             if not self.checkEntry() or not self.validateNumeri():
                 return
+            self.insertEntrys()
             database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n")
             self.show_message("Operazione effettuata con successo!", "green")
 
@@ -151,7 +170,57 @@ class Inventario(tk.CTk):
             return
 
     def cercaProdotto(self):
-        pass
+
+        self.insertEntrys()
+        if len(self.entrys) == 0:
+            self.show_message("tutti i campi devono essere compilati!", "red")
+            return
+        self.nascondiForm()
+        self.createSearchResultsPage()
+        with open(self.database_path,  "r") as database:
+            if self.prezzo.get() or self.quantità.get() or  self.scadenza.get():
+                if not self.checkEntry() or not self.validateNumeri():
+                    return
+            linee = database.readlines()
+            self.resultsN = 0
+            i=0
+            for i in range(0, len(linee)):
+                entrysDatabase = linee[i].split(";")
+                for forEntry in self.entrys:
+                    print(forEntry)
+                    if forEntry in entrysDatabase:
+                            self.resultsN += 1
+                            print(linee[i])
+                            searchResult = tk.CTkLabel(self, text=linee[i], text_color="red")
+                            searchResult.pack()
+                            break
+
+            print(self.resultsN)
+
+    def nascondiForm(self):
+        self.formFrame.pack_forget()
+        self.casaFarmaceutica.grid_forget()
+        self.codiceBarre.grid_forget()
+        self.NomeFarmaco.grid_forget()
+        self.scadenza.grid_forget()
+        self.prezzo.grid_forget()
+        self.quantità.grid_forget()
+        self.buttonFormFrame.pack_forget()
+        if self.successo:
+            self.successo.pack_forget()
+        if self.error:
+            self.error.pack_forget()
+
+    def createSearchResultsPage(self):
+        self.resultsPageLabel = tk.CTkLabel(self.resultsFrame, text="Ecco ha te i risultati della tua ricerca: ")
+        self.resultsFrame = tk.CTkFrame(self)
+        self.resultsView = tk.CTkScrollableFrame(self.resultsFrame, width=300, height=200)
+        self.modificaButton = tk.CTkButton(self, text="modifica")
+
+        self.resultsPageLabel.pack()
+        self.resultsFrame.pack(pady=100)
+        self.resultsView.pack()
+        self.modificaButton.pack()
 
     def checkEntry(self):
         pattern = re.compile(
