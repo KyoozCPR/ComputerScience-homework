@@ -144,13 +144,17 @@ class Inventario(tk.CTk):
     def writeToDatabase(self, mode:str, linesUpdated: [] = None):
         with open(self.database_path, mode) as database:
             if not self.checkEntry() or not self.validateNumeri():
-                return
+                return False
             self.insertEntrys()
             if mode == "w":
                 database.writelines(linesUpdated)
             else:
                 database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n")
             self.show_message("Operazione effettuata con successo!", "green")
+            return True
+
+
+
 
     def inserireNuovoProdotto(self):
 
@@ -159,35 +163,48 @@ class Inventario(tk.CTk):
             return
 
 
+        if self.writeToDatabase("a"):
 
-        self.writeToDatabase("a")
-        self.casaFarmaceutica.delete(0, tk.END)
-        self.codiceBarre.delete(0, tk.END)
-        self.NomeFarmaco.delete(0, tk.END)
-        self.scadenza.delete(0, tk.END)
-        self.prezzo.delete(0, tk.END)
-        self.quantità.delete(0, tk.END)
+            self.casaFarmaceutica.delete(0, tk.END)
+            self.codiceBarre.delete(0, tk.END)
+            self.NomeFarmaco.delete(0, tk.END)
+            self.scadenza.delete(0, tk.END)
+            self.prezzo.delete(0, tk.END)
+            self.quantità.delete(0, tk.END)
+
+
 
     def modificaProdottoPage(self, line: int):
         if self.resultsPageLabel:
             self.resultsPageLabel.destroy()
-            self.resultsPageLabel = None
+            self.resultsPageLabel = None  # reset
+
         if self.resultsView:
             self.resultsView.destroy()
-            self.resultsView = None
-
+            self.resultsView = None  # reset
 
         self.create_form()
-        self.buttonFormFrame.destroy()
+        self.formFrame.place(x=135, y=60)
+
+        if self.buttonFormFrame:
+            self.buttonFormFrame.destroy()
+            self.buttonFormFrame = None
+
+
         applicaModificaButton = tk.CTkButton(self, text="applica modifiche", command=lambda idx=line: self.updateDatabase(line))
         applicaModificaButton.pack()
 
     def updateDatabase(self,line):
+        if self.checkFormMissing():
+            self.show_message("tutti i campi devono essere compilati!", "red")
+            return
+        if not self.checkEntry() or not self.validateNumeri():
+            return False
         with open(self.database_path, "r") as database:
             lines = database.readlines()
             lines[line] = f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n"
 
-        self.writeToDatabase("w", line)
+        self.writeToDatabase("w", lines)
 
 
 
@@ -222,13 +239,14 @@ class Inventario(tk.CTk):
                             match =  True
                     else:
                         match=False
+                        break
 
                 if match:
                     self.resultsN += 1
                     print(linee[i])
                     searchResult = tk.CTkLabel(self.resultsView, text=linee[i], anchor="w", width=200)
                     self.modificaButton = tk.CTkButton(self.resultsView, text="modifica",
-                                                       command=lambda idx=i: self.modificaProdotto(idx),
+                                                       command=lambda idx=i: self.modificaProdottoPage(idx),
                                                        width=50, fg_color="grey")
                     searchResult.grid(column=0, row=i)
                     self.modificaButton.grid(column=1, row=i, padx=15)
