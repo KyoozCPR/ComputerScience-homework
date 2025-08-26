@@ -140,34 +140,56 @@ class Inventario(tk.CTk):
             return True
         return False
 
+
+    def writeToDatabase(self, mode:str, linesUpdated: [] = None):
+        with open(self.database_path, mode) as database:
+            if not self.checkEntry() or not self.validateNumeri():
+                return
+            self.insertEntrys()
+            if mode == "w":
+                database.writelines(linesUpdated)
+            else:
+                database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n")
+            self.show_message("Operazione effettuata con successo!", "green")
+
     def inserireNuovoProdotto(self):
 
         if self.checkFormMissing():
             self.show_message("tutti i campi devono essere compilati!", "red")
             return
 
-        with open(self.database_path, "a") as database:
-            if not self.checkEntry() or not self.validateNumeri():
-                return
-            self.insertEntrys()
-            database.write(f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n")
-            self.show_message("Operazione effettuata con successo!", "green")
 
-            self.casaFarmaceutica.delete(0, tk.END)
-            self.codiceBarre.delete(0, tk.END)
-            self.NomeFarmaco.delete(0, tk.END)
-            self.scadenza.delete(0, tk.END)
-            self.prezzo.delete(0, tk.END)
-            self.quantità.delete(0, tk.END)
 
-    def modificaProdotto(self, line: int):
-        self.resultsPageLabel.forget()
+        self.writeToDatabase("a")
+        self.casaFarmaceutica.delete(0, tk.END)
+        self.codiceBarre.delete(0, tk.END)
+        self.NomeFarmaco.delete(0, tk.END)
+        self.scadenza.delete(0, tk.END)
+        self.prezzo.delete(0, tk.END)
+        self.quantità.delete(0, tk.END)
+
+    def modificaProdottoPage(self, line: int):
+        if self.resultsPageLabel:
+            self.resultsPageLabel.destroy()
+            self.resultsPageLabel = None
+        if self.resultsView:
+            self.resultsView.destroy()
+            self.resultsView = None
+
+
         self.create_form()
-        self.buttonFormFrame.pack_forget()
+        self.buttonFormFrame.destroy()
+        applicaModificaButton = tk.CTkButton(self, text="applica modifiche", command=lambda idx=line: self.updateDatabase(line))
+        applicaModificaButton.pack()
 
-        with open(self.database_path, "w") as database:
+    def updateDatabase(self,line):
+        with open(self.database_path, "r") as database:
             lines = database.readlines()
-            lines[line] =
+            lines[line] = f"{str(self.casaFarmaceutica.get())};{str(self.codiceBarre.get())};{str(self.NomeFarmaco.get())};{str(self.scadenza.get())};{str(self.quantità.get())};{str(self.prezzo.get())}\n"
+
+        self.writeToDatabase("w", line)
+
+
 
 
 
@@ -199,7 +221,7 @@ class Inventario(tk.CTk):
                             self.resultsN += 1
                             print(linee[i])
                             searchResult = tk.CTkLabel(self.resultsView, text=linee[i], anchor="w", width=200)
-                            self.modificaButton = tk.CTkButton(self.resultsView, text="modifica", command=self.modificaProdotto(i),
+                            self.modificaButton = tk.CTkButton(self.resultsView, text="modifica", command=lambda idx=i: self.modificaProdotto(idx),
                                                                width=50, fg_color="grey")
                             searchResult.grid(column=0, row=i)
                             self.modificaButton.grid(column=1, row=i, padx=15)
@@ -209,20 +231,22 @@ class Inventario(tk.CTk):
             print(self.resultsN)
             if self.resultsN == 0:
                 searchResult = tk.CTkLabel(self.resultsView, text="nessun risultato trovato!", text_color="red", anchor="w", width=200)
+                searchResult.grid(column=0, row=0)
 
     def nascondiForm(self):
-        self.formFrame.pack_forget()
-        self.casaFarmaceutica.grid_forget()
-        self.codiceBarre.grid_forget()
-        self.NomeFarmaco.grid_forget()
-        self.scadenza.grid_forget()
-        self.prezzo.grid_forget()
-        self.quantità.grid_forget()
-        self.buttonFormFrame.pack_forget()
-        if self.successo:
-            self.successo.pack_forget()
-        if self.error:
-            self.error.pack_forget()
+
+            if self.formFrame:
+                self.formFrame.destroy()
+                self.formFrame = None
+            if self.buttonFormFrame:
+                self.buttonFormFrame.destroy()
+                self.buttonFormFrame = None
+            if self.successo:
+                self.successo.destroy()
+                self.successo = None
+            if self.error:
+                self.error.destroy()
+                self.error = None
 
     def createSearchResultsPage(self):
         self.resultsPageLabel = tk.CTkLabel(self, text=f"Ecco ha te i risultati della tua ricerca (prodotti trovati: {str(self.resultsN)}): ", font=("Arial", 20))
