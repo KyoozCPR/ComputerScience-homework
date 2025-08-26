@@ -16,6 +16,7 @@ class Inventario(tk.CTk):
         self.entrys = []
         self.database_path = "farmaci.txt"
         tk.set_default_color_theme("dark-blue")
+        self.resizable(False, False)
 
         self.title("Inventario")
         self.geometry("750x500")
@@ -272,10 +273,10 @@ class Inventario(tk.CTk):
                 self.error = None
 
     def createSearchResultsPage(self):
-        self.resultsPageLabel = tk.CTkLabel(self, text=f"Ecco ha te i risultati della tua ricerca (prodotti trovati: {str(self.resultsN)}): ", font=("Arial", 20))
+        self.resultsPageLabel = tk.CTkLabel(self, text=f"Ecco ha te i risultati della tua ricerca:", font=("Arial", 20))
         self.resultsView = tk.CTkScrollableFrame(self, width=300, height=200)
 
-        self.resultsPageLabel.place(x=135, y=10)
+        self.resultsPageLabel.place(x=200, y=10)
         self.resultsView.pack()
 
 
