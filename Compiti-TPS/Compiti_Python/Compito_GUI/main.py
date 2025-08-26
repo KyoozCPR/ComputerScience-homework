@@ -214,19 +214,24 @@ class Inventario(tk.CTk):
             self.createSearchResultsPage()
             linee = database.readlines()
             for i in range(0, len(linee)):
+                match = False
                 entrysDatabase = linee[i].split(";")
                 for forEntry in self.entrys:
                     print(forEntry)
                     if forEntry in entrysDatabase:
-                            self.resultsN += 1
-                            print(linee[i])
-                            searchResult = tk.CTkLabel(self.resultsView, text=linee[i], anchor="w", width=200)
-                            self.modificaButton = tk.CTkButton(self.resultsView, text="modifica", command=lambda idx=i: self.modificaProdotto(idx),
-                                                               width=50, fg_color="grey")
-                            searchResult.grid(column=0, row=i)
-                            self.modificaButton.grid(column=1, row=i, padx=15)
+                            match =  True
+                    else:
+                        match=False
 
-                            break
+                if match:
+                    self.resultsN += 1
+                    print(linee[i])
+                    searchResult = tk.CTkLabel(self.resultsView, text=linee[i], anchor="w", width=200)
+                    self.modificaButton = tk.CTkButton(self.resultsView, text="modifica",
+                                                       command=lambda idx=i: self.modificaProdotto(idx),
+                                                       width=50, fg_color="grey")
+                    searchResult.grid(column=0, row=i)
+                    self.modificaButton.grid(column=1, row=i, padx=15)
 
             print(self.resultsN)
             if self.resultsN == 0:
