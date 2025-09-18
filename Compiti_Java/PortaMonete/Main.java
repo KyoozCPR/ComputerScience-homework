@@ -53,6 +53,7 @@ public class Main {
 
     public void maxPortamonete(){
         Collections.sort(this.portamonete);
+        System.out.println(this.portamonete.getFirst());
     }
 
 
