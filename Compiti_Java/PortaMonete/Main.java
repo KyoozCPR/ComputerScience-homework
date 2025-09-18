@@ -13,7 +13,7 @@ public class Main {
         this.tastiera = new Scanner(System.in);
     }
 
-    public int menu(){
+    public void menu(){
         int scelta;
         do {
             System.out.println("Inserisci il tuo nome: ");
@@ -46,6 +46,8 @@ public class Main {
                 this.portamonete.getLast().stampaDenaro();
                 System.out.print("Totale: " + this.portamonete.getLast().denaro());
 
+            default:
+                System.out.println("Scelta non valida! riprova");
         }
     }
 
