@@ -1,6 +1,6 @@
 package Compiti_Java.PortaMonete;
 
-public class Portamonete {
+public class Portamonete implements Comparable<Portamonete>{
     private String proprietario;
     private int cent50;
     private int eur1;
@@ -39,7 +39,7 @@ public class Portamonete {
         this.eur2 = eur2;
     }
 
-    public Portamonete(String proprietario, int cent50, int eur1, int eur2) {
+    public Portamonete(String proprietario) {
         this.proprietario = proprietario;
         setCent50(0);
         setEur1(0);
@@ -79,4 +79,17 @@ public class Portamonete {
     }
 
 
+    @Override
+    public int compareTo(Portamonete o) {
+        float denaroTot = this.denaro();
+        float denaroTot2 = o.denaro();
+
+        float val = denaroTot2-denaroTot;
+        if (val == 0)
+            return 0;
+        else if (val < 0)
+            return -1;
+        else
+            return 1;
+    }
 }
